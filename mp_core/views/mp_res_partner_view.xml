@@ -24,9 +24,9 @@
                 <xpath expr="//notebook/page/field/form/sheet/group/group/field[@name='email']" position="after">
                     <field name="email_2" widget="email"/>
                 </xpath>
-                <xpath expr="//group[@name='misc']/field[@name='ref']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('parent_id', '=', False)]}</attribute>
-                    <attribute name="string">Customer Code</attribute>
+                <xpath expr="//group[@name='misc']/field[@name='ref']" position="replace"/>
+                <xpath expr="//field[@name='type']" position="before">
+                    <field name="ref" readonly="1" string="Customer Code"/>
                 </xpath>
 
                 <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
