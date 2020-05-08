@@ -11,7 +11,7 @@ class MaisonPassionResPartner(models.Model):
     mobile_ms = fields.Char(string='Mobile Ms')
     email_2 = fields.Char(string='Email 2')
     is_client_effective = fields.Boolean(string='Effective Client', compute='_compute_is_client_effective',
-                                         readonly=True)
+                                         readonly=False)
     source_ids = fields.Many2many('utm.source', 'partner_crm_source_rel', 'partner_id', 'source_id', string='Sources'
                                   , compute='_compute_source_ids', store=True, readonly=False)
     referred = fields.Char(string='Referred By', compute='_compute_referred', readonly=False)
