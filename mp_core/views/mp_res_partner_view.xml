@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="mp_res_partner_view_form" model="ir.ui.view">
-            <field name="name">mp.core.res.partner.view_form</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
-            <field name="arch" type="xml">
-                <xpath expr="//group/field[@name='user_ids']" position="before">
-                    <field name="mobile_ms" widget="phone"/>
-                </xpath>
-                <xpath expr="//group/field[@name='website']" position="before">
-                    <field name="email_2" widget="email"/>
-                </xpath>
-                <xpath expr="//kanban/field[@name='mobile']" position="after">
-                    <field name="mobile_ms" widget="phone"/>
-                </xpath>
-                <xpath expr="//kanban/field[@name='email']" position="after">
-                    <field name="email_2" widget="email"/>
-                </xpath>
-                <xpath expr="//group/field[@name='mobile']" position="after">
-                    <field name="mobile_ms" widget="phone"/>
-                </xpath>
-                <xpath expr="//notebook/page/field/form/sheet/group/group/field[@name='email']" position="after">
-                    <field name="email_2" widget="email"/>
-                </xpath>
-                <xpath expr="//page[@name='sales_purchases']/group/group[@name='misc']/field[@name='ref']" position="attributes">
-                    <attribute name="attrs">{'invisible':True}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='type']" position="before">
-                    <field name="ref" readonly="1" string="Customer Code"/>
-                </xpath>
+    <record id="mp_res_partner_view_form" model="ir.ui.view">
+        <field name="name">mp.core.res.partner.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='user_ids']" position="before">
+                <field name="mobile_ms" widget="phone"/>
+            </xpath>
+            <xpath expr="//group/field[@name='website']" position="before">
+                <field name="email_2" widget="email"/>
+            </xpath>
+            <xpath expr="//kanban/field[@name='mobile']" position="after">
+                <field name="mobile_ms" widget="phone"/>
+            </xpath>
+            <xpath expr="//kanban/field[@name='email']" position="after">
+                <field name="email_2" widget="email"/>
+            </xpath>
+            <xpath expr="//group/field[@name='mobile']" position="after">
+                <field name="mobile_ms" widget="phone"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/form/sheet/group/group/field[@name='email']" position="after">
+                <field name="email_2" widget="email"/>
+            </xpath>
+            <xpath expr="//group[@name='misc']//field[@name='ref']" position="attributes">
+                <attribute name="attrs">{'invisible':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type']" position="before">
+                <field name="ref" readonly="1" string="Customer Code"/>
+            </xpath>
 
-                <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
-                    <field name="is_client_effective"/>
-                    <field name="source_ids" widget="many2many_tags"/>
-                    <field name="referred"/>
-                </xpath>
-            </field>
-        </record>
+            <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
+                <field name="is_client_effective"/>
+                <field name="source_ids" widget="many2many_tags"/>
+                <field name="referred"/>
+            </xpath>
+        </field>
+    </record>
 
-        <record id="mp_partner_view_search" model="ir.ui.view">
-            <field name="name">mp.partner.view.search</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_res_partner_filter"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="ref" string="Customer Code" filter_domain="[('ref', 'ilike', self)]"/>
-                </xpath>
-            </field>
-        </record>
+    <record id="mp_partner_view_search" model="ir.ui.view">
+        <field name="name">mp.partner.view.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="ref" string="Customer Code" filter_domain="[('ref', 'ilike', self)]"/>
+            </xpath>
+        </field>
+    </record>
 
-     <record id="mp_partner_view_tree" model="ir.ui.view">
+    <record id="mp_partner_view_tree" model="ir.ui.view">
         <field name="name">mp.partner.view.tree</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree"/>
@@ -62,7 +61,7 @@
     </record>
 
     <record id="mp_partner_simple_view_form" model="ir.ui.view">
-        <field name="name">mp.partner.simple.view_form</field>
+        <field name="name">mp.partner.simple.view.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_simple_form"/>
         <field name="arch" type="xml">
@@ -76,7 +75,7 @@
     </record>
 
     <record id="mp_partner_short_view_form" model="ir.ui.view">
-        <field name="name">mp.partner.short.view_form</field>
+        <field name="name">mp.partner.short.view.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_short_form"/>
         <field name="arch" type="xml">
@@ -89,13 +88,12 @@
         </field>
     </record>
 
-        <record id="mp_utm_source_action" model="ir.actions.act_window">
-            <field name="name">Sources</field>
-            <field name="res_model">utm.source</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <menuitem id="mp_source_menu_action" name="Sources" parent="contacts.res_partner_menu_config" action="mp_core.mp_utm_source_action" sequence="2"/>
+    <record id="mp_utm_source_action" model="ir.actions.act_window">
+        <field name="name">Sources</field>
+        <field name="res_model">utm.source</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="mp_source_menu_action" name="Sources" parent="contacts.res_partner_menu_config" action="mp_core.mp_utm_source_action" sequence="2"/>
 
-    </data>
 </odoo>
