@@ -69,7 +69,7 @@ class MaisonPassionResPartner(models.Model):
         :return: super behavior
         """
         for contact_vals in vals:
-            if not contact_vals.get('parent_id'):
+            if not contact_vals.get('parent_id') and not contact_vals.get('ref'):
                 sequence = self.env['ir.sequence'].next_by_code("res.partner")
                 contact_vals.update({'ref': sequence})
         res = super(MaisonPassionResPartner, self).create(vals)
