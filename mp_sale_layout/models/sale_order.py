@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+from functools import partial
+
+from odoo import api, fields, models
+from odoo.tools.misc import formatLang
+
+
+class MPSaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    payment_distribution = fields.Selection([
+        ('two_payments', '50-50'),
+        ('three_payments', '40-50-10'),
+        ], string='Payments Distribution', required=True, default='three_payments')
+    first_payment = fields.Monetary(string='First Payment', store=True, readonly=True, compute='_compute_payments')
+    second_payment = fields.Monetary(string='Second Payment', store=True, readonly=True, compute='_compute_payments')
+    third_payment = fields.Monetary(string='Third Payment', store=True, readonly=True, compute='_compute_payments')
+
+    @api.depends('amount_total', 'payment_distribution')
+    def _compute_payments(self):
+        for order in self:
+            if order.payment_distribution == 'two_payments':
+                order.first_payment = order.second_payment = order.amount_total * 0.5
+                order.third_payment = 0.0
+            else:
+                order.first_payment = order.amount_total * 0.4
+                order.third_payment = order.amount_total * 0.1 if (order.amount_total * 0.1) <= 1000 else 1000
+                order.second_payment = order.amount_total - order.first_payment - order.third_payment
+
+    def _compute_amount_undiscounted(self):
+        """Overridden method
+        Changes to discount computation"""
+        for order in self:
+            total = 0.0
+            for line in order.order_line:
+                total += line.price_subtotal + (line.discount or 0.0) * line.product_uom_qty  # why is there a discount in a field named amount_undiscounted ??
+            order.amount_undiscounted = total
+
+    def _amount_by_group(self):
+        """Overridden method
+        Changes to discount computation"""
+        for order in self:
+            currency = order.currency_id or order.company_id.currency_id
+            fmt = partial(formatLang, self.with_context(lang=order.partner_id.lang).env, currency_obj=currency)
+            res = {}
+            for line in order.order_line:
+                price_reduce = line.price_unit - line.discount
+                taxes = line.tax_id.compute_all(price_reduce, quantity=line.product_uom_qty, product=line.product_id, partner=order.partner_shipping_id)['taxes']
+                for tax in line.tax_id:
+                    group = tax.tax_group_id
+                    res.setdefault(group, {'amount': 0.0, 'base': 0.0})
+                    for t in taxes:
+                        if t['id'] == tax.id or t['id'] in tax.children_tax_ids.ids:
+                            res[group]['amount'] += t['amount']
+                            res[group]['base'] += t['base']
+            res = sorted(res.items(), key=lambda l: l[0].sequence)
+            order.amount_by_group = [(
+                l[0].name, l[1]['amount'], l[1]['base'],
+                fmt(l[1]['amount']), fmt(l[1]['base']),
+                len(res),
+            ) for l in res]
