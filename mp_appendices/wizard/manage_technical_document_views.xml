@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="manage_technical_document_view_form" model="ir.ui.view">
+            <field name="name">manage.technical.document.view.form</field>
+            <field name="model">manage.technical.document</field>
+            <field name="arch" type="xml">
+                <form string="Manage Technical Documents">
+                    <group>
+                        <field name="user_id"/>
+                    </group>
+                    <field name="document_ids"/>
+                    <footer>
+                        <button string="Apply Changes" name="button_save" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+</odoo>
+
