@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree views -->
+    <record id="sale_technical_document_tag_view_tree" model="ir.ui.view">
+        <field name="name">sale.technical.document.tag.view.tree</field>
+        <field name="model">sale.technical.document.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Document Tags" editable="bottom">
+                <field name="name"/>
+                <field name="color"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="sale_technical_document_tag_action" model="ir.actions.act_window">
+        <field name="name">Technical Document Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.technical.document.tag</field>
+        <field name="view_id" ref="sale_technical_document_tag_view_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
