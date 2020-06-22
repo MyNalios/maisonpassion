@@ -10,7 +10,8 @@
     'depends': ['mp_core', 'sale'],
     'data': [
         'report/sale_order_templates.xml',
-        'views/sale_order_views.xml'
+        'views/sale_order_views.xml',
+        'views/sale_order_templates.xml',
     ],
     'installable': True,
     'auto_install': False,
