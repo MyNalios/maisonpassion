@@ -4,14 +4,13 @@ from odoo.addons.portal.controllers.portal import CustomerPortal, pager as porta
 from odoo.http import request
 
 
-
 class CustomerPortal(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         values = super(CustomerPortal, self)._prepare_portal_layout_values()
-        user = request.env.user
+        partner = request.env.user.partner_id
 
-        document_count = request.env['sale.technical.document'].search_count([('user_ids', '=', user.id)])
+        document_count = request.env['sale.technical.document'].search_count([('partner_ids', '=', partner.id)])
 
         values.update({
             'document_count': document_count,
@@ -21,11 +20,11 @@ class CustomerPortal(CustomerPortal):
     @http.route(['/my/documents', '/my/documents/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_documents(self, page=1, date_begin=None, date_end=None, sortby=None, **kw):
         values = self._prepare_portal_layout_values()
-        user = request.env.user
+        partner = request.env.user.partner_id
 
         Document = request.env['sale.technical.document']
 
-        domain = ([('user_ids', '=', user.id)])
+        domain = ([('partner_ids', '=', partner.id)])
 
         searchbar_sortings = {
             'name': {'label': _('Document Name'), 'order': 'name'},

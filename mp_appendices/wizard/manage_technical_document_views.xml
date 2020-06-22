@@ -7,9 +7,9 @@
             <field name="arch" type="xml">
                 <form string="Manage Technical Documents">
                     <group>
-                        <field name="user_id"/>
+                        <field name="partner_ids"/>
+                        <field name="document_ids"/>
                     </group>
-                    <field name="document_ids"/>
                     <footer>
                         <button string="Apply Changes" name="button_save" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-secondary" special="cancel" />
