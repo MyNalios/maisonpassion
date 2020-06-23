@@ -8,7 +8,7 @@ class MaisonPassionResPartner(models.Model):
     _inherit = 'res.partner'
 
     mobile = fields.Char(string='Mobile 1')
-    mobile_2 = fields.Char(string='Mobile 2')
+    # mobile_2 = fields.Char(string='Mobile 2')
     email_2 = fields.Char(string='Email 2')
     is_client_effective = fields.Boolean(string='Effective Client', compute='_compute_is_client_effective',
                                          readonly=True)

@@ -5,24 +5,24 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//group/field[@name='user_ids']" position="before">
-                <field name="mobile_2" widget="phone"/>
-            </xpath>
-            <xpath expr="//group/field[@name='website']" position="before">
-                <field name="email_2" widget="email"/>
-            </xpath>
-            <xpath expr="//kanban/field[@name='mobile']" position="after">
-                <field name="mobile_2" widget="phone"/>
-            </xpath>
-            <xpath expr="//kanban/field[@name='email']" position="after">
-                <field name="email_2" widget="email"/>
-            </xpath>
-            <xpath expr="//group/field[@name='mobile']" position="after">
-                <field name="mobile_2" widget="phone"/>
-            </xpath>
-            <xpath expr="//notebook/page/field/form/sheet/group/group/field[@name='email']" position="after">
-                <field name="email_2" widget="email"/>
-            </xpath>
+<!--            <xpath expr="//group/field[@name='user_ids']" position="before">-->
+<!--                <field name="mobile_2" widget="phone"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//group/field[@name='website']" position="before">-->
+<!--                <field name="email_2" widget="email"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//kanban/field[@name='mobile']" position="after">-->
+<!--                <field name="mobile_2" widget="phone"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//kanban/field[@name='email']" position="after">-->
+<!--                <field name="email_2" widget="email"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//group/field[@name='mobile']" position="after">-->
+<!--                <field name="mobile_2" widget="phone"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//notebook/page/field/form/sheet/group/group/field[@name='email']" position="after">-->
+<!--                <field name="email_2" widget="email"/>-->
+<!--            </xpath>-->
             <xpath expr="//group[@name='misc']//field[@name='ref']" position="attributes">
                 <attribute name="attrs">{'invisible':True}</attribute>
             </xpath>
