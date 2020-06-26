@@ -9,10 +9,10 @@ class MPSaleOrderLine(models.Model):
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
-        """
-        Compute the amounts of the SO line.
-        """
+        """Overwritten method
+        Changes to discount computation (amount discount instead of % discount)"""
         for line in self:
+            # changes here
             price = line.price_unit - (line.discount or 0.0)
             taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty, product=line.product_id, partner=line.order_id.partner_shipping_id)
             line.update({
@@ -25,5 +25,8 @@ class MPSaleOrderLine(models.Model):
 
     @api.depends('price_unit', 'discount')
     def _get_price_reduce(self):
+        """Overwritten method
+        Changes to discount computation (amount discount instead of % discount)"""
         for line in self:
+            # changes here
             line.price_reduce = line.price_unit - line.discount
