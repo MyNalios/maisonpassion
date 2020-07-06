@@ -50,7 +50,7 @@
             <xpath expr="//field[@name='title']" position="replace"/>
             <xpath expr="//field[@name='name']/.." position="replace">
                 <div class="o_row">
-                    <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <h1><field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/></h1>
                 </div>
             </xpath>
@@ -58,14 +58,14 @@
             <!-- Zip code before city -->
             <xpath expr="//field[@name='zip']" position="replace"/>
             <xpath expr="//field[@name='city']" position="before">
-                <field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
             </xpath>
 
             <!-- hide state_id if country == Belgium -->
             <xpath expr="//field[@name='state_id']" position="attributes">
                 <attribute name="attrs">{'invisible': [('country_id', '=', 20)]}</attribute>
+                <attribute name="style">margin-right:0%</attribute>
             </xpath>
-
 
             <!-- //////////////////////////////// -->
             <!-- modifications on child view form -->
@@ -87,12 +87,13 @@
             </xpath>
             <xpath expr="//div[@name='div_address']/field[@name='state_id']" position="attributes">
                 <attribute name="attrs">{'invisible': [('country_id', '=', 20)]}</attribute>
+                <attribute name="style">margin-right:0%</attribute>
             </xpath>
 
             <!-- Zip code before city -->
             <xpath expr="//div[@name='div_address']/field[@name='zip']" position="replace"/>
             <xpath expr="//div[@name='div_address']/field[@name='city']" position="before">
-                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                <field name="zip" placeholder="ZIP" style="margin-right:2%" class="o_address_zip"/>
             </xpath>
 
             <!-- hide unnecessary fields for delivery address -->

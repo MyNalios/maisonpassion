@@ -6,21 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-26 09:41+0000\n"
-"PO-Revision-Date: 2020-06-26 11:43+0200\n"
+"POT-Creation-Date: 2020-07-06 12:56+0000\n"
+"PO-Revision-Date: 2020-07-06 14:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "X-Generator: Poedit 2.3.1\n"
 
 #. module: mp_core
 #: model:ir.model,name:mp_core.model_res_partner
 msgid "Contact"
 msgstr ""
+
+#. module: mp_core
+#: model:ir.model.fields,field_description:mp_core.field_res_partner__country_id
+#: model:ir.model.fields,field_description:mp_core.field_res_users__country_id
+msgid "Country"
+msgstr "Pays"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_sale_order__customer_ref
@@ -39,28 +45,32 @@ msgid "Effective Client"
 msgstr "Client effectif"
 
 #. module: mp_core
-#: model:ir.model.fields,field_description:mp_core.field_res_partner__email
-#: model:ir.model.fields,field_description:mp_core.field_res_users__email
-msgid "Email 1"
-msgstr "Email 1"
-
-#. module: mp_core
-#: model:ir.model.fields,field_description:mp_core.field_res_partner__email_2
-#: model:ir.model.fields,field_description:mp_core.field_res_users__email_2
-msgid "Email 2"
-msgstr "Email 2"
+#: model:ir.model.fields,field_description:mp_core.field_res_partner__is_red_code
+#: model:ir.model.fields,field_description:mp_core.field_res_users__is_red_code
+msgid "Is a Red Code"
+msgstr "Code Rouge"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__mobile
 #: model:ir.model.fields,field_description:mp_core.field_res_users__mobile
 msgid "Mobile 1"
-msgstr "Mobile 1"
+msgstr ""
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__mobile_2
 #: model:ir.model.fields,field_description:mp_core.field_res_users__mobile_2
 msgid "Mobile 2"
-msgstr "Mobile 2"
+msgstr ""
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
+msgid "Red Code"
+msgstr "Code Rouge"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__referred
@@ -74,9 +84,13 @@ msgid "Sales Order"
 msgstr "Bon de commande"
 
 #. module: mp_core
+#: model:ir.model.fields,field_description:mp_core.field_res_partner__source_id
+#: model:ir.model.fields,field_description:mp_core.field_res_users__source_id
+msgid "Source"
+msgstr ""
+
+#. module: mp_core
 #: model:ir.actions.act_window,name:mp_core.mp_utm_source_action
-#: model:ir.model.fields,field_description:mp_core.field_res_partner__source_ids
-#: model:ir.model.fields,field_description:mp_core.field_res_users__source_ids
 #: model:ir.ui.menu,name:mp_core.mp_source_menu_action
 msgid "Sources"
 msgstr ""
@@ -86,3 +100,13 @@ msgstr ""
 #, python-format
 msgid "You have already defined a partner ({}) with this VAT number ({})"
 msgstr "Vous avez déjà défini un contact ({}) avec ce numéro de TVA ({})"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
+msgid "ZIP"
+msgstr "Code postal"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
+msgid "e.g. Mister"
+msgstr "ex : Mme"
