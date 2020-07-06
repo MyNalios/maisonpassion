@@ -36,9 +36,9 @@
             </xpath>
 
             <!-- add new field source_id -->
-<!--            <xpath expr="//field[@name='vat']" position="after">-->
-<!--                <field name="source_id" options="{'no_create': True}"/>-->
-<!--            </xpath>-->
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="source_id" options="{'no_create': True}"/>
+            </xpath>
 
             <!-- Type is always a readonly field -->
             <xpath expr="//field[@name='type']" position="attributes">
