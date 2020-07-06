@@ -7,15 +7,19 @@ from odoo.exceptions import ValidationError
 class MaisonPassionResPartner(models.Model):
     _inherit = 'res.partner'
 
+    def _default_country_id(self):
+        return self.env['res.country'].search([('code', '=', 'BE')])
+
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
-    email = fields.Char(string='Email 1')
-    email_2 = fields.Char(string='Email 2')
     is_client_effective = fields.Boolean(string='Effective Client', compute='_compute_is_client_effective',
                                          readonly=True)
-    source_ids = fields.Many2many('utm.source', 'partner_crm_source_rel', 'partner_id', 'source_id', string='Sources'
-                                  , compute='_compute_source_ids', store=True, readonly=False)
+    # source_ids = fields.Many2many('utm.source', 'partner_crm_source_rel', 'partner_id', 'source_id', string='Sources'
+    #                               , compute='_compute_source_ids', store=True, readonly=False)
+    source_id = fields.Many2one('utm.source', string='Source', required=True)
     referred = fields.Char(string='Referred By', compute='_compute_referred', readonly=False)
+    country_id = fields.Many2one('res.country', default=_default_country_id)
+    is_red_code = fields.Boolean(string='Is a Red Code')
 
     # @api.constrains('ref')
     # def _check_unique_ref(self):
@@ -90,13 +94,13 @@ class MaisonPassionResPartner(models.Model):
             else:
                 partner.is_client_effective = False
 
-    @api.depends('opportunity_ids.source_id')
-    def _compute_source_ids(self):
-        for partner in self:
-            if partner.opportunity_ids:
-                for lead in partner.opportunity_ids:
-                    if lead.source_id and lead.source_id not in partner.source_ids:
-                        partner.source_ids += lead.source_id
+    # @api.depends('opportunity_ids.source_id')
+    # def _compute_source_ids(self):
+    #     for partner in self:
+    #         if partner.opportunity_ids:
+    #             for lead in partner.opportunity_ids:
+    #                 if lead.source_id and lead.source_id not in partner.source_ids:
+    #                     partner.source_ids += lead.source_id
 
     @api.depends('opportunity_ids.referred')
     def _compute_referred(self):
