@@ -14,6 +14,18 @@ class MPSaleOrder(models.Model):
     first_payment = fields.Monetary(string='First Payment', store=True, compute='_compute_payments')
     second_payment = fields.Monetary(string='Second Payment', store=True, compute='_compute_payments')
     third_payment = fields.Monetary(string='Third Payment', store=True, compute='_compute_payments')
+    available_delivery_address_ids = fields.Many2many('res.partner', 'sale_order_delivery_address_rel', 'sale_id',
+                                                      'address_id', compute='_compute_available_delivery_address_ids',
+                                                      help='Technical field used for delivery address domain')
+
+    @api.depends('partner_id')
+    def _compute_available_delivery_address_ids(self):
+        for order in self:
+            order.available_delivery_address_ids = self.env['res.partner']
+            partner = order.partner_id
+            if partner:
+                shipping_addresses = partner.child_ids.filtered(lambda child: child.type == 'delivery')
+                order.available_delivery_address_ids = shipping_addresses
 
     @api.depends('amount_total', 'payment_distribution')
     def _compute_payments(self):
@@ -61,3 +73,45 @@ class MPSaleOrder(models.Model):
                 fmt(l[1]['amount']), fmt(l[1]['base']),
                 len(res),
             ) for l in res]
+
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        """
+        Overwritten method
+        Delivery address is no longer updated
+
+        Update the following fields when the partner is changed:
+        - Pricelist
+        - Payment terms
+        - Invoice address
+        """
+        if not self.partner_id:
+            self.update({
+                'partner_invoice_id': False,
+                'partner_shipping_id': False,
+                'fiscal_position_id': False,
+            })
+            return
+
+        addr = self.partner_id.address_get(['delivery', 'invoice'])
+        partner_user = self.partner_id.user_id or self.partner_id.commercial_partner_id.user_id
+        values = {
+            'pricelist_id': self.partner_id.property_product_pricelist and self.partner_id.property_product_pricelist.id or False,
+            'payment_term_id': self.partner_id.property_payment_term_id and self.partner_id.property_payment_term_id.id or False,
+            'partner_invoice_id': addr['invoice'],
+            # Changes here
+            # 'partner_shipping_id': addr['delivery'],
+        }
+        user_id = partner_user.id
+        if not self.env.context.get('not_self_saleperson'):
+            user_id = user_id or self.env.uid
+        if self.user_id.id != user_id:
+            values['user_id'] = user_id
+
+        if self.env['ir.config_parameter'].sudo().get_param(
+                'account.use_invoice_terms') and self.env.company.invoice_terms:
+            values['note'] = self.with_context(lang=self.partner_id.lang).env.company.invoice_terms
+        if not self.env.context.get('not_self_saleperson') or not self.team_id:
+            values['team_id'] = self.env['crm.team']._get_default_team_id(
+                domain=['|', ('company_id', '=', self.company_id.id), ('company_id', '=', False)], user_id=user_id)
+        self.update(values)
