@@ -2,6 +2,28 @@
 <odoo>
 
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <!-- delete taxes 'on' amount -->
+        <xpath expr="//t[@t-esc='amount_by_group[2]']/.." position="replace"/>
+        <!-- add partner title -->
+        <xpath expr="//div[@t-field='doc.partner_id']" position="before">
+            <span t-field="doc.partner_id.title"/>
+        </xpath>
+        <!-- add partner phone and mail -->
+        <xpath expr="//p[@t-if='doc.partner_id.vat']" position="after">
+            <br/>
+            <p><span>Phone: </span><span t-field="doc.partner_id.phone"/><br/>
+                <span>Mobile 1: </span><span t-field="doc.partner_id.mobile"/><br/>
+                <span>Mobile 2: </span><span t-field="doc.partner_id.mobile_2"/><br/>
+                <span>Email: </span><span t-field="doc.partner_id.email"/></p>
+        </xpath>
+        <!-- delete invoice address -->
+        <xpath expr="//strong[@t-if='doc.partner_shipping_id != doc.partner_invoice_id']" position="replace"/>
+        <xpath expr="//div[@t-field='doc.partner_invoice_id']" position="replace"/>
+        <!-- delete taxes column -->
+        <xpath expr="//th[@name='th_taxes']" position="replace"/>
+        <xpath expr="//td[@name='td_taxes']" position="replace"/>
+        <!-- delete payment terms -->
+        <xpath expr="//p[@t-if='doc.payment_term_id.note']" position="replace"/>
         <!-- delete quantity colunm -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
         <xpath expr="//td[@name='td_quantity']" position="replace"/>
@@ -11,7 +33,7 @@
         </xpath>
         <!-- replace unit price label -->
         <xpath expr="//th[@name='th_priceunit']" position="replace">
-                <th name="th_priceunit" class="text-right">Base Price</th>
+                <th name="th_priceunit" class="text-right">Initial Price</th>
         </xpath>
         <!-- replace line amount label -->
         <xpath expr="//th[@name='th_subtotal']/t[1]" position="replace">
@@ -19,7 +41,7 @@
         </xpath>
         <!-- add style to unit price according to discount -->
         <xpath expr="//td[@name='td_priceunit']/span" position="replace">
-            <t t-if="display_discount and line.discount &gt; 0">
+            <t t-if="display_discount and line.discount">
                  <span t-field="line.price_unit" style="text-decoration: line-through"/>
             </t>
             <t t-else="">
@@ -28,8 +50,8 @@
         </xpath>
         <!-- add style to line discount according to discount -->
         <xpath expr="//span[@t-field='line.discount']" position="replace">
-            <t t-if="line.discount &gt; 0">
-                 <span t-field="line.discount" class="font-weight-bold"/>
+            <t t-if="line.discount">
+                <span t-field="line.discount" class="font-weight-bold"/>
             </t>
             <t t-else="">
                 <span t-field="line.discount" class="text-muted"/>
@@ -37,7 +59,7 @@
         </xpath>
         <!-- add style to line total according to discount -->
         <xpath expr="//td[@name='td_subtotal']/span[@t-field='line.price_subtotal']" position="replace">
-            <t t-if="line.discount &gt; 0">
+            <t t-if="line.discount">
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" class="font-weight-bold"/>
             </t>
             <t t-else="">
@@ -45,73 +67,74 @@
             </t>
         </xpath>
         <!-- add payments distribution -->
-       <xpath expr="//p[@id='fiscal_position_remark']" position="after">
-           <h6><strong>Payments</strong></h6>
-           <table>
-               <tr>
-                   <td width="3%">- </td>
-                   <td width="87%">À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</strong> avec la référence <span t-field="doc.partner_id.ref"/>/<span t-field="doc.name"/>:</td>
-                   <td width="10%" class="text-right"><span t-field="doc.first_payment" class="font-weight-bold"/></td>
-               </tr>
-               <tr>
-                   <td>- </td>
-                   <td>À verser par chèque bancaire certifié au placeur le premier jour des travaux ou par virement bancaire anticipé 3 jours ouvrables avant la date de pose:</td>
-                   <td class="text-right"><span t-field="doc.second_payment" class="font-weight-bold"/></td>
-               </tr>
-               <t t-if="doc.payment_distribution == 'three_payments'">
+        <xpath expr="//div[hasclass('page')]" position="after">
+            <div class="page">
+               <p style="page-break-after:always;"/>
+               <h6><strong>Payments</strong></h6>
+               <table>
+                   <tr>
+                       <td width="3%">- </td>
+                       <td width="87%">À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</strong> avec la référence <span t-field="doc.name"/>:</td>
+                       <td width="10%" class="text-right"><span t-field="doc.first_payment" class="font-weight-bold"/></td>
+                   </tr>
                    <tr>
                        <td>- </td>
-                       <td>À verser à la fin des travaux:</td>
-                       <td class="text-right"><span t-field="doc.third_payment" class="font-weight-bold"/></td>
+                       <td>À verser par chèque bancaire certifié au placeur le premier jour des travaux ou par virement bancaire anticipé 3 jours ouvrables avant la date de pose:</td>
+                       <td class="text-right"><span t-field="doc.second_payment" class="font-weight-bold"/></td>
                    </tr>
-                    <tr>
+                   <t t-if="doc.payment_distribution == 'three_payments'">
+                       <tr>
+                           <td>- </td>
+                           <td>À verser à la fin des travaux:</td>
+                           <td class="text-right"><span t-field="doc.third_payment" class="font-weight-bold"/></td>
+                       </tr>
+                        <tr>
+                           <td></td>
+                           <td>Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur des travaux à effectuer.</td>
+                           <td></td>
+                       </tr>
+                   </t>
+                   <tr>
                        <td></td>
-                       <td>Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur des travaux à effectuer.</td>
+                       <td><strong>Ces paiements conditionnent l'exécution et la livraison de la commande.</strong></td>
                        <td></td>
                    </tr>
-               </t>
-               <tr>
-                   <td></td>
-                   <td><strong>Ces paiements conditionnent l'exécution et la livraison de la commande.</strong></td>
-                   <td></td>
-               </tr>
-               <tr>
-                   <td></td>
-                   <td><strong>Montant total TTC de votre commande:</strong></td>
-                   <td class="text-right"><span t-field="doc.amount_total" class="font-weight-bold"/></td>
-               </tr>
-           </table>
-           <!-- add customer signature -->
-           <div style="padding-top: 20px">
-               <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA de 6% complétée s'il y a lieu.</p>
-               <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
-                   <t t-if="doc.partner_id.title">
-                       <span t-field="doc.partner_id.title"/> <span t-field="doc.partner_id.name"/>
-                   </t>
-                   <t t-else="">
-                       Mr. et Mme <span t-field="doc.partner_id.name"/>
-                   </t>
-                   , l'expression de mes sentiments distingués.</p>
-               <p>Fait à ..........................................................................................................................., le ................................................................ .</p>
-           </div>
-           <div>
-               <div class="mt32 ml64 mr4" name="signature">
-                    <div class="float-left">
-                        <strong>Pour Maison Passion</strong>
-                        <p t-field="doc.user_id"/>
-                    </div>
-                    <div class="offset-8">
-                        <strong>Signature(s) pour accord et commande</strong>
-                    </div>
-                    <div class="offset-8">
+                   <tr>
+                       <td></td>
+                       <td><strong>Montant total TTC de votre commande:</strong></td>
+                       <td class="text-right"><span t-field="doc.amount_total" class="font-weight-bold"/></td>
+                   </tr>
+               </table>
+               <!-- add customer signature -->
+               <div style="padding-top: 20px">
+                   <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA de 6% complétée s'il y a lieu.</p>
+                   <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
                         <t t-if="doc.partner_id.title">
-                            <p><span t-field="doc.partner_id.title"/> <span t-field="doc.partner_id.name"/></p>
+                            <span t-field="doc.partner_id.title"/>&amp;nbsp;
                         </t>
-                        <t t-else="">
-                            <p>Mr. et Mme <span t-field="doc.partner_id.name"/></p>
-                        </t>
+                        <span t-field="doc.partner_id.name"/>
+                       , l'expression de mes sentiments distingués.</p>
+                   <p>Fait à ................................................................................................., le .................................................. .</p>
+               </div>
+               <div>
+                   <div class="mt32 ml64 mr4" name="signature">
+                        <div class="float-left">
+                            <strong>Pour Maison Passion</strong>
+                            <p t-field="doc.user_id"/>
+                        </div>
+                        <div class="offset-8">
+                            <strong>Signature(s) pour accord et commande</strong>
+                        </div>
+                        <div class="offset-8">
+                            <p>
+                                <t t-if="doc.partner_id.title">
+                                    <span t-field="doc.partner_id.title"/>&amp;nbsp;
+                                </t>
+                                <span t-field="doc.partner_id.name"/>
+                            </p>
+                        </div>
                     </div>
-                </div>
+               </div>
            </div>
         </xpath>
     </template>

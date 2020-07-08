@@ -27,7 +27,7 @@ class Lead(models.Model):
                 onchange_values.update({
                     'partner_id': partner.id,
                     'mobile': partner.mobile or False,
-                    'mobile_2': partner.mobile or False,
+                    'mobile_2': partner.mobile_2 or False,
                     'website': partner.website or False,
                     'source_id': partner.source_id.id or False,
                     'lang_id': self.env['res.lang'].search([('code', '=', partner.lang)]).id or False
