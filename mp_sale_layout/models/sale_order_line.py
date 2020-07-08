@@ -42,7 +42,7 @@ class MPSaleOrderLine(models.Model):
                 price_unit = line.price_subtotal_manual * 1.3 \
                     if line.price_subtotal_manual * 1.3 < line.price_subtotal_manual + 5000 \
                     else line.price_subtotal_manual + 5000
-                discount = line.price_subtotal_manual - price_unit
+                discount = price_unit - line.price_subtotal_manual
                 taxes = line.tax_id.compute_all(line.price_subtotal_manual, line.order_id.currency_id,
                                                 line.product_uom_qty,
                                                 product=line.product_id, partner=line.order_id.partner_shipping_id)
@@ -71,7 +71,7 @@ class MPSaleOrderLine(models.Model):
         price_unit = self.price_subtotal_manual * 1.3 \
             if self.price_subtotal_manual * 1.3 < self.price_subtotal_manual + 5000 \
             else self.price_subtotal_manual + 5000
-        discount = self.price_subtotal_manual - price_unit
+        discount = price_unit - self.price_subtotal_manual
         taxes = self.tax_id.compute_all(self.price_subtotal_manual, self.order_id.currency_id, self.product_uom_qty,
                                         product=self.product_id, partner=self.order_id.partner_shipping_id)
         self.update({
