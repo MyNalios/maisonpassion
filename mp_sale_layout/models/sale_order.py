@@ -45,7 +45,7 @@ class MPSaleOrder(models.Model):
         for order in self:
             total = 0.0
             for line in order.order_line:
-                # Changes here
+                # Changes here to discount computation (amount instead of %)
                 total += line.price_subtotal + (line.discount or 0.0) * line.product_uom_qty  # why is there a discount in a field named amount_undiscounted ??
             order.amount_undiscounted = total
 
@@ -57,7 +57,7 @@ class MPSaleOrder(models.Model):
             fmt = partial(formatLang, self.with_context(lang=order.partner_id.lang).env, currency_obj=currency)
             res = {}
             for line in order.order_line:
-                # Changes here
+                # Changes here to discount computation (amount instead of %)
                 price_reduce = line.price_unit - line.discount
                 taxes = line.tax_id.compute_all(price_reduce, quantity=line.product_uom_qty, product=line.product_id, partner=order.partner_shipping_id)['taxes']
                 for tax in line.tax_id:
@@ -77,41 +77,9 @@ class MPSaleOrder(models.Model):
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         """
-        Overwritten method
-        Delivery address is no longer updated
-
-        Update the following fields when the partner is changed:
-        - Pricelist
-        - Payment terms
-        - Invoice address
+        Overridden method
+        Delivery address is no longer updated according to partner_id
         """
-        if not self.partner_id:
-            self.update({
-                'partner_invoice_id': False,
-                'partner_shipping_id': False,
-                'fiscal_position_id': False,
-            })
-            return
+        super(MPSaleOrder, self).onchange_partner_id()
+        self.update({'partner_shipping_id': False,})
 
-        addr = self.partner_id.address_get(['delivery', 'invoice'])
-        partner_user = self.partner_id.user_id or self.partner_id.commercial_partner_id.user_id
-        values = {
-            'pricelist_id': self.partner_id.property_product_pricelist and self.partner_id.property_product_pricelist.id or False,
-            'payment_term_id': self.partner_id.property_payment_term_id and self.partner_id.property_payment_term_id.id or False,
-            'partner_invoice_id': addr['invoice'],
-            # Changes here
-            # 'partner_shipping_id': addr['delivery'],
-        }
-        user_id = partner_user.id
-        if not self.env.context.get('not_self_saleperson'):
-            user_id = user_id or self.env.uid
-        if self.user_id.id != user_id:
-            values['user_id'] = user_id
-
-        if self.env['ir.config_parameter'].sudo().get_param(
-                'account.use_invoice_terms') and self.env.company.invoice_terms:
-            values['note'] = self.with_context(lang=self.partner_id.lang).env.company.invoice_terms
-        if not self.env.context.get('not_self_saleperson') or not self.team_id:
-            values['team_id'] = self.env['crm.team']._get_default_team_id(
-                domain=['|', ('company_id', '=', self.company_id.id), ('company_id', '=', False)], user_id=user_id)
-        self.update(values)

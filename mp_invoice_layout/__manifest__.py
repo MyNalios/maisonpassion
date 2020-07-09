@@ -8,7 +8,10 @@
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['account'],
-    'data': ['report/account_move_templates.xml'],
+    'data': [
+        'report/account_move_templates.xml',
+        'views/account_move_views.xml',
+    ],
     'installable': True,
     'auto_install': False,
 }

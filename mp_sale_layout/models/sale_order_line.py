@@ -26,8 +26,9 @@ class MPSaleOrderLine(models.Model):
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
-        """Overwritten method
-        Changes to discount computation (amount discount instead of % discount)"""
+        """ Overwritten method
+        if user sets manually subtotal price, updates prices accordingly, else uses standard logic
+        """
         for line in self:
             # changes here
             if line.price_subtotal_manual == 0:
@@ -39,20 +40,7 @@ class MPSaleOrderLine(models.Model):
                     'price_subtotal': taxes['total_excluded'],
                 })
             else:
-                price_unit = line.price_subtotal_manual * 1.3 \
-                    if line.price_subtotal_manual * 1.3 < line.price_subtotal_manual + 5000 \
-                    else line.price_subtotal_manual + 5000
-                discount = price_unit - line.price_subtotal_manual
-                taxes = line.tax_id.compute_all(line.price_subtotal_manual, line.order_id.currency_id,
-                                                line.product_uom_qty,
-                                                product=line.product_id, partner=line.order_id.partner_shipping_id)
-                line.update({
-                    'price_unit': price_unit,
-                    'discount': discount,
-                    'price_tax': sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
-                    'price_total': taxes['total_included'],
-                    'price_subtotal': taxes['total_excluded'],
-                })
+                line._onchange_price_subtotal_manual()
             # end of changes
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
@@ -68,6 +56,10 @@ class MPSaleOrderLine(models.Model):
 
     @api.onchange('price_subtotal_manual')
     def _onchange_price_subtotal_manual(self):
+        """
+        Update price fieds when user manually set a subtotal price.
+        This logic is the opposite of the one used in standard
+        """
         price_unit = self.price_subtotal_manual * 1.3 \
             if self.price_subtotal_manual * 1.3 < self.price_subtotal_manual + 5000 \
             else self.price_subtotal_manual + 5000
