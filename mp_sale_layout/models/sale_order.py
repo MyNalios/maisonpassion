@@ -25,7 +25,7 @@ class MPSaleOrder(models.Model):
             partner = order.partner_id
             if partner:
                 shipping_addresses = partner.child_ids.filtered(lambda child: child.type == 'delivery')
-                order.available_delivery_address_ids = shipping_addresses
+                order.available_delivery_address_ids = shipping_addresses + partner
 
     @api.depends('amount_total', 'payment_distribution')
     def _compute_payments(self):

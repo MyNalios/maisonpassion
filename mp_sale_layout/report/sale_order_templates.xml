@@ -42,7 +42,7 @@
         <!-- add style to unit price according to discount -->
         <xpath expr="//td[@name='td_priceunit']/span" position="replace">
             <t t-if="display_discount and line.discount">
-                 <span t-field="line.price_unit" style="text-decoration: line-through"/>
+                 <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
             <t t-else="">
                 <span t-field="line.price_unit" class="text-muted"/>
@@ -51,10 +51,10 @@
         <!-- add style to line discount according to discount -->
         <xpath expr="//span[@t-field='line.discount']" position="replace">
             <t t-if="line.discount">
-                <span t-field="line.discount" class="font-weight-bold"/>
+                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="font-weight-bold"/>
             </t>
             <t t-else="">
-                <span t-field="line.discount" class="text-muted"/>
+                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="text-muted"/>
             </t>
         </xpath>
         <!-- add style to line total according to discount -->

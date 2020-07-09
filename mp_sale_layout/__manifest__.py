@@ -7,11 +7,12 @@
     'summary': 'Modifications to Sales Orders layout',
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['mp_core', 'sale'],
+    'depends': ['mp_core', 'sale', 'web'],
     'data': [
         'report/sale_order_templates.xml',
         'views/sale_order_views.xml',
         'views/sale_order_templates.xml',
+        'report/external_layout_templates.xml',
     ],
     'installable': True,
     'auto_install': False,
