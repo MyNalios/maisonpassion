@@ -17,7 +17,6 @@ class MaisonPassionResPartner(models.Model):
     # source_ids = fields.Many2many('utm.source', 'partner_crm_source_rel', 'partner_id', 'source_id', string='Sources'
     #                               , compute='_compute_source_ids', store=True, readonly=False)
     source_id = fields.Many2one('utm.source', string='Source', required=True)
-    referred = fields.Char(string='Referred By', compute='_compute_referred', readonly=False)
     country_id = fields.Many2one('res.country', default=_default_country_id)
     is_red_code = fields.Boolean(string='Is a Red Code')
 
@@ -101,16 +100,3 @@ class MaisonPassionResPartner(models.Model):
     #             for lead in partner.opportunity_ids:
     #                 if lead.source_id and lead.source_id not in partner.source_ids:
     #                     partner.source_ids += lead.source_id
-
-    @api.depends('opportunity_ids.referred')
-    def _compute_referred(self):
-        for partner in self:
-            if partner.opportunity_ids:
-                for lead in partner.opportunity_ids:
-                    partner.referred = ''
-                    if partner.referred != '' and lead.referred:
-                        partner.referred += ', {}'.format(lead.referred)
-                    elif partner.referred == '' and lead.referred:
-                        partner.referred += '{}'.format(lead.referred)
-            else:
-                partner.referred = ''

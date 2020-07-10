@@ -28,11 +28,10 @@
                 <field name="ref" readonly="1" string="Customer Code"/>
             </xpath>
 
-            <!-- add fields is_client_effective and referred -->
+            <!-- add fields is_client_effective -->
             <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
                 <field name="is_client_effective"/>
 <!--                <field name="source_ids" widget="many2many_tags"/>-->
-                <field name="referred"/>
             </xpath>
 
             <!-- add new field source_id -->

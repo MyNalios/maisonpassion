@@ -3,10 +3,11 @@ from odoo import api, fields, models
 
 
 class Lead(models.Model):
-    _inherit = "crm.lead"
+    _inherit = 'crm.lead'
 
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
+    referred_partner_ids = fields.Many2many('res.partner', 'crm_referred_partner_rel', 'lead_id', 'partner_id', string='Referred By')
 
     def write(self, vals):
         if self.type == 'lead':

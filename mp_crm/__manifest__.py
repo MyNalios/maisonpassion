@@ -7,7 +7,7 @@
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['mp_core', 'crm'],
-    'data': ['views/crm_lead_views.xml'],
+    'data': ['views/crm_lead_views.xml', 'views/res_partner_views.xml'],
     'auto_install': False,
     'installable': True,
     'application': False,

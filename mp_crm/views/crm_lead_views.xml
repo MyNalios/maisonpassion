@@ -6,6 +6,12 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']/group/group[@name='categorization']/field[@name='referred']" position="replace">
+                <field name="referred_partner_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="replace">
+                <field name="referred_partner_ids" widget="many2many_tags"/>
+            </xpath>
             <xpath expr="//widget[@name='web_ribbon']" position="before">
                 <widget name="web_ribbon" bg_color="bg-info" title="Partner" attrs="{'invisible': ['|', ('partner_id', '=', False), ('type', '!=', 'lead')]}"/>
             </xpath>
