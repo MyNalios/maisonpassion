@@ -11,10 +11,10 @@
         <!-- add partner phone and mail -->
         <xpath expr="//p[@t-if='doc.partner_id.vat']" position="after">
             <br/>
-            <p><span>Phone: </span><span t-field="doc.partner_id.phone"/><br/>
-                <span>Mobile 1: </span><span t-field="doc.partner_id.mobile"/><br/>
-                <span>Mobile 2: </span><span t-field="doc.partner_id.mobile_2"/><br/>
-                <span>Email: </span><span t-field="doc.partner_id.email"/></p>
+            <p><t t-if="doc.partner_id.phone"><span>Phone: </span><span t-field="doc.partner_id.phone"/></t><br/>
+                <t t-if="doc.partner_id.mobile"><span>Mobile 1: </span><span t-field="doc.partner_id.mobile"/></t><br/>
+                <t t-if="doc.partner_id.mobile_2"><span>Mobile 2: </span><span t-field="doc.partner_id.mobile_2"/></t><br/>
+                <t t-if="doc.partner_id.email"><span>Email: </span><span t-field="doc.partner_id.email"/></t></p>
         </xpath>
         <!-- delete invoice address -->
         <xpath expr="//strong[@t-if='doc.partner_shipping_id != doc.partner_invoice_id']" position="replace"/>
@@ -45,7 +45,7 @@
                  <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
             <t t-else="">
-                <span t-field="line.price_unit" class="text-muted"/>
+                <span t-field="line.price_unit" t-options='{"widget": "monetary"}' class="text-muted"/>
             </t>
         </xpath>
         <!-- add style to line discount according to discount -->
