@@ -7,7 +7,7 @@
     'summary': 'Modifications to Invoices layout',
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['account'],
+    'depends': ['account', 'sale'],
     'data': [
         'report/account_move_templates.xml',
         'views/account_move_views.xml',
