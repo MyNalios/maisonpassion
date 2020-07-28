@@ -4,7 +4,7 @@ from odoo import api, models
 
 
 class AccountMoveLine(models.Model):
-    _inherit = "account.move.line"
+    _inherit = 'account.move.line'
 
     @api.model
     def _get_price_total_and_subtotal_model(self, price_unit, quantity, discount, currency, product, partner, taxes,

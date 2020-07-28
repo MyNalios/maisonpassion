@@ -2,21 +2,19 @@
 <odoo>
 
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <!-- move up page content-->
+        <xpath expr="//div[hasclass('page')][1]" position="attributes">
+            <attribute name="style">margin-top:-5%;</attribute>
+        </xpath>
         <!-- delete taxes 'on' amount -->
         <xpath expr="//t[@t-esc='amount_by_group[2]']/.." position="replace"/>
-        <!-- add partner title -->
-        <xpath expr="//div[@t-field='doc.partner_id']" position="before">
-            <span t-field="doc.partner_id.title"/>
+        <!-- add contact info and title to partner -->
+        <xpath expr="//div[@t-field='doc.partner_id']" position="attributes">
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name", "phone", "mobile", "mobile_2", "email"], "no_marker": True, "no_contact_marker": False}</attribute>
         </xpath>
-        <!-- add partner phone and mail -->
-        <xpath expr="//p[@t-if='doc.partner_id.vat']" position="after">
-            <br/>
-            <p>
-                <t t-if="doc.partner_id.phone"><span>Phone: </span><span t-field="doc.partner_id.phone"/><br/></t>
-                <t t-if="doc.partner_id.mobile"><span>Mobile 1: </span><span t-field="doc.partner_id.mobile"/><br/></t>
-                <t t-if="doc.partner_id.mobile_2"><span>Mobile 2: </span><span t-field="doc.partner_id.mobile_2"/><br/></t>
-                <t t-if="doc.partner_id.email"><span>Email: </span><span t-field="doc.partner_id.email"/><br/></t>
-            </p>
+        <!-- delete name of shipping address -->
+        <xpath expr="//div[@t-field='doc.partner_shipping_id']" position="attributes">
+            <attribute name="t-options">{"widget": "contact", "fields": ["address"], "no_marker": True}</attribute>
         </xpath>
         <!-- delete invoice address -->
         <xpath expr="//strong[@t-if='doc.partner_shipping_id != doc.partner_invoice_id']" position="replace"/>
@@ -41,23 +39,29 @@
         <xpath expr="//th[@name='th_subtotal']/t[1]" position="replace">
             <t groups="account.group_show_line_subtotals_tax_excluded">Your Amount</t>
         </xpath>
+        <!-- replace total amount label -->
+        <xpath expr="//td[@name='td_amount_total_label']/strong" position="replace">
+            <strong>Your Total</strong>
+        </xpath>
         <!-- add style to unit price according to discount -->
         <xpath expr="//td[@name='td_priceunit']/span" position="replace">
             <t t-if="display_discount and line.discount">
                  <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
-            <t t-else="">
-                <span t-field="line.price_unit" t-options='{"widget": "monetary"}' class="text-muted"/>
-            </t>
+            <!-- hide unit price if no discount -->
+            <!--            <t t-else="">-->
+            <!--                <span t-field="line.price_unit" t-options='{"widget": "monetary"}' class="text-muted"/>-->
+            <!--            </t>-->
         </xpath>
         <!-- add style to line discount according to discount -->
         <xpath expr="//span[@t-field='line.discount']" position="replace">
             <t t-if="line.discount">
                 <span t-field="line.discount" t-options='{"widget": "monetary"}' class="font-weight-bold"/>
             </t>
-            <t t-else="">
-                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="text-muted"/>
-            </t>
+            <!-- hide discount if no discount -->
+            <!--            <t t-else="">-->
+            <!--                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="text-muted"/>-->
+            <!--            </t>-->
         </xpath>
         <!-- add style to line total according to discount -->
         <xpath expr="//td[@name='td_subtotal']/span[@t-field='line.price_subtotal']" position="replace">
@@ -68,10 +72,30 @@
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
             </t>
         </xpath>
+        <!-- do not display line description on same line as amounts if description is too long -->
+        <xpath expr="//td[@name='td_name']" position="replace">
+            <td name="td_name">
+                <t t-if="line.name and len(line.name) &lt;= 100">
+                    <span t-field="line.name"/>
+                </t>
+                <t t-else="">
+                    <span t-field="line.product_template_id.with_context(lang=doc.partner_id.lang).display_name"/>
+                </t>
+            </td>
+        </xpath>
+        <!-- add a new line for product description under order line if description is too long -->
+        <xpath expr="//t[@t-if='not line.display_type']/.." position="after">
+            <t t-if="not line.display_type and line.name and len(line.name) &gt; 100">
+                <tr class="bg-100 o_line_note">
+                    <td name="td_description_line" colspan="99">
+                        <span t-field="line.name"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
         <!-- add payments distribution -->
         <xpath expr="//div[hasclass('page')]" position="after">
             <div class="page">
-               <p style="page-break-after:always;"/>
                <h6><strong>Payments</strong></h6>
                <table>
                    <tr>

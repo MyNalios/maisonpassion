@@ -14,6 +14,7 @@
         'data/mp_ref_partner_sequence.xml',
         'views/mp_res_partner_view.xml',
         'views/mp_sale_order_view.xml',
+        'views/ir_qweb_widget_templates.xml'
     ],
 
     'installable': True,

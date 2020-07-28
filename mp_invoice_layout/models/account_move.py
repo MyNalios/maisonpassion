@@ -4,7 +4,7 @@ from odoo import models
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _inherit = 'account.move'
 
     def _recompute_tax_lines(self, recompute_tax_base_amount=False):
         ''' Overwritten method
