@@ -173,6 +173,14 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="ref" string="Customer Code" filter_domain="[('ref', 'ilike', self)]"/>
+                <field name="mobile" string="Mobile 1" filter_domain="[('mobile', 'ilike', self)]"/>
+                <field name="mobile_2" string="Mobile 2" filter_domain="[('mobile_2', 'ilike', self)]"/>
+                <field name="street" string="Street" filter_domain="[('street', 'ilike', self)]"/>
+                <field name="zip" string="Zip Code" filter_domain="[('zip', 'ilike', self)]"/>
+                <field name="city" string="City" filter_domain="[('city', 'ilike', self)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_country']" position="before">
+                <filter name="group_zip" string="Zip Code" context="{'group_by': 'zip'}"/>
             </xpath>
         </field>
     </record>
