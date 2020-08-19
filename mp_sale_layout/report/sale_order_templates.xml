@@ -38,22 +38,32 @@
         </xpath>
         <!-- replace unit price label -->
         <xpath expr="//th[@name='th_priceunit']" position="replace">
-                <th name="th_priceunit" class="text-right">Initial Price</th>
+            <th name="th_priceunit" class="text-right"><t t-if="display_discount">Initial Price</t></th>
         </xpath>
+
+<!--        <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>-->
+
+<!--            <table class="table table-sm o_main_table">-->
+<!--                <thead>-->
+<!--                    <tr>-->
+<!--                        <th name="th_description" class="text-left">Description</th>-->
+<!--                        <th name="th_quantity" class="text-right">Quantity</th>-->
+<!--                        <th name="th_priceunit" class="text-right">Unit Price</th>-->
+
         <!-- replace line amount label -->
         <xpath expr="//th[@name='th_subtotal']/t[1]" position="replace">
             <t groups="account.group_show_line_subtotals_tax_excluded">Your Amount</t>
         </xpath>
         <!-- replace total amount label -->
         <xpath expr="//td[@name='td_amount_total_label']/strong" position="replace">
-            <strong>Your Total</strong>
+            <strong>Total Taxes Included</strong>
         </xpath>
         <!-- add style to unit price according to discount -->
         <xpath expr="//td[@name='td_priceunit']/span" position="replace">
             <t t-if="display_discount and line.discount">
                  <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
-            <!-- hide unit price if no discount -->
+            <!-- hide unit price if no discount instead of text-muted -->
             <!--            <t t-else="">-->
             <!--                <span t-field="line.price_unit" t-options='{"widget": "monetary"}' class="text-muted"/>-->
             <!--            </t>-->
@@ -63,7 +73,7 @@
             <t t-if="line.discount">
                 <span t-field="line.discount" t-options='{"widget": "monetary"}' class="font-weight-bold"/>
             </t>
-            <!-- hide discount if no discount -->
+            <!-- hide discount if no discount instead of text-muted -->
             <!--            <t t-else="">-->
             <!--                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="text-muted"/>-->
             <!--            </t>-->
