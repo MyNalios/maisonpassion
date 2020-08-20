@@ -2,6 +2,7 @@
 
 from odoo import fields, models
 
+
 class MaisonPassionSaleOrder(models.Model):
     _inherit = 'sale.order'
 

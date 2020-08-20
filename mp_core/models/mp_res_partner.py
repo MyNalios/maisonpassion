@@ -14,22 +14,9 @@ class MaisonPassionResPartner(models.Model):
     mobile_2 = fields.Char(string='Mobile 2')
     is_client_effective = fields.Boolean(string='Effective Client', compute='_compute_is_client_effective',
                                          readonly=True)
-    # source_ids = fields.Many2many('utm.source', 'partner_crm_source_rel', 'partner_id', 'source_id', string='Sources'
-    #                               , compute='_compute_source_ids', store=True, readonly=False)
     source_id = fields.Many2one('utm.source', string='Source', required=True)
     country_id = fields.Many2one('res.country', default=_default_country_id)
     is_red_code = fields.Boolean(string='Is a Red Code')
-
-    # @api.constrains('ref')
-    # def _check_unique_ref(self):
-    #     for partner in self:
-    #         if not partner.parent_id and partner.ref:
-    #             result = self.search([('id', '!=', partner.id), ('id', 'not in', partner.child_ids.ids),
-    #                                   ('ref', '=', partner.ref)], limit=1)
-    #             if result:
-    #                 message = _("You have already a partner ({}) with this reference ({})".format(result.name,
-    #                                                                                               partner.ref))
-    #                 raise ValidationError(message)
 
     @api.constrains('vat')
     def _check_unique_vat(self):
@@ -53,17 +40,6 @@ class MaisonPassionResPartner(models.Model):
                 sequence = self.env['ir.sequence'].next_by_code("res.partner")
                 vals.update({'ref': sequence})
         return super(MaisonPassionResPartner, self).write(vals)
-
-        # CHanger la méthode. Soit en cachant le champ référence du parent_id, soit via compute & store avec depends sur parent_id
-        # partner_need_ref = self.env['res.partner']
-        # for partner in self:
-        #     if partner.parent_id and not vals.get('parent_id', True) and not vals.get('ref', False):
-        #         partner_need_ref |= partner
-        #         sequence = self.env['ir.sequence'].next_by_code("res.partner")
-        #         print(partner, sequence)
-        #         vals.update({'ref': sequence})
-        #         partner.write(vals)
-        # return super(MaisonPassionResPartner, self-partner_need_ref).write(vals)
 
     @api.model_create_multi
     def create(self, vals):
@@ -92,11 +68,3 @@ class MaisonPassionResPartner(models.Model):
                 partner.is_client_effective = True
             else:
                 partner.is_client_effective = False
-
-    # @api.depends('opportunity_ids.source_id')
-    # def _compute_source_ids(self):
-    #     for partner in self:
-    #         if partner.opportunity_ids:
-    #             for lead in partner.opportunity_ids:
-    #                 if lead.source_id and lead.source_id not in partner.source_ids:
-    #                     partner.source_ids += lead.source_id

@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
-                <field name="referred_partner_ids" widget="many2many_tags"/>
+                <field name="referred_partner_id"/>
             </xpath>
         </field>
     </record>

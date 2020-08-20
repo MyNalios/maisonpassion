@@ -7,7 +7,17 @@ class Lead(models.Model):
 
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
-    referred_partner_ids = fields.Many2many('res.partner', 'crm_referred_partner_rel', 'lead_id', 'partner_id', string='Referred By')
+    referred_partner_id = fields.Many2one('res.partner', string='Referred By', domain=[('type', '=', 'contact')])
+    address_type = fields.Selection(
+        [('contact', 'Contact'),
+         ('invoice', 'Invoice Address'),
+         ('delivery', 'Delivery Address'),
+         ('other', 'Other Address'),
+         ("private", "Private Address"),
+         ], string='Address Type',
+        default='contact',
+        help="Invoice & Delivery addresses are used in sales orders. Private addresses are only visible by authorized users.")
+    vat = fields.Char(string='Tax ID', help="The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.")
 
     def write(self, vals):
         if (vals.get('type') == 'lead' or self.type == 'lead') \
@@ -38,14 +48,24 @@ class Lead(models.Model):
                 onchange_values = self._onchange_partner_id_values(partner.id)
                 onchange_values.update({
                     'partner_id': partner.id,
-                    'mobile': partner.mobile or False,
-                    'mobile_2': partner.mobile_2 or False,
-                    'website': partner.website or False,
+                    'mobile': partner.mobile,
+                    'mobile_2': partner.mobile_2,
+                    'website': partner.website,
                     'source_id': partner.source_id.id or False,
+                    'address_type': partner.type,
+                    'vat': partner.vat,
+                    'referred_partner_id': partner.referred_partner_id.id or False,
                     'lang_id': self.env['res.lang'].search([('code', '=', partner.lang)]).id or False
                 })
                 return onchange_values
         return {}
 
+    def action_new_quotation(self):
+        action = super(Lead, self).action_new_quotation()
+        action['context'].update({'default_user_id': self.user_id.id})
+        return action
 
-
+    def _create_lead_partner_data(self, name, is_company, parent_id=False):
+        res = super(Lead, self)._create_lead_partner_data(name, is_company, parent_id)
+        res.update({'type': self.address_type, 'vat': self.vat, 'referred_partner_id': self.referred_partner_id.id or False, 'mobile_2': self.mobile_2, 'source_id': self.source_id.id or False})
+        return res
