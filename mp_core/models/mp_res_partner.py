@@ -18,6 +18,14 @@ class MaisonPassionResPartner(models.Model):
     country_id = fields.Many2one('res.country', default=_default_country_id)
     is_red_code = fields.Boolean(string='Is a Red Code')
 
+    @api.depends('sale_order_ids')
+    def _compute_is_client_effective(self):
+        for partner in self:
+            if partner.sale_order_ids:
+                partner.is_client_effective = True
+            else:
+                partner.is_client_effective = False
+
     @api.constrains('vat')
     def _check_unique_vat(self):
         for partner in self:
@@ -28,6 +36,11 @@ class MaisonPassionResPartner(models.Model):
                 message = _("You have already defined a partner ({}) with this VAT number ({})".format(result.name,
                                                                                                        partner.vat))
                 raise ValidationError(message)
+
+    @api.onchange('mobile_2', 'country_id', 'company_id')
+    def _onchange_mobile_2_validation(self):
+        if self.mobile_2:
+            self.mobile_2 = self.phone_format(self.mobile_2)
 
     def write(self, vals):
         """
@@ -61,10 +74,11 @@ class MaisonPassionResPartner(models.Model):
         :return a list of fields which are synchronized between parent and children contacts """
         return ['vat', 'credit_limit', 'ref']
 
-    @api.depends('sale_order_ids')
-    def _compute_is_client_effective(self):
-        for partner in self:
-            if partner.sale_order_ids:
-                partner.is_client_effective = True
-            else:
-                partner.is_client_effective = False
+    @api.model
+    def action_format_phone_number(self, partner_ids):
+        partners = self.env['res.partner'].browse(partner_ids)
+        for partner in partners:
+            partner.phone = self.phone_format(partner.phone if partner.phone else "")
+            partner.mobile = self.phone_format(partner.mobile if partner.mobile else "")
+            partner.mobile_2 = self.phone_format(partner.mobile_2 if partner.mobile_2 else "")
+

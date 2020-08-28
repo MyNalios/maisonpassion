@@ -191,10 +191,22 @@
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem id="mp_source_menu_action" name="Sources" parent="contacts.res_partner_menu_config" action="mp_core.mp_utm_source_action" sequence="2"/>
 
     <record id="contacts.action_contacts" model="ir.actions.act_window">
         <field name="context">{'default_is_company': False}</field>
     </record>
+
+    <record id="res_partner_action_format_phone_number" model="ir.actions.server">
+        <field name="name">Format Phone Numbers</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            env['res.partner'].action_format_phone_number(env.context.get('active_ids'))
+        </field>
+    </record>
+
+    <menuitem id="mp_source_menu_action" name="Sources" parent="contacts.res_partner_menu_config" action="mp_core.mp_utm_source_action" sequence="2"/>
 
 </odoo>
