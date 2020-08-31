@@ -12,6 +12,7 @@
     'currency': 'EUR',
     'data': [
         'data/mp_ref_partner_sequence.xml',
+        'data/mp_phone_format_cron.xml',
         'views/mp_res_partner_view.xml',
         'views/mp_sale_order_view.xml',
         'views/ir_qweb_widget_templates.xml'

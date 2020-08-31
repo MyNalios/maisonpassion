@@ -75,6 +75,12 @@ class MaisonPassionResPartner(models.Model):
         return ['vat', 'credit_limit', 'ref']
 
     @api.model
+    def cron_format_phone_number(self):
+        partner_ids = self.env['res.partner'].search(['|', '|', ('phone', '!=', False), ('mobile', '!=', False),
+                                                      ('mobile_2', '!=', False)])
+        self.action_format_phone_number(partner_ids.ids)
+
+    @api.model
     def action_format_phone_number(self, partner_ids):
         partners = self.env['res.partner'].browse(partner_ids)
         for partner in partners:
