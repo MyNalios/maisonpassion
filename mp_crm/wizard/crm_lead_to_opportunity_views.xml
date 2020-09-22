@@ -9,6 +9,9 @@
                 <xpath expr="//button[@name='action_apply']" position="attributes">
                     <attribute name="context">{'no_contact_synchronization': True}</attribute>
                 </xpath>
+                <xpath expr="//group[@name='action']/group" position="inside">
+                    <field name="source_id" attrs="{'invisible': [('action', '!=', 'create')]}"/>
+                </xpath>
             </field>
         </record>
 
