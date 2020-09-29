@@ -21,9 +21,9 @@ class Lead(models.Model):
          ('invoice', 'Invoice Address'),
          ('delivery', 'Delivery Address'),
          ('other', 'Other Address'),
-         ("private", "Private Address"),
+         ('private', 'Private Address'),
          ], string='Address Type',
-        default='contact',
+        default='delivery',
         help="Invoice & Delivery addresses are used in sales orders. Private addresses are only visible by authorized users.")
     vat = fields.Char(string='Tax ID', help="The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.")
 

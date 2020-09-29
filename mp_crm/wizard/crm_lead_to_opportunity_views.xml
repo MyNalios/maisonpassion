@@ -10,7 +10,8 @@
                     <attribute name="context">{'no_contact_synchronization': True}</attribute>
                 </xpath>
                 <xpath expr="//group[@name='action']/group" position="inside">
-                    <field name="source_id" attrs="{'invisible': [('action', '!=', 'create')]}"/>
+                    <field name="source_id" attrs="{'required': [('action', '=', 'create')], 'invisible': [('action', '!=', 'create')]}"/>
+                    <field name="partner_source_id" attrs="{'required': [('action', '=', 'exist')], 'invisible': [('action', '!=', 'exist')]}"/>
                 </xpath>
             </field>
         </record>

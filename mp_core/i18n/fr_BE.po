@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 10:46+0000\n"
-"PO-Revision-Date: 2020-07-10 12:47+0200\n"
+"POT-Creation-Date: 2020-09-29 09:30+0000\n"
+"PO-Revision-Date: 2020-09-29 11:33+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: fr\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact_name
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact_name
+msgid ",&amp;nbsp;"
+msgstr ""
 
 #. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
@@ -23,9 +33,14 @@ msgid "Address Name"
 msgstr "Nom"
 
 #. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
+msgid "City"
+msgstr "Localité"
+
+#. module: mp_core
 #: model:ir.model,name:mp_core.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__country_id
@@ -44,15 +59,25 @@ msgid "Customer Code"
 msgstr "Code Client"
 
 #. module: mp_core
-#: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
-msgid "Delivery Address"
-msgstr "Adresse de livraison"
-
-#. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__is_client_effective
 #: model:ir.model.fields,field_description:mp_core.field_res_users__is_client_effective
 msgid "Effective Client"
 msgstr "Client effectif"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact
+msgid "Email"
+msgstr "Email"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact
+msgid "Fax"
+msgstr "Fax"
+
+#. module: mp_core
+#: model:ir.actions.server,name:mp_core.res_partner_action_format_phone_number
+msgid "Format Phone Numbers"
+msgstr "Formatter les numéros de téléphone"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__is_red_code
@@ -61,14 +86,21 @@ msgid "Is a Red Code"
 msgstr "Code Rouge"
 
 #. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact
+msgid "Mobile"
+msgstr "Mobile"
+
+#. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__mobile
 #: model:ir.model.fields,field_description:mp_core.field_res_users__mobile
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
 msgid "Mobile 1"
 msgstr "Mobile 1"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__mobile_2
 #: model:ir.model.fields,field_description:mp_core.field_res_users__mobile_2
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
 msgid "Mobile 2"
 msgstr "Mobile 2"
 
@@ -76,6 +108,18 @@ msgstr "Mobile 2"
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
 msgid "Name"
 msgstr "Nom"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact
+msgid "Phone"
+msgstr "Téléphone"
+
+#. module: mp_core
+#: model:ir.actions.server,name:mp_core.phone_format_ir_actions_server
+#: model:ir.cron,cron_name:mp_core.phone_format
+#: model:ir.cron,name:mp_core.phone_format
+msgid "Phone Number Format"
+msgstr "Formattage numéro de téléphone"
 
 #. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
@@ -91,13 +135,23 @@ msgstr "Bon de commande"
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__source_id
 #: model:ir.model.fields,field_description:mp_core.field_res_users__source_id
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #. module: mp_core
 #: model:ir.actions.act_window,name:mp_core.mp_utm_source_action
 #: model:ir.ui.menu,name:mp_core.mp_source_menu_action
 msgid "Sources"
-msgstr ""
+msgstr "Sources"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
+msgid "Street"
+msgstr "Rue"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.contact
+msgid "Website"
+msgstr "Site internet"
 
 #. module: mp_core
 #: code:addons/mp_core/models/mp_res_partner.py:0
@@ -108,6 +162,11 @@ msgstr "Vous avez déjà défini un contact ({}) avec ce numéro de TVA ({})"
 #. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
 msgid "ZIP"
+msgstr "Code postal"
+
+#. module: mp_core
+#: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
+msgid "Zip Code"
 msgstr "Code postal"
 
 #. module: mp_core
