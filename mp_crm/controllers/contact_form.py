@@ -19,6 +19,8 @@ class ContactForm(http.Controller):
             vals = {
                 'name': '{} - {}'.format(' ,'.join(tags), post['your-name']),
                 'type': 'lead',
+                'country_id': request.env['res.country'].search([('code', '=', 'BE')]).id or False,
+                'lang_id': request.env['res.lang'].search([('code', '=', 'fr_BE')]).id or False,
                 'contact_name': post['your-name'],
                 'email_from': tools.formataddr((post['your-name'] or u"False", post['your-email'] or u"False")) if post['your-email'] else '',
                 'phone': phone_validation.phone_format(post['your-tel'], 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',

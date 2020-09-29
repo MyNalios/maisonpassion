@@ -8,4 +8,4 @@ class Tag(models.Model):
         ('tech_name_uniq', 'unique (technical_name)', 'Technical name must be unique !'),
     ]
 
-    technical_name = fields.Char(string='Technical Name', required=True)
+    technical_name = fields.Char(string='Technical Name')
