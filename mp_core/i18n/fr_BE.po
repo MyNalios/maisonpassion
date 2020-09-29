@@ -64,13 +64,13 @@ msgstr "Code Rouge"
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__mobile
 #: model:ir.model.fields,field_description:mp_core.field_res_users__mobile
 msgid "Mobile 1"
-msgstr ""
+msgstr "Mobile 1"
 
 #. module: mp_core
 #: model:ir.model.fields,field_description:mp_core.field_res_partner__mobile_2
 #: model:ir.model.fields,field_description:mp_core.field_res_users__mobile_2
 msgid "Mobile 2"
-msgstr ""
+msgstr "Mobile 2"
 
 #. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form

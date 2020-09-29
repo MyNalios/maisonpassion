@@ -8,7 +8,7 @@ class MaisonPassionResPartner(models.Model):
     _inherit = 'res.partner'
 
     def _default_country_id(self):
-        return self.env['res.country'].search([('code', '=', 'BE')])
+        return self.env.company.country_id
 
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
@@ -33,7 +33,7 @@ class MaisonPassionResPartner(models.Model):
                 continue
             result = self.search([('id', '!=', partner.id), ('vat', '!=', ""), ('vat', '=', partner.vat)], limit=1)
             if result:
-                message = _("You have already defined a partner ({}) with this VAT number ({})".format(result.name,
+                message = _('You have already defined a partner ({}) with this VAT number ({})'.format(result.name,
                                                                                                        partner.vat))
                 raise ValidationError(message)
 
@@ -72,7 +72,7 @@ class MaisonPassionResPartner(models.Model):
     def _commercial_fields(self):
         """ Overriden method
         :return a list of fields which are synchronized between parent and children contacts """
-        return ['vat', 'credit_limit', 'ref']
+        return super(MaisonPassionResPartner, self)._commercial_fields() + ['ref']
 
     @api.model
     def cron_format_phone_number(self):

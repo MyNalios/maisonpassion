@@ -10,6 +10,8 @@
     'data': [
         'views/crm_lead_views.xml',
         'views/res_partner_views.xml',
+        'views/utm_source_views.xml',
+        'views/crm_lead_tag_views.xml',
         'wizard/crm_lead_to_opportunity_views.xml',
     ],
     'auto_install': False,

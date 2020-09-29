@@ -2,9 +2,11 @@
 <odoo>
 
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
-        <!-- move up page content-->
+        <!-- move up page content if there to much info on partner -->
         <xpath expr="//div[hasclass('page')][1]" position="attributes">
-            <attribute name="style">margin-top:-5%;</attribute>
+            <t t-if="(doc.partner_id.mobile_2 or doc.partner_id.mobile) and (doc.partner_id.email or doc.partner_id.phone)">
+                <attribute name="style">margin-top:-5%;</attribute>
+            </t>
         </xpath>
         <!-- delete taxes 'on' amount -->
         <xpath expr="//t[@t-esc='amount_by_group[2]']/.." position="replace"/>

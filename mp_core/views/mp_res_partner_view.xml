@@ -76,12 +76,13 @@
             </xpath>
 
             <!-- Child type is always a readonly field but readonly field cannot have a default value by context -->
-            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">
-                <h3>Delivery Address</h3>
-            </xpath>
+            <!-- user should still be able to change type -->
+<!--            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">-->
+<!--                <attribute name="invisible">True</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">-->
+<!--                <h3>Delivery Address</h3>-->
+<!--            </xpath>-->
 
             <!-- hide state_id if country == Belgium -->
             <xpath expr="//field[@name='child_ids']/kanban/field[@name='state_id']" position="attributes">

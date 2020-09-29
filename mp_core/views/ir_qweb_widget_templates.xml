@@ -57,7 +57,7 @@
         </xpath>
         <!-- add mobile_2 -->
         <xpath expr="//span[@t-esc='mobile']/.." position="after">
-            <div t-if="mobile_2 and 'mobile_2' in fields"><i t-if="not options.get('no_contact_marker') or options.get('phone_icons')" class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/> <span class="o_force_ltr" itemprop="telephone" t-esc="mobile_2"/></div>
+            <div t-if="object.mobile_2 and 'mobile_2' in fields"><i t-if="not options.get('no_contact_marker') or options.get('phone_icons')" class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/> <span class="o_force_ltr" itemprop="telephone" t-esc="object.mobile_2"/></div>
         </xpath>
     </template>
 

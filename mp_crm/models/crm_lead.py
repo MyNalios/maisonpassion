@@ -5,6 +5,14 @@ from odoo import api, fields, models
 class Lead(models.Model):
     _inherit = 'crm.lead'
 
+    def _default_country_id(self):
+        return self.env.company.country_id
+
+    def _default_lang_id(self):
+        return self.env['res.lang'].search([('code', '=', self.env.lang)])
+
+    country_id = fields.Many2one('res.country', default=_default_country_id)
+    lang_id = fields.Many2one('res.lang', default=_default_lang_id)
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
     referred_partner_id = fields.Many2one('res.partner', string='Referred By', domain=[('type', '=', 'contact')])
@@ -44,6 +52,7 @@ class Lead(models.Model):
             domain.append(('mobile', '=', mobile or self.phone))
         if domain:
             partner = self.env['res.partner'].search(domain)
+            # if there is more than one related partner, return none of them
             if len(partner) == 1:
                 onchange_values = self._onchange_partner_id_values(partner.id)
                 onchange_values.update({
