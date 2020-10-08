@@ -10,13 +10,19 @@ class MaisonPassionResPartner(models.Model):
     def _default_country_id(self):
         return self.env.company.country_id
 
+    def _default_title(self):
+        return self.env.ref('mp_core.res_partner_title_mister_madam').id
+
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
     is_client_effective = fields.Boolean(string='Effective Client', compute='_compute_is_client_effective',
                                          readonly=True)
     source_id = fields.Many2one('utm.source', string='Source', required=True)
-    country_id = fields.Many2one('res.country', default=_default_country_id)
     is_red_code = fields.Boolean(string='Is a Red Code')
+
+    # default value
+    country_id = fields.Many2one('res.country', default=_default_country_id)
+    title = fields.Many2one('res.partner.title', default=_default_title)
 
     @api.depends('sale_order_ids')
     def _compute_is_client_effective(self):

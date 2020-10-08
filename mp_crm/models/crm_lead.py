@@ -11,8 +11,14 @@ class Lead(models.Model):
     def _default_lang_id(self):
         return self.env['res.lang'].search([('code', '=', self.env.lang)])
 
+    def _default_title(self):
+        return self.env.ref('mp_core.res_partner_title_mister_madam').id
+
+    # default values
     country_id = fields.Many2one('res.country', default=_default_country_id)
     lang_id = fields.Many2one('res.lang', default=_default_lang_id)
+    title = fields.Many2one('res.partner.title', default=_default_title)
+
     mobile = fields.Char(string='Mobile 1')
     mobile_2 = fields.Char(string='Mobile 2')
     referred_partner_id = fields.Many2one('res.partner', string='Referred By', domain=[('type', '=', 'contact')])

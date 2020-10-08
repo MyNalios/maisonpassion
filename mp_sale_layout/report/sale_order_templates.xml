@@ -43,19 +43,21 @@
             <th name="th_priceunit" class="text-right"><t t-if="display_discount">Initial Price</t></th>
         </xpath>
 
-<!--        <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>-->
-
-<!--            <table class="table table-sm o_main_table">-->
-<!--                <thead>-->
-<!--                    <tr>-->
-<!--                        <th name="th_description" class="text-left">Description</th>-->
-<!--                        <th name="th_quantity" class="text-right">Quantity</th>-->
-<!--                        <th name="th_priceunit" class="text-right">Unit Price</th>-->
+        <!-- set display_line_total in order to hide or not line total -->
+        <xpath expr="//t[@t-set='display_discount']" position="after">
+            <t t-set="display_line_total" t-value="any([l for l in doc.order_line if l.price_subtotal or l.discount or l.price_unit])"/>
+        </xpath>
 
         <!-- replace line amount label -->
-        <xpath expr="//th[@name='th_subtotal']/t[1]" position="replace">
-            <t groups="account.group_show_line_subtotals_tax_excluded">Your Amount</t>
+        <xpath expr="//th[@name='th_subtotal']" position="replace">
+            <th name="th_subtotal" class="text-right">
+                <t t-if="display_line_total">
+                    <t groups="account.group_show_line_subtotals_tax_excluded">Your Amount</t>
+                    <t groups="account.group_show_line_subtotals_tax_included">Total Price</t>
+                </t>
+            </th>
         </xpath>
+
         <!-- replace total amount label -->
         <xpath expr="//td[@name='td_amount_total_label']/strong" position="replace">
             <strong>Total Taxes Included</strong>
@@ -81,10 +83,12 @@
             <!--            </t>-->
         </xpath>
         <!-- add style to line total according to discount -->
+        <!-- hide line subtotal if subtotal, discount et price_unit = 0.0 -->
         <xpath expr="//td[@name='td_subtotal']/span[@t-field='line.price_subtotal']" position="replace">
             <t t-if="line.discount">
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" class="font-weight-bold"/>
             </t>
+            <t t-elif="not line.discount and line.price_subtotal == 0 and line.price_unit == 0"/>
             <t t-else="">
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
             </t>

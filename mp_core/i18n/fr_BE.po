@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-29 09:30+0000\n"
-"PO-Revision-Date: 2020-09-29 11:33+0200\n"
+"POT-Creation-Date: 2020-10-08 14:49+0000\n"
+"PO-Revision-Date: 2020-10-08 16:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,11 @@ msgid "Is a Red Code"
 msgstr "Code Rouge"
 
 #. module: mp_core
+#: model:res.partner.title,name:mp_core.res_partner_title_mister_madam
+msgid "Mister and Madam"
+msgstr "Monsieur et Madame"
+
+#. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.contact
 msgid "Mobile"
 msgstr "Mobile"
@@ -103,6 +108,11 @@ msgstr "Mobile 1"
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
 msgid "Mobile 2"
 msgstr "Mobile 2"
+
+#. module: mp_core
+#: model:res.partner.title,shortcut:mp_core.res_partner_title_mister_madam
+msgid "Mr and Mrs"
+msgstr "M. et Mme"
 
 #. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_res_partner_view_form
@@ -147,6 +157,12 @@ msgstr "Sources"
 #: model_terms:ir.ui.view,arch_db:mp_core.mp_partner_view_search
 msgid "Street"
 msgstr "Rue"
+
+#. module: mp_core
+#: model:ir.model.fields,field_description:mp_core.field_res_partner__title
+#: model:ir.model.fields,field_description:mp_core.field_res_users__title
+msgid "Title"
+msgstr "Titre"
 
 #. module: mp_core
 #: model_terms:ir.ui.view,arch_db:mp_core.contact
