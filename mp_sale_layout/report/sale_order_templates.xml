@@ -114,46 +114,66 @@
                 </tr>
             </t>
         </xpath>
+
+        <!-- hide total summary if there is no line with a subtotal -->
+<!--        <xpath expr="//div[@name='so_total_summary']" position="attributes">-->
+<!--            <attribute name="t-if">display_line_total</attribute>-->
+<!--        </xpath>-->
+
         <!-- add payments distribution -->
         <xpath expr="//div[hasclass('page')]" position="after">
             <div class="page">
-               <h6><strong>Payments</strong></h6>
-               <table>
-                   <tr>
-                       <td width="3%">- </td>
-                       <td width="87%">À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</strong> avec la référence <span t-field="doc.name"/>:</td>
-                       <td width="10%" class="text-right"><span t-field="doc.first_payment" class="font-weight-bold"/></td>
-                   </tr>
-                   <tr>
-                       <td>- </td>
-                       <td>À verser par chèque bancaire certifié au placeur le premier jour des travaux ou par virement bancaire anticipé 3 jours ouvrables avant la date de pose:</td>
-                       <td class="text-right"><span t-field="doc.second_payment" class="font-weight-bold"/></td>
-                   </tr>
-                   <t t-if="doc.payment_distribution == 'three_payments'">
-                       <tr>
-                           <td>- </td>
-                           <td>À verser à la fin des travaux:</td>
-                           <td class="text-right"><span t-field="doc.third_payment" class="font-weight-bold"/></td>
-                       </tr>
-                        <tr>
-                           <td></td>
-                           <td>Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur des travaux à effectuer.</td>
-                           <td></td>
-                       </tr>
-                   </t>
-                   <tr>
-                       <td></td>
-                       <td><strong>Ces paiements conditionnent l'exécution et la livraison de la commande.</strong></td>
-                       <td></td>
-                   </tr>
-                   <tr>
-                       <td></td>
-                       <td><strong>Montant total TTC de votre commande:</strong></td>
-                       <td class="text-right"><span t-field="doc.amount_total" class="font-weight-bold"/></td>
-                   </tr>
-               </table>
+                <t t-if="doc.amount_total != 0.0">
+                    <div style="page-break-inside: avoid;">
+                        <h6><strong>Payments</strong></h6>
+                        <table>
+                           <tr>
+                               <td width="3%">- </td>
+                               <td width="87%">À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</strong> avec la référence <span t-field="doc.name"/>:</td>
+                               <td width="10%" class="text-right"><span t-field="doc.first_payment" class="font-weight-bold"/></td>
+                           </tr>
+                           <tr>
+                               <td>- </td>
+                               <td>À verser par chèque bancaire certifié au placeur le premier jour des travaux ou par virement bancaire anticipé 3 jours ouvrables avant la date de pose:</td>
+                               <td class="text-right"><span t-field="doc.second_payment" class="font-weight-bold"/></td>
+                           </tr>
+                           <t t-if="doc.payment_distribution == 'three_payments'">
+                               <tr>
+                                   <td>- </td>
+                                   <td>À verser à la fin des travaux:</td>
+                                   <td class="text-right"><span t-field="doc.third_payment" class="font-weight-bold"/></td>
+                               </tr>
+                                <tr>
+                                   <td></td>
+                                   <td>Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur des travaux à effectuer.</td>
+                                   <td></td>
+                               </tr>
+                           </t>
+                           <tr>
+                               <td></td>
+                               <td><strong>Ces paiements conditionnent l'exécution et la livraison de la commande.</strong></td>
+                               <td></td>
+                           </tr>
+                           <tr>
+                               <td></td>
+                               <td><strong>Montant total TTC de votre commande:</strong></td>
+                               <td class="text-right"><span t-field="doc.amount_total" class="font-weight-bold"/></td>
+                           </tr>
+                        </table>
+                    </div>
+                </t>
+                <!-- only show total and not payments -->
+<!--                <t t-else="">-->
+<!--                    <table width="100%">-->
+<!--                       <tr>-->
+<!--                           <td width="3%">&amp;nbsp;</td>-->
+<!--                           <td width="87%" class="text-right"><strong>Montant total TTC de votre commande:</strong></td>-->
+<!--                           <td width="10%" class="text-right"><span t-field="doc.amount_total" class="font-weight-bold"/></td>-->
+<!--                       </tr>-->
+<!--                    </table>-->
+<!--                </t>-->
                <!-- add customer signature -->
-               <div style="padding-top: 20px">
+               <div style="padding-top: 20px; page-break-inside: avoid;">
                    <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA de 6% complétée s'il y a lieu.</p>
                    <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
                         <t t-if="doc.partner_id.title">
