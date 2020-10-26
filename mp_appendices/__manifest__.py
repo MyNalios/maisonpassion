@@ -8,7 +8,7 @@
     'sequence': 90,
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['portal'],
+    'depends': ['portal', 'mp_core'],
     'data': [
         'views/sale_technical_document_tag_views.xml',
         'views/sale_technical_document_templates.xml',

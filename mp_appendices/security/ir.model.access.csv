@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 all_access_technical_document,all_access_technical_document,model_sale_technical_document,base.group_user,1,1,1,1
 all_access_technical_document_tag,all_access_technical_document_tag,model_sale_technical_document_tag,base.group_user,1,1,1,1
+portal_access_technical_document,portal_access_technical_document,model_sale_technical_document,base.group_portal,1,0,0,0
+portal_access_technical_document_tag,portal_access_technical_document_tag,model_sale_technical_document_tag,base.group_user,1,0,0,0
 

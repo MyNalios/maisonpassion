@@ -9,7 +9,7 @@ class ContactForm(http.Controller):
 
     @http.route('/contact', type='http', auth='public', csrf=False, methods=['POST'])
     def create_lead(self, **post):
-        if post['menu-demande'] == 'Demande de devis gratuit' and (post['your-tel'] or post['your-email']) and post['your-name']:
+        if post.get('menu-demande') == 'Demande de devis gratuit' and (post.get('your-tel') or post.get('your-email')) and post.get('your-name'):
             tags = request.httprequest.form.getlist('services[]')
             tag_ids = []
             for tag in tags:
@@ -22,12 +22,12 @@ class ContactForm(http.Controller):
                 'country_id': request.env['res.country'].search([('code', '=', 'BE')]).id or False,
                 'lang_id': request.env['res.lang'].search([('code', '=', 'fr_BE')]).id or False,
                 'contact_name': post['your-name'],
-                'email_from': tools.formataddr((post['your-name'] or u"False", post['your-email'] or u"False")) if post['your-email'] else '',
-                'phone': phone_validation.phone_format(post['your-tel'], 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
-                'street': post['your-adres'] or '',
-                'city': post['your-local'] or '',
-                'zip': post['your-postal'] or '',
-                'description': post['your-message'] or '',
+                'email_from': tools.formataddr((post['your-name'] or u"False", post.get('your-email') or u"False")) if post.get('your-email') else '',
+                'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
+                'street': post.get('your-adres') or '',
+                'city': post.get('your-local') or '',
+                'zip': post.get('your-postal') or '',
+                'description': post.get('your-message') or '',
                 'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'website')]).id or False,
                 'tag_ids': [(6, 0, tag_ids)]
             }
