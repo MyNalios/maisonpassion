@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import http, tools
+from odoo import http, tools, _
 from odoo.http import request
 from odoo.addons.phone_validation.tools import phone_validation
 
@@ -21,10 +21,10 @@ class ContactForm(http.Controller):
                     'your-email') else '',
                 'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL',
                                                        raise_exception=False) or '',
-                'street': post.get('your-adres') or '',
-                'city': post.get('your-local') or '',
-                'zip': post.get('your-postal') or '',
-                'description': post.get('your-message') or '',
+                'street': post.get('your-adres', ''),
+                'city': post.get('your-local', ''),
+                'zip': post.get('your-postal', ''),
+                'description': _('Bobex Reference: {}\n{}').format(post.get('sourceref', ''), post.get('your-message', '')),
                 'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'bobex')]).id or False,
             }
             request.env['crm.lead'].sudo().create(vals)
@@ -45,10 +45,10 @@ class ContactForm(http.Controller):
                 'contact_name': post['your-name'],
                 'email_from': tools.formataddr((post['your-name'] or u"False", post.get('your-email') or u"False")) if post.get('your-email') else '',
                 'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
-                'street': post.get('your-adres') or '',
-                'city': post.get('your-local') or '',
-                'zip': post.get('your-postal') or '',
-                'description': post.get('your-message') or '',
+                'street': post.get('your-adres', ''),
+                'city': post.get('your-local', ''),
+                'zip': post.get('your-postal', ''),
+                'description': post.get('your-message', ''),
                 'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'website')]).id or False,
                 'tag_ids': [(6, 0, tag_ids)]
             }
