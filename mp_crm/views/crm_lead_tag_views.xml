@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="crm.crm_lead_tag_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='color']" position="after">
-                <field name="technical_name" invisible="1"/>
+                <field name="technical_name" groups="base.group_no_one"/>
             </xpath>
         </field>
     </record>

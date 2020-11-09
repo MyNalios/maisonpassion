@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import re
 from odoo import http, tools, _
 from odoo.http import request
 from odoo.addons.phone_validation.tools import phone_validation
@@ -10,6 +10,14 @@ class ContactForm(http.Controller):
     @http.route('/contact', type='http', auth='public', csrf=False, methods=['POST'])
     def create_lead(self, **post):
         if post.get('source') == 'Bobex' and (post.get('your-tel') or post.get('your-email')) and post.get('your-name'):
+            tag_ids = []
+            if 'services[]' in post:
+                formatted_services = re.sub('\s*,\s*', ',', post['services[]'])
+                tag_names = formatted_services.split(',')
+                for tag_name in tag_names:
+                    tag = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag_name)], limit=1)
+                    if tag:
+                        tag_ids.append(tag.id)
             vals = {
                 'name': '{} - {} {}'.format(post['source'], post['your-name'], post.get('your-firstname', '')),
                 'type': 'lead',
@@ -26,6 +34,7 @@ class ContactForm(http.Controller):
                 'zip': post.get('your-postal', ''),
                 'description': _('Bobex Reference: {}\n{}').format(post.get('sourceref', ''), post.get('your-message', '')),
                 'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'bobex')]).id or False,
+                'tag_ids': [(6, 0, tag_ids)]
             }
             request.env['crm.lead'].sudo().create(vals)
             return 'OK'
