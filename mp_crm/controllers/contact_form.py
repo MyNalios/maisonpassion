@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+import json
 import re
+from collections import OrderedDict
+from werkzeug.datastructures import ImmutableOrderedMultiDict
+from werkzeug.wrappers import Response
 from odoo import http, tools, _
 from odoo.http import request
 from odoo.addons.phone_validation.tools import phone_validation
@@ -18,17 +22,16 @@ class ContactForm(http.Controller):
                     tag = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag_name)], limit=1)
                     if tag:
                         tag_ids.append(tag.id)
+
+            formatted_name = ' '.join([x for x in (post.get('your-name', ''), post.get('your-firstname', '')) if x != ''])
             vals = {
-                'name': '{} - {} {}'.format(post['source'], post['your-name'], post.get('your-firstname', '')),
+                'name': '[Bobex] {}'.format(formatted_name),
                 'type': 'lead',
                 'country_id': request.env['res.country'].search([('code', '=', 'BE')]).id or False,
                 'lang_id': request.env['res.lang'].search([('code', '=', post.get('your-lang'))]).id if post.get('your-lang') else request.env['res.lang'].search([('code', '=', 'fr_BE')]).id or False,
-                'contact_name': '{} {}'.format(post['your-name'], post.get('your-firstname', '')),
-                'email_from': tools.formataddr(
-                    (post['your-name'] or u"False", post.get('your-email') or u"False")) if post.get(
-                    'your-email') else '',
-                'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL',
-                                                       raise_exception=False) or '',
+                'contact_name': formatted_name,
+                'email_from': tools.formataddr((formatted_name, post.get('your-email'))) if post.get('your-email') else '',
+                'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
                 'street': post.get('your-adres', ''),
                 'city': post.get('your-local', ''),
                 'zip': post.get('your-postal', ''),
@@ -46,13 +49,14 @@ class ContactForm(http.Controller):
                 tag_id = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag)])
                 if tag_id:
                     tag_ids.append(tag_id.id)
+
             vals = {
                 'name': '{} - {}'.format(' ,'.join(tags), post['your-name']),
                 'type': 'lead',
                 'country_id': request.env['res.country'].search([('code', '=', 'BE')]).id or False,
                 'lang_id': request.env['res.lang'].search([('code', '=', 'fr_BE')]).id or False,
                 'contact_name': post['your-name'],
-                'email_from': tools.formataddr((post['your-name'] or u"False", post.get('your-email') or u"False")) if post.get('your-email') else '',
+                'email_from': tools.formataddr((post['your-name'], post.get('your-email'))) if post.get('your-email') else '',
                 'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
                 'street': post.get('your-adres', ''),
                 'city': post.get('your-local', ''),
@@ -63,5 +67,39 @@ class ContactForm(http.Controller):
             }
             request.env['crm.lead'].sudo().create(vals)
             return 'OK'
-        return 'NOK'
 
+        elif post.get('secret') and (post.get('phone') or post.get('email')) and post.get('last_name'):
+
+            formatted_name = ' '.join([x for x in (post.get('last_name', ''), post.get('first_name', '')) if x != ''])
+            vals = {
+                'name': '[Solvari] {}'.format(formatted_name),
+                'type': 'lead',
+                'country_id': request.env['res.country'].search([('code', '=', 'BE')]).id or False,
+                'lang_id': request.env['res.lang'].search([('code', '=', 'fr_BE')]).id or False,
+                'contact_name': formatted_name,
+                'email_from': tools.formataddr((post['last_name'], post.get('email'))) if post.get('email') else '',
+                'phone': phone_validation.phone_format(post.get('phone'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
+                'street': ', '.join([x for x in (post.get('street', ''), post.get('house_nr', '')) if x != '']),
+                'city': post.get('city', ''),
+                'zip': post.get('zip_code', ''),
+                'description': '{}{}{}'.format(
+                    _('Message By Solvari: {}\n').format(post.get('message_by_solvari')) if post.get('message_by_solvari') else '',
+                    _('Amount of Competitors: {}\n').format(post.get('competitors')) if post.get('competitors') else '',
+                    _('Description: {}\n').format(post.get('description')) if post.get('description') else ''),
+                'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'solvari')]).id or False,
+            }
+            request.env['crm.lead'].sudo().create(vals)
+            return json.dumps({'success': True})
+
+        else:
+            vals = {
+                'url': request.httprequest.url or '',
+                'charset': request.httprequest.charset or '',
+                'content_type': request.httprequest.content_type or '',
+                'mimetype': request.httprequest.mimetype or '',
+                'method': request.httprequest.method or '',
+                'params': ', '.join(['{}:{}'.format(k, v) for k, v in request.params.items()]),
+                'form_data': ', '.join(['{}:{}'.format(k, v) for k, v in request.httprequest.form.items()])
+            }
+            request.env['crm.lead.creation.log'].sudo().create(vals)
+            return Response("Wrong parameters", status=400)

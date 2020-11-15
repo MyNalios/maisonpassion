@@ -13,6 +13,7 @@
         'views/utm_source_views.xml',
         'views/crm_lead_tag_views.xml',
         'wizard/crm_lead_to_opportunity_views.xml',
+        'security/ir.model.access.csv',
     ],
     'auto_install': False,
     'installable': True,

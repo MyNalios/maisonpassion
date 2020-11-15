@@ -15,7 +15,7 @@
         <field name="model">utm.source</field>
         <field name="inherit_id" ref="utm.utm_source_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after"><field name="technical_name" invisible="1"/></xpath>
+            <xpath expr="//field[@name='name']" position="after"><field name="technical_name" groups="base.group_no_one"/></xpath>
         </field>
     </record>
 
