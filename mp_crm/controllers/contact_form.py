@@ -13,6 +13,18 @@ class ContactForm(http.Controller):
 
     @http.route('/contact', type='http', auth='public', csrf=False, methods=['POST'])
     def create_lead(self, **post):
+        # logging request
+        vals = {
+            'url': request.httprequest.url or '',
+            'charset': request.httprequest.charset or '',
+            'content_type': request.httprequest.content_type or '',
+            'mimetype': request.httprequest.mimetype or '',
+            'method': request.httprequest.method or '',
+            'params': ', '.join(['{}:{}'.format(k, v) for k, v in request.params.items()]),
+            'form_data': ', '.join(['{}:{}'.format(k, v) for k, v in request.httprequest.form.items()])
+        }
+        request.env['crm.lead.creation.log'].sudo().create(vals)
+
         if post.get('source') == 'Bobex' and (post.get('your-tel') or post.get('your-email')) and post.get('your-name'):
             tag_ids = []
             if 'services[]' in post:
@@ -69,6 +81,17 @@ class ContactForm(http.Controller):
             return 'OK'
 
         elif post.get('secret') and (post.get('phone') or post.get('email')) and post.get('last_name'):
+            try:
+                data_list = request.httprequest.form.getlist('additional_data')
+                data = '\n'.join(data_list)
+            except Exception:
+                data = post.get('additional_data', '')
+
+            try:
+                product_list = request.httprequest.form.getlist('products')
+                products = '\n'.join(product_list)
+            except Exception:
+                products = post.get('products', '')
 
             formatted_name = ' '.join([x for x in (post.get('last_name', ''), post.get('first_name', '')) if x != ''])
             vals = {
@@ -82,24 +105,16 @@ class ContactForm(http.Controller):
                 'street': ', '.join([x for x in (post.get('street', ''), post.get('house_nr', '')) if x != '']),
                 'city': post.get('city', ''),
                 'zip': post.get('zip_code', ''),
-                'description': '{}{}{}'.format(
+                'description': '{}{}{}{}{}'.format(
                     _('Message By Solvari: {}\n').format(post.get('message_by_solvari')) if post.get('message_by_solvari') else '',
                     _('Amount of Competitors: {}\n').format(post.get('competitors')) if post.get('competitors') else '',
-                    _('Description: {}\n').format(post.get('description')) if post.get('description') else ''),
+                    _('Description: {}\n').format(post.get('description')) if post.get('description') else '',
+                    _('Questions: {}\n').format(data),
+                    _('Products: {}\n').format(products)),
                 'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'solvari')]).id or False,
             }
             request.env['crm.lead'].sudo().create(vals)
             return json.dumps({'success': True})
 
         else:
-            vals = {
-                'url': request.httprequest.url or '',
-                'charset': request.httprequest.charset or '',
-                'content_type': request.httprequest.content_type or '',
-                'mimetype': request.httprequest.mimetype or '',
-                'method': request.httprequest.method or '',
-                'params': ', '.join(['{}:{}'.format(k, v) for k, v in request.params.items()]),
-                'form_data': ', '.join(['{}:{}'.format(k, v) for k, v in request.httprequest.form.items()])
-            }
-            request.env['crm.lead.creation.log'].sudo().create(vals)
             return Response("Wrong parameters", status=400)
