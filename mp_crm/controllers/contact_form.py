@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
 import re
-from collections import OrderedDict
-from werkzeug.datastructures import ImmutableOrderedMultiDict
 from werkzeug.wrappers import Response
 from odoo import http, tools, _
 from odoo.http import request
@@ -11,8 +9,26 @@ from odoo.addons.phone_validation.tools import phone_validation
 
 class ContactForm(http.Controller):
 
+    @http.route('/contact_json', type='json', auth='public', csrf=False, methods=['POST'])
+    def create_lead_from_json(self, **post):
+        try:
+            data = json.loads(request.httprequest.data)
+            # logging request
+            vals = {
+                'url': request.httprequest.url or '',
+                'charset': request.httprequest.charset or '',
+                'content_type': request.httprequest.content_type or '',
+                'mimetype': request.httprequest.mimetype or '',
+                'method': request.httprequest.method or '',
+                'form_data': ', '.join(['{}:{}'.format(k, v) for k, v in data.items()])
+            }
+            request.env['crm.lead.creation.log'].sudo().create(vals)
+            return json.dumps({'success': True})
+        except Exception:
+            return Response("Wrong content", status=400)
+
     @http.route('/contact', type='http', auth='public', csrf=False, methods=['POST'])
-    def create_lead(self, **post):
+    def create_lead_from_http(self, **post):
         # logging request
         vals = {
             'url': request.httprequest.url or '',
