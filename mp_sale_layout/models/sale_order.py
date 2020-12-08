@@ -40,8 +40,10 @@ class MPSaleOrder(models.Model):
                 order.second_payment = order.amount_total - order.first_payment - order.third_payment
 
     def _compute_amount_undiscounted(self):
-        """Overwritten method
-        Changes to discount computation (amount discount instead of % discount)"""
+        """
+        Overwritten method
+        Changes to discount computation (amount discount instead of % discount)
+        """
         for order in self:
             total = 0.0
             for line in order.order_line:
@@ -50,8 +52,10 @@ class MPSaleOrder(models.Model):
             order.amount_undiscounted = total
 
     def _amount_by_group(self):
-        """Overwritten method
-        Changes to discount computation (amount discount instead of % discount)"""
+        """
+        Overwritten method
+        Changes to discount computation (amount discount instead of % discount)
+        """
         for order in self:
             currency = order.currency_id or order.company_id.currency_id
             fmt = partial(formatLang, self.with_context(lang=order.partner_id.lang).env, currency_obj=currency)

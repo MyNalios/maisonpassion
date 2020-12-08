@@ -76,7 +76,8 @@ class MaisonPassionResPartner(models.Model):
 
     @api.model
     def _commercial_fields(self):
-        """ Overriden method
+        """
+        Overridden method
         :return a list of fields which are synchronized between parent and children contacts """
         return super(MaisonPassionResPartner, self)._commercial_fields() + ['ref']
 
