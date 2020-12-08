@@ -16,6 +16,7 @@ class Partner(models.Model):
             partner.documents_count = len(partner.document_ids)
 
     def show_documents_action(self):
+        """ display tree view of technical documents related to current partner """
         self.ensure_one()
         return {
             'name': _('Documents'),

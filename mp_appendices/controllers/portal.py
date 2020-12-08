@@ -7,6 +7,7 @@ from odoo.http import request
 class CustomerPortal(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
+        """ compute document count for portal home """
         values = super(CustomerPortal, self)._prepare_portal_layout_values()
         partner = request.env.user.partner_id
 
