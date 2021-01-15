@@ -35,7 +35,7 @@
             <t t-if="not line.display_type and line.name and len(line.name) &gt; 100">
                 <tr class="bg-100 o_line_note">
                     <td name="td_description_line" colspan="99">
-                        <span t-field="line.name"/>
+                        <span t-field="line.name" t-options="{'widget': 'text'}"/>
                     </td>
                 </tr>
             </t>
