@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mp_account_tax_form" model="ir.ui.view">
+        <field name="name">mp.account.tax.form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced_options']" position="inside">
+                <group>
+                    <field name="note" attrs="{'invisible': [('amount', '!=', 0)]}"/>
+
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
