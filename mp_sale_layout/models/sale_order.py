@@ -17,6 +17,11 @@ class MPSaleOrder(models.Model):
     available_delivery_address_ids = fields.Many2many('res.partner', 'sale_order_delivery_address_rel', 'sale_id',
                                                       'address_id', compute='_compute_available_delivery_address_ids',
                                                       help='Technical field used for delivery address domain')
+    information_message = fields.Text('Information Message')
+    # change label
+    user_id = fields.Many2one('res.users', string='Project Responsible')
+    # change required
+    validity_date = fields.Date(required=True)
 
     @api.depends('partner_id')
     def _compute_available_delivery_address_ids(self):

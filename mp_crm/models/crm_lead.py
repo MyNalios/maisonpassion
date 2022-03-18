@@ -29,9 +29,9 @@ class Lead(models.Model):
          ('other', 'Other Address'),
          ('private', 'Private Address'),
          ], string='Address Type',
-        default='delivery',
-        help="Invoice & Delivery addresses are used in sales orders. Private addresses are only visible by authorized users.")
-    vat = fields.Char(string='Tax ID', help="The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.")
+        default='contact',
+        help='Invoice & Delivery addresses are used in sales orders. Private addresses are only visible by authorized users.')
+    vat = fields.Char(string='Tax ID', help='The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.')
 
     def write(self, vals):
         if (vals.get('type') == 'lead' or self.type == 'lead') \

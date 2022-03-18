@@ -14,20 +14,39 @@
         <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/>
         <xpath expr="//span[@t-field='line.discount']/.." position="replace"/>
         <xpath expr="//span[@id='line_tax_ids']/.." position="replace"/>
+
         <!--        Remove "on Totalamount" from subTotale-->
         <xpath expr="//t[@t-esc='amount_by_group[4]']/.." position="replace"/>
 
         <!-- add contact info and title to partner -->
         <xpath expr="//address[@t-field='o.partner_id']" position="attributes">
-            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name", "phone", "mobile", "mobile_2", "email"], "no_marker": True, "no_contact_marker": False}</attribute>
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
         </xpath>
         <!-- add a space before payment reference -->
         <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
             <br/>
         </xpath>
-
-
-
+        <!-- do not display line description on same line as amounts if description is too long -->
+        <xpath expr="//td[@name='account_invoice_line_name']" position="replace">
+            <td name="account_invoice_line_name">
+                <t t-if="line.name and len(line.name) &lt;= 100">
+                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                </t>
+                <t t-else="">
+                    <span t-field="line.product_id.product_tmpl_id.with_context(lang=o.partner_id.lang).display_name" t-options="{'widget': 'text'}"/>
+                </t>
+            </td>
+        </xpath>
+        <!-- add a new line for product description under order line if description is too long -->
+        <xpath expr="//t[@t-if='not line.display_type']/.." position="after">
+            <t t-if="not line.display_type and line.name and len(line.name) &gt; 100">
+                <tr class="bg-100 o_line_note">
+                    <td name="td_description_line" colspan="99">
+                        <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
     </template>
 
     <template id="report_invoice_document_inherit_sale" inherit_id="sale.report_invoice_document_inherit_sale">
@@ -46,9 +65,9 @@
         <xpath expr="//div[@t-field='o.partner_id']" position="after">
             <br/>
         </xpath>
-        <!-- add contact info and title to partner -->
+        <!-- remove contact info and add title to partner -->
         <xpath expr="//div[@t-field='o.partner_id']" position="attributes">
-            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name", "phone", "mobile", "mobile_2", "email"], "no_marker": True, "no_contact_marker": False}</attribute>
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
         </xpath>
 
     </template>

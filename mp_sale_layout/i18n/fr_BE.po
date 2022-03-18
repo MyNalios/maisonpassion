@@ -6,15 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-09 07:57+0000\n"
-"PO-Revision-Date: 2020-10-09 10:01+0200\n"
+"POT-Creation-Date: 2021-01-10 15:17+0000\n"
+"PO-Revision-Date: 2021-01-10 16:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
 "Language: fr\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.external_layout_clean
@@ -53,6 +54,16 @@ msgid "50-50"
 msgstr ""
 
 #. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<i class=\"fa fa-mobile fa-fw\" role=\"img\" aria-label=\"Mobile\" title=\"Mobile\"/>"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<i class=\"fa fa-phone fa-fw\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.sale_order_portal_content
 msgid "<span>Disc.(Eur)</span>"
 msgstr "<span>Remise(Eur)</span>"
@@ -65,8 +76,7 @@ msgstr "<span>Votre remise</span>"
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
-"<strong>Ces paiements conditionnent l'exécution et la livraison de la "
-"commande.</strong>"
+"<strong>Ces paiements conditionnent l'exécution et la livraison de la commande.</strong>"
 msgstr ""
 
 #. module: mp_sale_layout
@@ -100,6 +110,21 @@ msgid "<strong>Total Taxes Included</strong>"
 msgstr "<strong>Montant total TTC</strong>"
 
 #. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Your Email:</strong>"
+msgstr "<strong>Votre adresse email:</strong>"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Your Phone:</strong>"
+msgstr "<strong>Vos données téléphoniques:</strong>"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Your Project Responsible:</strong>"
+msgstr "<strong>Votre responsable de projet:</strong>"
+
+#. module: mp_sale_layout
 #: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__available_delivery_address_ids
 msgid "Available Delivery Address"
 msgstr "Addresses de livraison disponibles"
@@ -115,6 +140,11 @@ msgid "Discount(Eur)"
 msgstr "Remise(Eur)"
 
 #. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__validity_date
+msgid "Expiration"
+msgstr ""
+
+#. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
 "Fait "
@@ -128,6 +158,11 @@ msgid "First Payment"
 msgstr "Premier paiement"
 
 #. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__information_message
+msgid "Information Message"
+msgstr ""
+
+#. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid "Initial Price"
 msgstr "Prix initial"
@@ -135,8 +170,8 @@ msgstr "Prix initial"
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
-"J'espère que nos conditions vous permettront de nous confier votre ordre et "
-"je vous prie d'agréer,"
+"J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie "
+"d'agréer,"
 msgstr ""
 
 #. module: mp_sale_layout
@@ -150,6 +185,11 @@ msgid "Manual Subtotal"
 msgstr "Sous-total manuel"
 
 #. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.view_order_form
+msgid "Message for customer"
+msgstr "Message à destination du client"
+
+#. module: mp_sale_layout
 #: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__payment_distribution
 msgid "Payments Distribution"
 msgstr "Répartition des paiements"
@@ -157,10 +197,15 @@ msgstr "Répartition des paiements"
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
-"Pour passer commande, il vous suffit de nous renvoyer un exemplaire du "
-"devis et de ses annexes avec un paraphe sur chaque page, une signature ci-"
-"dessous et l'attestation de TVA de 6% complétée s'il y a lieu."
+"Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses "
+"annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA "
+"de 6% complétée s'il y a lieu."
 msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__user_id
+msgid "Project Responsible"
+msgstr "Responsable de projet"
 
 #. module: mp_sale_layout
 #: model:ir.model,name:mp_sale_layout.model_sale_order
@@ -170,7 +215,7 @@ msgstr "Bon de commande"
 #. module: mp_sale_layout
 #: model:ir.model,name:mp_sale_layout.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne de bons de commande"
+msgstr "Ligne du bon de commande"
 
 #. module: mp_sale_layout
 #: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__second_payment
@@ -180,8 +225,8 @@ msgstr "Deuxième paiement"
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
-"Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur "
-"des travaux à effectuer."
+"Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur des travaux à "
+"effectuer."
 msgstr ""
 
 #. module: mp_sale_layout
@@ -207,16 +252,15 @@ msgstr "Votre montant"
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
-"À verser par chèque bancaire certifié au placeur le premier jour des "
-"travaux ou par virement bancaire anticipé 3 jours ouvrables avant la date "
-"de pose:"
+"À verser par chèque bancaire certifié au placeur le premier jour des travaux ou par "
+"virement bancaire anticipé 3 jours ouvrables avant la date de pose:"
 msgstr ""
 
 #. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
 msgid ""
-"À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</"
-"strong> avec la référence"
+"À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</strong> avec la "
+"référence"
 msgstr ""
 
 #. module: mp_sale_layout

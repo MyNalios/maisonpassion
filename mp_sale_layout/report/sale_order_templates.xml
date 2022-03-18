@@ -2,17 +2,18 @@
 <odoo>
 
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <!-- TODO: not needed anymore -->
         <!-- move up page content if there to much info on partner -->
-        <xpath expr="//div[hasclass('page')][1]" position="attributes">
-            <t t-if="(doc.partner_id.mobile_2 or doc.partner_id.mobile) and (doc.partner_id.email or doc.partner_id.phone)">
-                <attribute name="style">margin-top:-5%;</attribute>
-            </t>
-        </xpath>
+<!--        <xpath expr="//div[hasclass('page')][1]" position="attributes">-->
+<!--            <t t-if="(doc.partner_id.mobile_2 or doc.partner_id.mobile) and (doc.partner_id.email or doc.partner_id.phone)">-->
+<!--                <attribute name="style">margin-top:-5%;</attribute>-->
+<!--            </t>-->
+<!--        </xpath>-->
         <!-- delete taxes 'on' amount -->
         <xpath expr="//t[@t-esc='amount_by_group[2]']/.." position="replace"/>
         <!-- add contact info and title to partner -->
         <xpath expr="//div[@t-field='doc.partner_id']" position="attributes">
-            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name", "phone", "mobile", "mobile_2", "email"], "no_marker": True, "no_contact_marker": False}</attribute>
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
         </xpath>
         <!--
         delete invoice address
@@ -26,12 +27,16 @@
                     t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
             </t>
         </xpath>
+        <!-- add information message before sale order lines -->
+        <xpath expr="//t[@t-set='display_discount']" position="after">
+            <p t-field="doc.information_message"/>
+        </xpath>
         <!-- delete taxes column -->
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
         <xpath expr="//td[@name='td_taxes']" position="replace"/>
         <!-- delete payment terms -->
         <xpath expr="//p[@t-if='doc.payment_term_id.note']" position="replace"/>
-        <!-- delete quantity colunm -->
+        <!-- delete quantity column -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
         <xpath expr="//td[@name='td_quantity']" position="replace"/>
         <!-- replace discount label -->
@@ -58,6 +63,26 @@
             </th>
         </xpath>
 
+        <!-- add contact info to information block -->
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="doc.partner_id.email" class="col-auto mw-100 mb-2">
+                <strong>Your Email:</strong>
+                <p class="m-0" t-field="doc.partner_id.email"/>
+            </div>
+            <div t-if="doc.partner_id.mobile or doc.partner_id.phone" class="col-auto mw-100 mb-2">
+                <strong>Your Phone:</strong>
+                <p t-if="doc.partner_id.mobile" class="m-0"><i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/><span t-field="doc.partner_id.mobile"/></p>
+                <p t-if="doc.partner_id.phone" class="m-0"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="doc.partner_id.phone"/></p>
+            </div>
+        </xpath>
+        <!-- reduce spaces before and after information block -->
+        <xpath expr="//div[@id='informations']" position="attributes">
+            <attribute name="class">row mt16 mb8</attribute>
+        </xpath>
+        <!-- replace salesman label -->
+        <xpath expr="//div[@t-if='doc.user_id.name']/strong" position="replace">
+            <strong>Your Project Responsible:</strong>
+        </xpath>
         <!-- replace total amount label -->
         <xpath expr="//td[@name='td_amount_total_label']/strong" position="replace">
             <strong>Total Taxes Included</strong>
@@ -67,6 +92,7 @@
             <t t-if="display_discount and line.discount">
                  <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
+            <!-- TODO: not needed anymore -->
             <!-- hide unit price if no discount instead of text-muted -->
             <!--            <t t-else="">-->
             <!--                <span t-field="line.price_unit" t-options='{"widget": "monetary"}' class="text-muted"/>-->
@@ -77,6 +103,7 @@
             <t t-if="line.discount">
                 <span t-field="line.discount" t-options='{"widget": "monetary"}' class="font-weight-bold"/>
             </t>
+            <!-- TODO: not needed anymore -->
             <!-- hide discount if no discount instead of text-muted -->
             <!--            <t t-else="">-->
             <!--                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="text-muted"/>-->
@@ -104,7 +131,7 @@
                 </t>
             </td>
         </xpath>
-        <!-- add a new line for product description under order line if description is too long -->
+        <!-- add a new line for product description under invoice line if description is too long -->
         <xpath expr="//t[@t-if='not line.display_type']/.." position="after">
             <t t-if="not line.display_type and line.name and len(line.name) &gt; 100">
                 <tr class="bg-100 o_line_note">
@@ -115,6 +142,7 @@
             </t>
         </xpath>
 
+        <!-- TODO: not needed anymore -->
         <!-- hide total summary if there is no line with a subtotal -->
 <!--        <xpath expr="//div[@name='so_total_summary']" position="attributes">-->
 <!--            <attribute name="t-if">display_line_total</attribute>-->
@@ -162,6 +190,7 @@
                         </table>
                     </div>
                 </t>
+                <!-- TODO: not needed anymore -->
                 <!-- only show total and not payments -->
 <!--                <t t-else="">-->
 <!--                    <table width="100%">-->
@@ -189,13 +218,13 @@
                             <strong>Pour Maison Passion</strong>
                             <p t-field="doc.user_id"/>
                         </div>
-                        <div class="offset-8">
+                        <div class="offset-7">
                             <strong>Signature(s) pour accord et commande</strong>
                         </div>
-                        <div class="offset-8">
+                        <div class="offset-7">
                             <p>
                                 <t t-if="doc.partner_id.title">
-                                    <span t-field="doc.partner_id.title"/>&amp;nbsp;
+                                    <span t-field="doc.partner_id.title.shortcut"/>
                                 </t>
                                 <span t-field="doc.partner_id.name"/>
                             </p>
