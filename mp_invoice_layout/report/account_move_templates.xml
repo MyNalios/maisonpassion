@@ -4,6 +4,9 @@
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <!-- delete unnecessary columns -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
+        <xpath expr="//p[@name='comment']" position="inside">
+                <t t-esc="note"></t>
+        </xpath>
         <xpath expr="//th[@name='th_priceunit']" position="replace"/>
         <xpath expr="//th[@name='th_price_unit']" position="replace"/>
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
