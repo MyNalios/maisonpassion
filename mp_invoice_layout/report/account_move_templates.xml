@@ -11,7 +11,11 @@
         <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/>
         <xpath expr="//span[@t-field='line.discount']/.." position="replace"/>
         <xpath expr="//span[@id='line_tax_ids']/.." position="replace"/>
-        <!-- remove contact info and add title to partner -->
+
+        <!--        Remove "on Totalamount" from subTotale-->
+        <xpath expr="//t[@t-esc='amount_by_group[4]']/.." position="replace"/>
+
+        <!-- add contact info and title to partner -->
         <xpath expr="//address[@t-field='o.partner_id']" position="attributes">
             <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
         </xpath>
