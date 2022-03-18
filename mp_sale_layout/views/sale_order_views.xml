@@ -22,6 +22,11 @@
                 <attribute name="optional">hide</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='payment_term_id']/.." position="after">
+                <group colspan="4">
+                    <field name="information_message" placeholder="Message for customer"/>
+                </group>
+            </xpath>
             <!-- addresses -->
             <xpath expr="//field[@name='partner_shipping_id']" position="before">
                 <field name="available_delivery_address_ids" invisible="1"/>
@@ -33,9 +38,6 @@
                 <attribute name="invisible">True</attribute>
             </xpath>
 
-            <xpath expr="//field[@name='validity_date']" position="attributes">
-                <attribute name="required">True</attribute>
-            </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>

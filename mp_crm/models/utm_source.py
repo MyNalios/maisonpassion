@@ -8,4 +8,5 @@ class UtmSource(models.Model):
         ('tech_name_uniq', 'unique (technical_name)', 'Technical name must be unique !'),
     ]
 
+    active = fields.Boolean(string='Active', default=True)
     technical_name = fields.Char(string='Technical Name')

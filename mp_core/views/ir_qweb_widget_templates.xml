@@ -7,10 +7,10 @@
             <div t-if="'name' in fields and 'title' in fields">
                 <t t-if="object.name">
                     <t t-if="object.parent_name">
-                        <span itemprop="name" t-esc="object.parent_name"/>,&amp;nbsp;
+                        <span itemprop="name" t-esc="object.parent_name"/>
                     </t>
                     <t t-if="object.title">
-                        <span itemprop="title" t-esc="object.title.name"/>&amp;nbsp;
+                        <span itemprop="title" t-esc="object.title.shortcut"/>
                     </t>
                     <span itemprop="name" t-esc="object.name"/>
                 </t>
