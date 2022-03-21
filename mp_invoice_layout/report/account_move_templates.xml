@@ -49,7 +49,7 @@
         </xpath>
         <!--        add tax note-->
         <xpath expr="//div[@class='page']" position="inside">
-            <t t-if="o.line_ids.tax_ids.filtered(lambda tax: tax.amount==0)" t-esc="o.line_ids.tax_ids.filtered(lambda tax: tax.note)[0].note"></t>
+            <t t-if="o.line_ids.tax_ids.filtered(lambda tax: tax.amount==0)" t-esc="o.line_ids.tax_ids.filtered(lambda tax: tax.note).sorted(key=lambda tax :tax.amount)[0].note"></t>
 
         </xpath>
     </template>
