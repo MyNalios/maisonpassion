@@ -4,10 +4,6 @@
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <!-- delete unnecessary columns -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
-        <xpath expr="//p[@name='note']" position="after">
-                <t  t-esc="note"></t>
-            hello
-        </xpath>
         <xpath expr="//th[@name='th_priceunit']" position="replace"/>
         <xpath expr="//th[@name='th_price_unit']" position="replace"/>
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
@@ -21,7 +17,9 @@
 
         <!-- add contact info and title to partner -->
         <xpath expr="//address[@t-field='o.partner_id']" position="attributes">
-            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True,
+                "no_contact_marker": False}
+            </attribute>
         </xpath>
         <!-- add a space before payment reference -->
         <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
@@ -34,7 +32,8 @@
                     <span t-field="line.name" t-options="{'widget': 'text'}"/>
                 </t>
                 <t t-else="">
-                    <span t-field="line.product_id.product_tmpl_id.with_context(lang=o.partner_id.lang).display_name" t-options="{'widget': 'text'}"/>
+                    <span t-field="line.product_id.product_tmpl_id.with_context(lang=o.partner_id.lang).display_name"
+                          t-options="{'widget': 'text'}"/>
                 </t>
             </td>
         </xpath>
@@ -48,6 +47,11 @@
                 </tr>
             </t>
         </xpath>
+        <!--        add tax note-->
+        <xpath expr="//p[@name='note']" position="after">
+            <t t-if="o.line_ids.tax_ids.filtered(lambda tax: tax.amount==0)" t-esc="o.line_ids.tax_ids.filtered(lambda tax: tax.amount==0)[0].note"></t>
+
+        </xpath>
     </template>
 
     <template id="report_invoice_document_inherit_sale" inherit_id="sale.report_invoice_document_inherit_sale">
@@ -57,7 +61,8 @@
                 <t t-set="information_block">
                     <div groups="sale.group_delivery_invoice_address">
                         <strong>Shipping Address:</strong>
-                        <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        <div t-field="o.partner_shipping_id"
+                             t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
                     </div>
                 </t>
             </t>
@@ -68,7 +73,9 @@
         </xpath>
         <!-- remove contact info and add title to partner -->
         <xpath expr="//div[@t-field='o.partner_id']" position="attributes">
-            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True,
+                "no_contact_marker": False}
+            </attribute>
         </xpath>
 
     </template>
