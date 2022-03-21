@@ -22,9 +22,9 @@
             </attribute>
         </xpath>
         <!-- add a space before payment reference -->
-        <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
-            <br/>
-        </xpath>
+                <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
+                    <br/>
+                </xpath>
         <!-- do not display line description on same line as amounts if description is too long -->
         <xpath expr="//td[@name='account_invoice_line_name']" position="replace">
             <td name="account_invoice_line_name">
@@ -48,8 +48,20 @@
             </t>
         </xpath>
         <!--        add tax note-->
-        <xpath expr="//p[@name='note']" position="after">
-            <t t-if="o.line_ids.tax_ids.filtered(lambda tax: tax.amount==0)" t-esc="o.line_ids.tax_ids.filtered(lambda tax: tax.amount==0)[0].note"></t>
+        <xpath expr="//div[@class='page']" position="inside">
+            <t t-set="tax_added"
+               t-value="[item[0] for item in o.amount_by_group]"/>
+            <t t-set="condition" t-value="True"></t>
+            <t t-foreach="tax_added" t-as="t">
+                <t t-if="condition">
+                    <p>
+                        <t t-if="o.line_ids.tax_ids.filtered(lambda tax: tax.tax_group_id.display_name==t)[0].note">
+                            <t t-esc="o.line_ids.tax_ids.filtered(lambda tax: tax.tax_group_id.display_name==t)[0].note"/>
+                            <t t-set="condition" t-value="False"></t>
+                        </t>
+                    </p>
+                </t>
+            </t>
 
         </xpath>
     </template>
