@@ -51,13 +51,17 @@
         <xpath expr="//div[@class='page']" position="inside">
             <t t-set="tax_added"
                t-value="[item[0] for item in o.amount_by_group]"/>
+            <t t-esc="o.amount_by_group"></t>
             <t t-set="condition" t-value="True"></t>
             <t t-foreach="tax_added" t-as="t">
                 <t t-if="condition">
                     <p>
-                        <t t-if="o.line_ids.tax_ids.filtered(lambda tax: tax.tax_group_id.display_name==t)[0].note">
-                            <t t-esc="o.line_ids.tax_ids.filtered(lambda tax: tax.tax_group_id.display_name==t)[0].note"/>
+                        <t t-foreach="o.line_ids.tax_ids.filtered(lambda tax: tax.tax_group_id.display_name==t)" t-as="tax">
+                            <t t-if="tax.note and  condition">
+                                 <t t-esc="tax.note"/>
                             <t t-set="condition" t-value="False"></t>
+                            </t>
+
                         </t>
                     </p>
                 </t>
