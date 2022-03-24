@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
 {
     'name': "Maison Passion Invoice Layout",
-    'version': '13.0.0.1',
+    'version': '15.0',
     'category': 'Accounting/Accounting',
     'summary': 'Modifications to Invoices layout',
     'author': 'dwa@idealisconsulting - Idealis Consulting',

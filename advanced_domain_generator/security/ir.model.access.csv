@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_simplified_domain,access_simplified_domain,model_simplified_domain,base.group_user,1,0,0,0
-access_simplified_domain_group_no_one,access_simplified_domain_group_no_one,model_simplified_domain,base.group_system,1,1,1,1
-access_simplified_domain_line,access_simplified_domain_line,model_simplified_domain_line,base.group_user,1,0,0,0
-access_simplified_domain_line_group_no_one,access_simplified_domain_line_group_no_one,model_simplified_domain_line,base.group_system,1,1,1,1
