@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree Views -->
+    <record id="sale_technical_document_view_tree" model="ir.ui.view">
+        <field name="name">sale.technical.document.view.tree</field>
+        <field name="model">sale.technical.document</field>
+        <field name="arch" type="xml">
+            <tree string="Technical Document">
+                <field name="name"/>
+                <field name="partner_ids" invisible="1"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="attachment_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form Views -->
+    <record id="sale_technical_document_view_form" model="ir.ui.view">
+        <field name="name">sale.technical.document.view.form</field>
+        <field name="model">sale.technical.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Information">
+                            <field name="name"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Document Tags..."/>
+                            <field name="partner_ids" invisible="1"/>
+                        </group>
+                        <group string="Attachment">
+                            <field name="attachment_id" string="File or Url"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search Views -->
+    <record id="sale_technical_document_view_search" model="ir.ui.view">
+        <field name="name">sale.technical.document.view.search</field>
+        <field name="model">sale.technical.document</field>
+        <field name="arch" type="xml">
+            <search string="Search Technical Document">
+                <field name="name" string="Document Name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="tag_ids" string="Tag" filter_domain="[('tag_ids', 'ilike', self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="sale_technical_document_action" model="ir.actions.act_window">
+        <field name="name">Technical Documents</field>
+        <field name="res_model">sale.technical.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sale_technical_document_view_search"/>
+    </record>
+
+    <!-- Menu structure-->
+    <menuitem
+        id="sale_technical_document_menu"
+        name="Appendices"
+        web_icon="mp_appendices,static/description/icon.png"
+        sequence="75"/>
+
+    <menuitem
+        id="sale_technical_document_menu_all_documents"
+        name="Documents"
+        action="sale_technical_document_action"
+        parent="sale_technical_document_menu"
+        sequence="5"/>
+
+    <menuitem
+        id="sale_technical_document_menu_config"
+        name="Configuration"
+        parent="sale_technical_document_menu"
+        sequence="20"/>
+
+    <menuitem
+            id="sale_technical_document_menu_tag_config"
+            name="Document Tags"
+            parent="sale_technical_document_menu_config"
+            action="sale_technical_document_tag_action"
+            sequence="25"/>
+
+</odoo>
