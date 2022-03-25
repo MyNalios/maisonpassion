@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="advanced_domain_generator_view_form" model="ir.ui.view">
+        <field name="name">advanced.domain.generator.view.form</field>
+        <field name="model">advanced.domain.generator</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="is_simplified_domain" invisible="1"/>
+                    <field name="filter_domain_model" invisible="1"/>
+                    <field name="filter_domain" widget="domain" options="{'use_field_as_model': 'filter_domain_model'}"/>
+                    <div style="height: 400px;"/>
+                    <footer>
+                        <footer>
+                            <button string="Save" name="validate_domain" type="object" class="btn-primary"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_advanced_domain_generator" model="ir.actions.act_window">
+        <field name="name">Advanced Domain Generator</field>
+        <field name="res_model">advanced.domain.generator</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>
