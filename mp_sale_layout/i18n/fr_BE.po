@@ -1,0 +1,225 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mp_sale_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-09 07:57+0000\n"
+"PO-Revision-Date: 2020-10-09 10:01+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.external_layout_clean
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ", l'expression de mes sentiments distingués."
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.external_layout_clean
+msgid "- Tel."
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.external_layout_clean
+msgid "-&amp;nbsp;&amp;nbsp;"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.external_layout_clean
+msgid "-&amp;nbsp;&amp;nbsp;<span>RPM Liège, division Namur</span>"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields.selection,name:mp_sale_layout.selection__sale_order__payment_distribution__three_payments
+msgid "40-50-10"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields.selection,name:mp_sale_layout.selection__sale_order__payment_distribution__two_payments
+msgid "50-50"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.sale_order_portal_content
+msgid "<span>Disc.(Eur)</span>"
+msgstr "<span>Remise(Eur)</span>"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<span>Your Discount</span>"
+msgstr "<span>Votre remise</span>"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"<strong>Ces paiements conditionnent l'exécution et la livraison de la "
+"commande.</strong>"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Montant total TTC de votre commande:</strong>"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Payments</strong>"
+msgstr "<strong>Paiements</strong>"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Pour Maison Passion</strong>"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Shipping Address:</strong>"
+msgstr "<strong>Adresse de livraison:</strong>"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Signature(s) pour accord et commande</strong>"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "<strong>Total Taxes Included</strong>"
+msgstr "<strong>Montant total TTC</strong>"
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__available_delivery_address_ids
+msgid "Available Delivery Address"
+msgstr "Addresses de livraison disponibles"
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order_line__discount
+msgid "Discount (EUR)"
+msgstr "Remise (EUR)"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.view_order_form
+msgid "Discount(Eur)"
+msgstr "Remise(Eur)"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"Fait "
+"à ................................................................................................., "
+"le .................................................. ."
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__first_payment
+msgid "First Payment"
+msgstr "Premier paiement"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "Initial Price"
+msgstr "Prix initial"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"J'espère que nos conditions vous permettront de nous confier votre ordre et "
+"je vous prie d'agréer,"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.external_layout_clean
+msgid "Logo"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order_line__price_subtotal_manual
+msgid "Manual Subtotal"
+msgstr "Sous-total manuel"
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__payment_distribution
+msgid "Payments Distribution"
+msgstr "Répartition des paiements"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"Pour passer commande, il vous suffit de nous renvoyer un exemplaire du "
+"devis et de ses annexes avec un paraphe sur chaque page, une signature ci-"
+"dessous et l'attestation de TVA de 6% complétée s'il y a lieu."
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model,name:mp_sale_layout.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: mp_sale_layout
+#: model:ir.model,name:mp_sale_layout.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__second_payment
+msgid "Second Payment"
+msgstr "Deuxième paiement"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"Si une fin de chantier subsiste, le montant retenu n'excèdera pas la valeur "
+"des travaux à effectuer."
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,help:mp_sale_layout.field_sale_order__available_delivery_address_ids
+msgid "Technical field used for delivery address domain"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order__third_payment
+msgid "Third Payment"
+msgstr "Troisième paiement"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "Total Price"
+msgstr "Prix total"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "Your Amount"
+msgstr "Votre montant"
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"À verser par chèque bancaire certifié au placeur le premier jour des "
+"travaux ou par virement bancaire anticipé 3 jours ouvrables avant la date "
+"de pose:"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid ""
+"À verser à la commande sur le compte bancaire <strong>BE24 2500 2034 5938</"
+"strong> avec la référence"
+msgstr ""
+
+#. module: mp_sale_layout
+#: model_terms:ir.ui.view,arch_db:mp_sale_layout.report_saleorder_document
+msgid "À verser à la fin des travaux:"
+msgstr ""
