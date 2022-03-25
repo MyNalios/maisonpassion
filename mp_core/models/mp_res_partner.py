@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
@@ -94,4 +92,4 @@ class MaisonPassionResPartner(models.Model):
             partner.phone = self.phone_format(partner.phone if partner.phone else "")
             partner.mobile = self.phone_format(partner.mobile if partner.mobile else "")
             partner.mobile_2 = self.phone_format(partner.mobile_2 if partner.mobile_2 else "")
-
+            

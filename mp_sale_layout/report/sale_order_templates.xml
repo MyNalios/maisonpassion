@@ -4,13 +4,12 @@
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <!-- TODO: not needed anymore -->
         <!-- move up page content if there to much info on partner -->
-<!--        <xpath expr="//div[hasclass('page')][1]" position="attributes">-->
-<!--            <t t-if="(doc.partner_id.mobile_2 or doc.partner_id.mobile) and (doc.partner_id.email or doc.partner_id.phone)">-->
-<!--                <attribute name="style">margin-top:-5%;</attribute>-->
-<!--            </t>-->
-<!--        </xpath>-->
-        <!-- delete taxes 'on' amount -->
-        <xpath expr="//t[@t-esc='amount_by_group[2]']/.." position="replace"/>
+        <xpath expr="//div[hasclass('page')][1]" position="attributes">
+            <t t-if="(doc.partner_id.mobile_2 or doc.partner_id.mobile) and (doc.partner_id.email or doc.partner_id.phone)">
+                <attribute name="style">margin-top:-5%;</attribute>
+            </t>
+        </xpath>
+
         <!-- add contact info and title to partner -->
         <xpath expr="//div[@t-field='doc.partner_id']" position="attributes">
             <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
@@ -35,8 +34,8 @@
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
         <xpath expr="//td[@name='td_taxes']" position="replace"/>
         <!-- delete payment terms -->
-        <xpath expr="//p[@t-if='doc.payment_term_id.note']" position="replace"/>
-        <!-- delete quantity column -->
+        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']" position="replace"/>
+        <!-- delete quantity colunm -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
         <xpath expr="//td[@name='td_quantity']" position="replace"/>
         <!-- replace discount label -->
@@ -84,7 +83,7 @@
             <strong>Your Project Responsible:</strong>
         </xpath>
         <!-- replace total amount label -->
-        <xpath expr="//td[@name='td_amount_total_label']/strong" position="replace">
+        <xpath expr="//td[@name='td_section_subtotal']/strong" position="replace">
             <strong>Total Taxes Included</strong>
         </xpath>
         <!-- add style to unit price according to discount -->

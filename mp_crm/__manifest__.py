@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Maison Passion CRM',
-    'version': '13.0.0.1',
+    'version': '15.0',
     'category': 'Sales/CRM',
     'summary': '',
     'author': 'dwa@idealisconsulting - Idealis Consulting',
     'website': 'http://www.idealisconsulting.com',
-    'depends': ['mp_core'],
+    'depends': ['mp_core', 'crm', 'sales_team'],
     'data': [
         'views/crm_lead_views.xml',
         'views/res_partner_views.xml',

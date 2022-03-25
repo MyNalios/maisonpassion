@@ -47,7 +47,7 @@ class ContactForm(http.Controller):
                 formatted_services = re.sub('\s*,\s*', ',', post['services[]'])
                 tag_names = formatted_services.split(',')
                 for tag_name in tag_names:
-                    tag = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag_name)], limit=1)
+                    tag = request.env['crm.tag'].sudo().search([('technical_name', '=', tag_name)], limit=1)
                     if tag:
                         tag_ids.append(tag.id)
 
@@ -76,7 +76,7 @@ class ContactForm(http.Controller):
                 formatted_services = re.sub('\s*,\s*', ',', post['services'])
                 tag_names = formatted_services.split(',')
                 for tag_name in tag_names:
-                    tag = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag_name)])
+                    tag = request.env['crm.tag'].sudo().search([('technical_name', '=', tag_name)])
                     if tag:
                         tag_ids.append(tag.id)
 

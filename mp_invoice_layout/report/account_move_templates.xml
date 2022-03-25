@@ -22,51 +22,8 @@
             </attribute>
         </xpath>
         <!-- add a space before payment reference -->
-                <xpath expr="//span[@t-field='o.invoice_payment_ref']/../.." position="before">
-                    <br/>
-                </xpath>
-        <!-- do not display line description on same line as amounts if description is too long -->
-        <xpath expr="//td[@name='account_invoice_line_name']" position="replace">
-            <td name="account_invoice_line_name">
-                <t t-if="line.name and len(line.name) &lt;= 100">
-                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
-                </t>
-                <t t-else="">
-                    <span t-field="line.product_id.product_tmpl_id.with_context(lang=o.partner_id.lang).display_name"
-                          t-options="{'widget': 'text'}"/>
-                </t>
-            </td>
-        </xpath>
-        <!-- add a new line for product description under order line if description is too long -->
-        <xpath expr="//t[@t-if='not line.display_type']/.." position="after">
-            <t t-if="not line.display_type and line.name and len(line.name) &gt; 100">
-                <tr class="bg-100 o_line_note">
-                    <td name="td_description_line" colspan="99">
-                        <span t-field="line.name" t-options="{'widget': 'text'}"/>
-                    </td>
-                </tr>
-            </t>
-        </xpath>
-        <!--        add tax note-->
-        <xpath expr="//div[@class='page']" position="inside">
-            <t t-set="tax_added"
-               t-value="[item[0] for item in o.amount_by_group]"/>
-            <t t-esc="o.amount_by_group"></t>
-            <t t-set="condition" t-value="True"></t>
-            <t t-foreach="tax_added" t-as="t">
-                <t t-if="condition">
-                    <p>
-                        <t t-foreach="o.line_ids.tax_ids.filtered(lambda tax: tax.tax_group_id.display_name==t)" t-as="tax">
-                            <t t-if="tax.note and  condition">
-                                 <t t-esc="tax.note"/>
-                            <t t-set="condition" t-value="False"></t>
-                            </t>
-
-                        </t>
-                    </p>
-                </t>
-            </t>
-
+        <xpath expr="//span[@t-field='o.payment_reference']" position="before">
+            <br/>
         </xpath>
     </template>
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Maison Passion Addendum',
-    'version': '13.0.0.1',
+    'version': '15.0',
     'author': 'Idealis Consulting',
     'category': 'Tools',
     'description': 'Module allowing to merge pdfs with existing reports',
