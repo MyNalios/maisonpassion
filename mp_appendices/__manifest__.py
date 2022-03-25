@@ -2,7 +2,7 @@
 
 {
     'name': "Maison Passion Portal Appendices",
-    'version': '13.0.0.1',
+    'version': '15.0',
     'category': 'Operations/Helpdesk',
     'summary': 'Add Technical Documents for Partners to Portal',
     'sequence': 90,

@@ -1,6 +1,6 @@
 {
     "name": "Advanced Domain Generator",
-    "version": "1.0",
+    "version": "15.0",
     "author": "Idealis Consulting",
     "category": "Agoria",
     "website": "http://www.idealisconsulting.com",
