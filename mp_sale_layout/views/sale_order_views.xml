@@ -48,6 +48,9 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="attributes">
                 <attribute name="widget">monetary</attribute>
             </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <field name="validation_date" string="Validation date" />
+             </xpath>
 
         </field>
     </record>
