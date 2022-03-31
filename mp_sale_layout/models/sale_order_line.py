@@ -8,6 +8,7 @@ class MPSaleOrderLine(models.Model):
     discount = fields.Float(string='Discount (EUR)', digits='Product Price', default=0.0)
     price_subtotal_manual = fields.Monetary(string='Manual Subtotal', readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]})
     validation_date = fields.Date(string="Validation date")
+    display_type = fields.Selection(selection_add=[('line_break', 'Page break')])
     # price_subtotal = fields.Monetary(compute='_compute_amount', inverse='_inverse_price_subtotal', string='Subtotal',
     #                                  readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, store=True)
 
