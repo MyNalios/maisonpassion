@@ -62,6 +62,14 @@
             </th>
         </xpath>
 
+        <xpath expr="//tbody[1]/t/tr" position="after">
+            <t t-if="line.display_type == 'line_break'">
+                <td>
+                    <div style="page-break-after: always;" />
+                </td>
+            </t>
+        </xpath>
+        
         <!-- add contact info to information block -->
         <xpath expr="//div[@id='informations']" position="inside">
             <div t-if="doc.partner_id.email" class="col-auto mw-100 mb-2">
