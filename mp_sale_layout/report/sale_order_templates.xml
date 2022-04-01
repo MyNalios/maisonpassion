@@ -4,11 +4,11 @@
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <!-- TODO: not needed anymore -->
         <!-- move up page content if there to much info on partner -->
-        <xpath expr="//div[hasclass('page')][1]" position="attributes">
+        <!--<xpath expr="//div[hasclass('page')][1]" position="attributes">
             <t t-if="(doc.partner_id.mobile_2 or doc.partner_id.mobile) and (doc.partner_id.email or doc.partner_id.phone)">
                 <attribute name="style">margin-top:-5%;</attribute>
             </t>
-        </xpath>
+        </xpath>-->
 
         <!-- add contact info and title to partner -->
         <xpath expr="//div[@t-field='doc.partner_id']" position="attributes">
@@ -69,7 +69,7 @@
                 </td>
             </t>
         </xpath>
-        
+
         <!-- add contact info to information block -->
         <xpath expr="//div[@id='informations']" position="inside">
             <div t-if="doc.partner_id.email" class="col-auto mw-100 mb-2">
