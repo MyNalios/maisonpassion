@@ -43,8 +43,8 @@ class AccountMove(models.Model):
                     # changes happen here
                     price_unit_comp_curr = sign * (base_line.price_unit - base_line.discount)
                     # end of changes
-                tax_type = 'sale' if move.type.startswith('out_') else 'purchase'
-                is_refund = move.type in ('out_refund', 'in_refund')
+                tax_type = 'sale' if move.move_type.startswith('out_') else 'purchase'
+                is_refund = move.move_type in ('out_refund', 'in_refund')
             else:
                 handle_price_include = False
                 quantity = 1.0
@@ -64,7 +64,7 @@ class AccountMove(models.Model):
                 handle_price_include=handle_price_include,
             )
 
-            if move.type == 'entry':
+            if move.move_type == 'entry':
                 repartition_field = is_refund and 'refund_repartition_line_ids' or 'invoice_repartition_line_ids'
                 repartition_tags = base_line.tax_ids.mapped(repartition_field).filtered(
                     lambda x: x.repartition_type == 'base').tag_ids
@@ -84,11 +84,11 @@ class AccountMove(models.Model):
                     quantity=quantity,
                     product=base_line.product_id,
                     partner=base_line.partner_id,
-                    is_refund=self.type in ('out_refund', 'in_refund'),
+                    is_refund=self.move_type in ('out_refund', 'in_refund'),
                     handle_price_include=handle_price_include,
                 )
 
-                if move.type == 'entry':
+                if move.move_type == 'entry':
                     repartition_field = is_refund and 'refund_repartition_line_ids' or 'invoice_repartition_line_ids'
                     repartition_tags = base_line.tax_ids.mapped(repartition_field).filtered(
                         lambda x: x.repartition_type == 'base').tag_ids
@@ -137,14 +137,14 @@ class AccountMove(models.Model):
         # ==== Mount base lines ====
         for line in self.line_ids.filtered(lambda line: not line.tax_repartition_line_id):
             # Don't call compute_all if there is no tax.
-            if not line.tax_ids:
-                line.tag_ids = [(5, 0, 0)]
+            if not line.tax_tag_ids:
+                line.tax_tag_ids = [(5, 0, 0)]
                 continue
 
             compute_all_vals = _compute_base_line_taxes(line)
 
             # Assign tags on base line
-            line.tag_ids = compute_all_vals['base_tags'] or [(5, 0, 0)]
+            line.tax_tag_ids = compute_all_vals['base_tags'] or [(5, 0, 0)]
 
             tax_exigible = True
             for tax_vals in compute_all_vals['taxes']:

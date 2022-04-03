@@ -33,7 +33,7 @@ class AccountMoveLine(models.Model):
         return res
 
     @api.model
-    def _get_fields_onchange_balance_model(self, quantity, discount, balance, move_type, currency, taxes, price_subtotal, force_computation=False):
+    def _get_fields_onchange_balance_model(self, quantity, discount, amount_currency, move_type, currency, taxes, price_subtotal, force_computation=False):
         ''' Overwritten method
             Changes to computation including discount in percent
         '''
@@ -43,14 +43,14 @@ class AccountMoveLine(models.Model):
             sign = -1
         else:
             sign = 1
-        balance *= sign
+        amount_currency *= sign
 
         # Avoid rounding issue when dealing with price included taxes. For example, when the price_unit is 2300.0 and
         # a 5.5% price included tax is applied on it, a balance of 2300.0 / 1.055 = 2180.094 ~ 2180.09 is computed.
         # However, when triggering the inverse, 2180.09 + (2180.09 * 0.055) = 2180.09 + 119.90 = 2299.99 is computed.
         # To avoid that, set the price_subtotal at the balance if the difference between them looks like a rounding
         # issue.
-        if not force_computation and currency.is_zero(balance - price_subtotal):
+        if not force_computation and currency.is_zero(amount_currency - price_subtotal):
             return {}
 
         taxes = taxes.flatten_taxes_hierarchy()
@@ -70,27 +70,27 @@ class AccountMoveLine(models.Model):
             # 220           | 10% incl, 5%  |                   | 200               | 230
             # 20            |               | 10% incl          | 20                | 20
             # 10            |               | 5%                | 10                | 10
-            taxes_res = taxes._origin.with_context(force_sign=self.move_id._get_tax_force_sign()).compute_all(balance, currency=currency, handle_price_include=False)
+            taxes_res = taxes._origin.with_context(force_sign=self.move_id._get_tax_force_sign()).compute_all(amount_currency, currency=currency, handle_price_include=False)
             for tax_res in taxes_res['taxes']:
                 tax = self.env['account.tax'].browse(tax_res['id'])
                 if tax.price_include:
-                    balance += tax_res['amount']
+                    amount_currency += tax_res['amount']
 
         # changes here
-        discount_factor = balance - discount
-        if balance and discount_factor:
+        discount_factor = amount_currency - discount
+        if amount_currency and discount_factor:
             # discount != 100%
             vals = {
                 'quantity': quantity or 1.0,
                 # changes here
-                'price_unit': (balance + discount) / (quantity or 1.0),
+                'price_unit': (amount_currency + discount) / (quantity or 1.0),
             }
-        elif balance and not discount_factor:
+        elif amount_currency and not discount_factor:
             # discount == 100%
             vals = {
                 'quantity': quantity or 1.0,
                 'discount': 0.0,
-                'price_unit': balance / (quantity or 1.0),
+                'price_unit': amount_currency / (quantity or 1.0),
             }
         elif not discount_factor:
             # balance of line is 0, but discount  == 100% so we display the normal unit_price
