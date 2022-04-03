@@ -33,7 +33,7 @@
 
     <template id="external_layout_bold" inherit_id="web.external_layout_bold">
    
-        <xpath expr="//div[3]//div[hasclass('row')]" position="attributes">
+        <xpath expr="//div[3]/div[hasclass('row')]" position="attributes">
             <attribute name="style">display: none</attribute>
             
         </xpath>
