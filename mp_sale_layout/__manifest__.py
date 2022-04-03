@@ -12,7 +12,7 @@
         'report/sale_order_templates.xml',
         'views/sale_order_views.xml',
         'views/sale_order_templates.xml',
-        'report/external_layout_templates.xml',
+        #'report/external_layout_templates.xml',
     ],
      'assets': {
         'web.assets_backend': [
