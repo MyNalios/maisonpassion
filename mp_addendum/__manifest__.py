@@ -8,7 +8,9 @@
     'summary': 'Merge pdfs with existing reports',
     'website': 'http://www.idealisconsulting.com',
     'depends': ['account', 'sale', 'base', 'advanced_domain_generator'],
-    'data': ['views/ago_addendum.xml', 'security/ir.model.access.csv', 'security/ago_ir_rule.xml'],
+    'data': [
+    # 'views/ago_addendum.xml', 'security/ir.model.access.csv', 'security/ago_ir_rule.xml'
+    ],
     'demo': [],
     'test': [],
     'active': False,
