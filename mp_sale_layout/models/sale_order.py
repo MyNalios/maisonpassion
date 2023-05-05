@@ -53,7 +53,7 @@ class MPSaleOrder(models.Model):
             total = 0.0
             for line in order.order_line:
                 # Changes here to discount computation (amount instead of %)
-                total += line.price_subtotal + (line.discount or 0.0) * line.product_uom_qty  # why is there a discount in a field named amount_undiscounted ??
+                total += line.price_subtotal + (line.discount_eur or 0.0) * line.product_uom_qty  # why is there a discount in a field named amount_undiscounted ??
             order.amount_undiscounted = total
 
     def _amount_by_group(self):
@@ -67,7 +67,7 @@ class MPSaleOrder(models.Model):
             res = {}
             for line in order.order_line:
                 # Changes here to discount computation (amount instead of %)
-                price_reduce = line.price_unit - line.discount
+                price_reduce = line.price_unit - line.discount_eur
                 taxes = line.tax_id.compute_all(price_reduce, quantity=line.product_uom_qty, product=line.product_id, partner=order.partner_shipping_id)['taxes']
                 for tax in line.tax_id:
                     group = tax.tax_group_id

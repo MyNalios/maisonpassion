@@ -180,11 +180,6 @@ msgid "Logo"
 msgstr ""
 
 #. module: mp_sale_layout
-#: model:ir.model.fields,field_description:mp_sale_layout.field_sale_order_line__price_subtotal_manual
-msgid "Manual Subtotal"
-msgstr "Sous-total manuel"
-
-#. module: mp_sale_layout
 #: model_terms:ir.ui.view,arch_db:mp_sale_layout.view_order_form
 msgid "Message for customer"
 msgstr "Message à destination du client"

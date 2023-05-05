@@ -35,7 +35,7 @@
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
         <xpath expr="//td[@name='td_quantity']" position="replace"/>
         <!-- replace discount label -->
-        <xpath expr="//th[@name='th_discount']/span" position="replace">
+        <xpath expr="//th[@name='th_discount']/span" position="after">
                 <span>Your Discount</span>
         </xpath>
         <!-- replace unit price label -->
@@ -45,7 +45,7 @@
 
         <!-- set display_line_total in order to hide or not line total -->
         <xpath expr="//t[@t-set='display_discount']" position="after">
-            <t t-set="display_line_total" t-value="any([l for l in doc.order_line if l.price_subtotal or l.discount or l.price_unit])"/>
+            <t t-set="display_line_total" t-value="any([l for l in doc.order_line if l.price_subtotal or l.discount_eur or l.price_unit])"/>
         </xpath>
 
         <!-- replace line amount label -->
@@ -92,7 +92,7 @@
         </xpath>
         <!-- add style to unit price according to discount -->
         <xpath expr="//td[@name='td_priceunit']/span" position="replace">
-            <t t-if="display_discount and line.discount">
+            <t t-if="display_discount and line.discount_eur">
                  <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
             <!-- TODO: not needed anymore -->
@@ -102,9 +102,9 @@
             <!--            </t>-->
         </xpath>
         <!-- add style to line discount according to discount -->
-        <xpath expr="//span[@t-field='line.discount']" position="replace">
-            <t t-if="line.discount">
-                <span t-field="line.discount" t-options='{"widget": "monetary"}' class="font-weight-bold"/>
+        <xpath expr="//span[@t-field='line.discount']" position="after">
+            <t t-if="line.discount_eur">
+                <span t-field="line.discount_eur" t-options='{"widget": "monetary"}' class="font-weight-bold"/>
             </t>
             <!-- TODO: not needed anymore -->
             <!-- hide discount if no discount instead of text-muted -->
@@ -115,10 +115,10 @@
         <!-- add style to line total according to discount -->
         <!-- hide line subtotal if subtotal, discount et price_unit = 0.0 -->
         <xpath expr="//td[@name='td_subtotal']/span[@t-field='line.price_subtotal']" position="replace">
-            <t t-if="line.discount">
+            <t t-if="line.discount_eur">
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" class="font-weight-bold"/>
             </t>
-            <t t-elif="not line.discount and line.price_subtotal == 0 and line.price_unit == 0"/>
+            <t t-elif="not line.discount_eur and line.price_subtotal == 0 and line.price_unit == 0"/>
             <t t-else="">
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
             </t>
