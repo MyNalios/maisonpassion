@@ -57,7 +57,7 @@
         </xpath>-->
     </template>
 
-    <template id="external_layout_bold" inherit_id="web.external_layout_bold">
+    <!--<template id="external_layout_bold" inherit_id="web.external_layout_bold">
 
         <xpath expr="//div[3]" position="replace">
             <div t-attf-class="footer o_clean_footer o_company_#{company.id}_layout">
@@ -103,5 +103,5 @@
             </div>
         </xpath>
 
-    </template>
+    </template>-->
 </odoo>
