@@ -23,7 +23,7 @@
                 <field name="source_id"/>
                 <field name="referred_partner_id"/>
             </xpath>
-<!--            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="after">-->
+<!--         partner_phone_update   <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="after">-->
 <!--                <field name="referred_partner_id"/>-->
 <!--            </xpath>-->
 
@@ -37,7 +37,7 @@
                 <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
             </xpath>
-            <xpath expr="//sheet/group/group[2]/field[@name='partner_phone_update']" position="before">
+            <xpath expr="//field[@name='partner_phone_update']" position="before">
                 <label for="street" string="Address"/>
                 <div class="o_address_format">
                     <field name="street" placeholder="Street..." class="o_address_street"/>
@@ -59,10 +59,10 @@
             </xpath>
 
 
-            <xpath expr="//sheet/group/group[1]/field[@name='partner_name']" position="after">
+            <xpath expr="//field[@name='partner_name']" position="after">
                 <field name="address_type"/>
             </xpath>
-            <xpath expr="//sheet/group/group[1]/field[@name='partner_name']" position="before">
+            <xpath expr="//field[@name='partner_name']" position="before">
                 <label for="contact_name"/>
                 <div class="o_row">
                     <field name="contact_name"/>
