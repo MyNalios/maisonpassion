@@ -7,16 +7,16 @@
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
             <!-- change referred to referred_partner_id and move referred_partner_id and source_id on main window -->
-            <xpath expr="//page[@name='extra']/group/group[@name='categorization']/field[@name='referred']" position="attributes">
+            <xpath expr="//field[@name='referred']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='extra']/group/group[@name='categorization']/field[@name='source_id']" position="attributes">
+            <xpath expr="//field[@name='source_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="attributes">
+            <xpath expr="//page[@name='lead']//field[@name='referred']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[3]/field[@name='source_id']" position="attributes">
+            <xpath expr="//page[@name='lead']//field[@name='source_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='team_id']" position="after">

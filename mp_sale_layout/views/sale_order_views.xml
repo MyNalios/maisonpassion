@@ -9,9 +9,9 @@
             <xpath expr="//tree/field[@name='product_uom_qty']" position="attributes">
                 <attribute name="optional">hide</attribute>
             </xpath>
-            <xpath expr="//tree/field[@name='discount_eur']" position="attributes">
+            <!--<xpath expr="//tree/field[@name='discount_eur']" position="attributes">
                 <attribute name="string">Discount(Eur)</attribute>
-            </xpath>
+            </xpath>-->
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="payment_distribution"/>
             </xpath>
@@ -40,9 +40,6 @@
             </xpath>
 
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
-                <attribute name="widget">monetary</attribute>
-            </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='discount_eur']" position="attributes">
                 <attribute name="widget">monetary</attribute>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
