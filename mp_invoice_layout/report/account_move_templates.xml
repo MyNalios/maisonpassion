@@ -21,9 +21,9 @@
             </attribute>
         </xpath>-->
         <!-- add a space before payment reference -->
-        <xpath expr="//span[@t-field='o.payment_reference']" position="before">
+        <!--<xpath expr="//span[@t-field='o.payment_reference']" position="before">
             <br/>
-        </xpath>
+        </xpath>-->
     </template>
 
     <!--<template id="report_invoice_document_inherit_sale" inherit_id="sale.report_invoice_document_inherit_sale">
