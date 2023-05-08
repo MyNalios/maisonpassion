@@ -16,7 +16,7 @@
             </field>
         </record>
 
-        <record id="view_crm_lead2opportunity_partner_mass" model="ir.ui.view">
+        <!--<record id="view_crm_lead2opportunity_partner_mass" model="ir.ui.view">
             <field name="name">view_crm.lead2opportunity.partner.mass.inherited.convert.context</field>
             <field name="model">crm.lead2opportunity.partner.mass</field>
             <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner_mass"/>
@@ -25,5 +25,5 @@
                     <attribute name="context">{'no_contact_synchronization': True}</attribute>
                 </xpath>
             </field>
-        </record>
+        </record>-->
 </odoo>
