@@ -37,7 +37,7 @@
                 <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
             </xpath>
-            <xpath expr="//field[@name='partner_phone_update']" position="before">
+            <!--<xpath expr="//field[@name='partner_phone_update']" position="before">
                 <label for="street" string="Address"/>
                 <div class="o_address_format">
                     <field name="street" placeholder="Street..." class="o_address_street"/>
@@ -47,7 +47,7 @@
                     <field name="zip" placeholder="ZIP" class="o_address_zip"/>
                     <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                 </div>
-            </xpath>
+            </xpath>-->
             <xpath expr="//page[@name='lead']/group/group[1]/label[@for='street_page_lead']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
