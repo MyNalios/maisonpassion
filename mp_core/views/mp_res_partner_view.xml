@@ -45,7 +45,6 @@
 
             <!-- Title before name -->
             <xpath expr="//field[@name='title']" position="replace"/>
-            <xpath expr="//field[@name='company_type']" position="replace"/>
             <xpath expr="//h1[1]" position="replace" />
             <xpath expr="//field[@name='country_code']" position="after">
                 <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
