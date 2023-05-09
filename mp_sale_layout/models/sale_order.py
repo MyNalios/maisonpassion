@@ -83,12 +83,12 @@ class MPSaleOrder(models.Model):
                 len(res),
             ) for l in res]
 
-    @api.onchange('partner_id')
-    def onchange_partner_id(self):
-        """
-        Overridden method
-        Delivery address is no longer updated according to partner_id
-        """
-        super(MPSaleOrder, self).onchange_partner_id()
-        self.update({'partner_shipping_id': False,})
+    # @api.onchange('partner_id')
+    # def onchange_partner_id(self):
+    #     """
+    #     Overridden method
+    #     Delivery address is no longer updated according to partner_id
+    #     """
+    #     super(MPSaleOrder, self).onchange_partner_id()
+    #     self.update({'partner_shipping_id': False,})
 
