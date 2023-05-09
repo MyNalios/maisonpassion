@@ -37,6 +37,14 @@
                 <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
             </xpath>
+            <xpath expr="//group//group[5]//field[@name='team_id']" position="after">
+                <field name="source_id"/>
+                <field name="referred_partner_id"/>
+            </xpath>
+            <xpath expr="//group[@name='lead_info']" position="inside">
+                <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
+                <field name="vat" />
+            </xpath>
             <!--<xpath expr="//field[@name='partner_phone_update']" position="before">
                 <label for="street" string="Address"/>
                 <div class="o_address_format">

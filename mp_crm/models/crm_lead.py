@@ -60,7 +60,7 @@ class Lead(models.Model):
             partner = self.env['res.partner'].search(domain)
             # if there is more than one related partner, return none of them
             if len(partner) == 1:
-                onchange_values = self._onchange_partner_id_values(partner.id)
+                onchange_values = self._prepare_values_from_partner(partner)
                 onchange_values.update({
                     'partner_id': partner.id,
                     'mobile': partner.mobile,
