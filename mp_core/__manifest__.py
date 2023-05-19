@@ -1,6 +1,6 @@
 {
     'name': "Maison Passion Core",
-    'version': '15.0',
+    'version': '16.0',
     'category': 'All',
     'summary': 'Add Logic in the different models of Odoo in order to correspond with the way of working of the Maison Passion company.',
     'author': 'Idealis Consulting',
