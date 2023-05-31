@@ -45,6 +45,9 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
                 <field name="validation_date" string="Validation date" />
              </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="before">
+                <field name="discount_eur" string="Remise €" />
+             </xpath>
              <xpath expr="//control" position="inside">
                 <create name="page_break" string="Add page break" context="{'default_display_type': 'line_break'}"/>
                 </xpath>

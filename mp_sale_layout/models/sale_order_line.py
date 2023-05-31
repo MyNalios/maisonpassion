@@ -25,11 +25,12 @@ class MPSaleOrderLine(models.Model):
     #             'price_total': taxes['total_included'],
     #         })
 
-    @api.depends('price_unit', 'discount_eur')
-    def _get_price_reduce(self):
-        #TODO 
-        """Overwritten method
-        Changes to discount computation (amount discount instead of % discount)"""
-        for line in self:
-            # changes here
-            line.price_reduce = line.price_unit - line.discount_eur
+    # @api.depends('price_unit', 'discount_eur')
+    # def _get_price_reduce(self):
+    #     #TODO 
+    #     """Overwritten method
+    #     Changes to discount computation (amount discount instead of % discount)"""
+    #     for line in self:
+    #         # changes here
+    #         line.price_reduce = line.price_unit - line.discount_eur
+

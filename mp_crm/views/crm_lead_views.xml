@@ -5,8 +5,31 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
+
+            <!-- <xpath expr="//field[@name='phone']" position="after">
+                <group>
+                    <field name="source_id" />
+                    <field name="referred_partner_id" />
+                </group>
+          </xpath> -->
+            <xpath expr="//group[@name='opportunity_partner']" position="inside">
+                    <field name="source_id" />
+                    <field name="referred_partner_id" />
+            </xpath>
+            <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="source_id" />
+                    <field name="referred_partner_id" />
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="mobile" />
+                <field name="mobile_2" />
+            </xpath>
+            <xpath expr="//group[@name='lead_info']" position="inside">
+                <field name="mobile_2" />
+            </xpath>
+
             <!-- change referred to referred_partner_id and move referred_partner_id and source_id on main window -->
-            <xpath expr="//field[@name='referred']" position="attributes">
+            <!-- <xpath expr="//field[@name='referred']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='source_id']" position="attributes">
@@ -21,32 +44,32 @@
             <xpath expr="//field[@name='team_id']" position="after">
                 <field name="source_id"/>
                 <field name="referred_partner_id"/>
-            </xpath>
+            </xpath> -->
 <!--         partner_phone_update   <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="after">-->
 <!--                <field name="referred_partner_id"/>-->
 <!--            </xpath>-->
 
             <!-- add a ribbon widget for existing partner -->
-            <xpath expr="//widget[@name='web_ribbon']" position="before">
+            <!-- <xpath expr="//widget[@name='web_ribbon']" position="before">
                 <widget name="web_ribbon" bg_color="bg-info" title="Partner" attrs="{'invisible': ['|', ('partner_id', '=', False), ('type', '!=', 'lead')]}"/>
-            </xpath>
+            </xpath> -->
 
             <!-- add address and mobile numbers on opportunity main window instead of follow-up notebook -->
-            <xpath expr="//field[@name='phone'][1]" position="after">
+            <!-- <xpath expr="//field[@name='phone'][1]" position="after">
                 <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
             </xpath>
             <xpath expr="//group[@name='lead_info']" position="inside">
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
                 <field name="vat" />
-            </xpath>
-            <xpath expr="//group[@name='opportunity_partner']" position="inside">
+            </xpath> -->
+            <xpath expr="//field[@name='phone']" position="after">
                 <field name="mobile" />
-                <field name="mobile_2" />
-                <xpath expr="//field[@name='user_id']" position="move" />
+                <!-- <field name="mobile_2" /> -->
+                <!-- <xpath expr="//field[@name='user_id']" position="move" />
                 <field name="team_id" />
                 <field name="source_id" />
-                <field name="referred_partner_id" />
+                <field name="referred_partner_id" /> -->
             </xpath>
             <!--<xpath expr="//field[@name='partner_phone_update']" position="before">
                 <label for="street" string="Address"/>

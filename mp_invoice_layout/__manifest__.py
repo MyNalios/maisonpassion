@@ -9,7 +9,7 @@
     'data': [
          'report/account_move_templates.xml',
          'views/account_move_views.xml',
-         'views/sale_advance_payment_inv_views.xml',
+        #  'views/sale_advance_payment_inv_views.xml',
          'views/account_tax_from_view.xml',
     ],
     'installable': True,

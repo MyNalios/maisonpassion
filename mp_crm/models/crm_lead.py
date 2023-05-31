@@ -38,6 +38,17 @@ class Lead(models.Model):
                 and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
+        print(f'Voici le vals du write{vals}')
+        print(f'Voici le self du write{self}')
+        customer = self.partner_id
+        if 'mobile' in vals:
+            customer.mobile = vals['mobile']
+        if 'mobile_2'in vals:
+            customer.mobile_2 = vals['mobile_2']
+        if 'referred_partner_id'in vals:
+            customer.referred_partner_id = vals['referred_partner_id']
+        if 'source_id'in vals:
+            customer.source_id = vals['source_id']
         return super(Lead, self).write(vals)
 
     @api.model
@@ -46,6 +57,15 @@ class Lead(models.Model):
                 and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
+        customer = self.env['res.partner'].browse(vals['partner_id'])
+        if vals['mobile']:
+            customer.mobile = vals['mobile']
+        if vals['mobile_2']:
+            customer.mobile_2 = vals['mobile_2']
+        if vals['referred_partner_id']:
+            customer.referred_partner_id = vals['referred_partner_id']
+        if vals['source_id']:
+            customer.source_id = vals['source_id']
         return super(Lead, self).create(vals)
 
     def _get_partner_vals_from_email(self, email=None, phone=None, mobile=None):
