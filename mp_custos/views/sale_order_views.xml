@@ -14,13 +14,13 @@
                         <strong t-esc="doc.tax_totals['formatted_amount_total']"/>
                     </div>
                 </div>
-                <div class="row" t-foreach="doc.get_payment_term_lines_distribution()" t-as="data">
+                <t t-set="data" t-value="doc.get_payment_term_lines_distribution()"/>
+                <div class="row" t-foreach="data.keys()" t-as="key">
                     <div class="col-10">
-                        <span t-out="data['text']"/>
+                        <span t-out="data[key]['text']"/>
                     </div>
-                    <div class="col-2">
-                        <span t-out="data['amount']"
-                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                    <div class="col-2 text-end">
+                        <span t-out="data[key]['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                     </div>
                 </div>
                 <div class="row">

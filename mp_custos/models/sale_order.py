@@ -12,7 +12,7 @@ class SaleOrder(models.Model):
         data = OrderedDict()
         amount_total = self.amount_total
         index_max = len(self.payment_term_id.line_ids) - 1
-        for index, line in self.payment_term_id.line_ids.sorted(lambda x: x.sequence):
+        for index, line in enumerate(self.payment_term_id.line_ids.sorted(lambda x: x.sequence)):
             amount = round(amount_total / 100 * line.value_amount, 2)
             if index == index_max:
                 if line.max_amount and line.max_amount < amount:
@@ -23,6 +23,10 @@ class SaleOrder(models.Model):
                 'text': line.distribution_text,
                 'amount': amount
             }
+        calculated_amount = sum(d['amount'] for d in data.values())
+        if calculated_amount != amount_total:
+            missing_cents = amount_total - calculated_amount
+            data[index-1]['amount'] += missing_cents
         return data
 
 
