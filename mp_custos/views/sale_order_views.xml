@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']" position="replace">
+            <p t-if="not is_html_empty(doc.payment_term_id.note) and not doc.payment_term_id.is_personalized">
+                <span t-field="doc.payment_term_id.note"/>
+            </p>
+            <p t-elif="not is_html_empty(doc.payment_term_id.note) and doc.payment_term_id.is_personalized">
+                <div class="row">
+                    <div class="col-6">
+                        <span style="color: #AF6F7E">Paiements</span>
+                    </div>
+                    <div class="col-6 text-end">
+                        <strong t-esc="doc.tax_totals['formatted_amount_total']"/>
+                    </div>
+                </div>
+                <div class="row" t-foreach="doc.get_payment_term_lines_distribution()" t-as="data">
+                    <div class="col-10">
+                        <span t-out="data['text']"/>
+                    </div>
+                    <div class="col-2">
+                        <span t-out="data['amount']"
+                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span style="color: #AF6F7E">Ces paiements conditionnent l&amp;apos;exécution et la livraison de votre commande</span>
+                    </div>
+                </div>
+            </p>
+        </xpath>
+    </template>
+</odoo>
