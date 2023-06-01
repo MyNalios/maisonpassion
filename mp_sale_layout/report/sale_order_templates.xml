@@ -151,7 +151,7 @@
 <!--        </xpath>-->
 
         <!-- add payments distribution -->
-        <xpath expr="//div[hasclass('page')]" position="after">
+        <!-- <xpath expr="//div[hasclass('page')]" position="after">
             <div class="page">
                 <t t-if="doc.amount_total != 0.0">
                     <div style="page-break-inside: avoid;">
@@ -191,7 +191,7 @@
                            </tr>
                         </table>
                     </div>
-                </t>
+                </t> -->
                 <!-- TODO: not needed anymore -->
                 <!-- only show total and not payments -->
 <!--                <t t-else="">-->
@@ -204,7 +204,7 @@
 <!--                    </table>-->
 <!--                </t>-->
                <!-- add customer signature -->
-               <div style="padding-top: 20px; page-break-inside: avoid;">
+               <!-- <div style="padding-top: 20px; page-break-inside: avoid;">
                    <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA de 6% complétée s'il y a lieu.</p>
                    <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
                         <t t-if="doc.partner_id.title">
@@ -234,7 +234,7 @@
                     </div>
                </div>
            </div>
-        </xpath>
+        </xpath> -->
     </template>
 
 </odoo>

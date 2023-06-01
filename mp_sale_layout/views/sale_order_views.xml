@@ -35,10 +35,6 @@
                 <attribute name="invisible">True</attribute>
             </xpath>
 
-            <xpath expr="//field[@name='payment_term_id']" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </xpath>
-
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
                 <attribute name="widget">monetary</attribute>
             </xpath>
