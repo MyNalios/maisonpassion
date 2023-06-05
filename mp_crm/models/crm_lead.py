@@ -38,8 +38,6 @@ class Lead(models.Model):
                 and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
-        print(f'Voici le vals du write{vals}')
-        print(f'Voici le self du write{self}')
         customer = self.partner_id
         if 'mobile' in vals:
             customer.mobile = vals['mobile']
@@ -71,8 +69,6 @@ class Lead(models.Model):
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
         customer = self.env['res.partner'].browse(vals['partner_id'])
-        print(f'vals{vals}')
-        print(f'self{self.street}')
         if vals['mobile']:
             customer.mobile = vals['mobile']
         if vals['mobile_2']:
@@ -94,6 +90,16 @@ class Lead(models.Model):
             customer.zip = vals['zip']
         if vals['country_id']:
             customer.country_id = vals['country_id']
+        return res
+    
+    def _prepare_customer_values(self, partner_name, is_company=False, parent_id=False):
+        res = super()._prepare_customer_values(partner_name, is_company,parent_id)
+        dict_new_values = {
+            'mobile_2': self.mobile_2,
+            'referred_partner_id' : self.referred_partner_id.id,
+            'source_id' : self.source_id.id
+        }
+        res.update(dict_new_values)
         return res
 
     def _get_partner_vals_from_email(self, email=None, phone=None, mobile=None):
