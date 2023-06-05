@@ -49,6 +49,19 @@ class Lead(models.Model):
             customer.referred_partner_id = vals['referred_partner_id']
         if 'source_id'in vals:
             customer.source_id = vals['source_id']
+        if 'street' in vals:
+            customer.street = vals['street']
+        if 'street2' in vals:
+            customer.street2 = vals['street2']
+        if 'city' in vals:
+            customer.city = vals['city']
+        if 'state_id' in vals:
+            customer.state_id = vals['state_id']
+        if 'zip' in vals:
+            customer.zip = vals['zip']
+        if 'country_id' in vals:
+            customer.country_id = vals['country_id']
+                                
         return super(Lead, self).write(vals)
 
     @api.model
@@ -58,6 +71,8 @@ class Lead(models.Model):
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
         customer = self.env['res.partner'].browse(vals['partner_id'])
+        print(f'vals{vals}')
+        print(f'self{self.street}')
         if vals['mobile']:
             customer.mobile = vals['mobile']
         if vals['mobile_2']:
@@ -66,7 +81,20 @@ class Lead(models.Model):
             customer.referred_partner_id = vals['referred_partner_id']
         if vals['source_id']:
             customer.source_id = vals['source_id']
-        return super(Lead, self).create(vals)
+        res = super(Lead, self).create(vals)
+        if vals['street']:
+            customer.street = vals['street']
+        if vals['street2']:
+            customer.street2 = vals['street2']
+        if vals['city']:
+            customer.city = vals['city']
+        if vals['state_id']:
+            customer.state_id = vals['state_id']
+        if vals['zip']:
+            customer.zip = vals['zip']
+        if vals['country_id']:
+            customer.country_id = vals['country_id']
+        return res
 
     def _get_partner_vals_from_email(self, email=None, phone=None, mobile=None):
         domain = []

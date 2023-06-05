@@ -4,15 +4,35 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
-          <xpath expr="//field[@name='phone']" position="after">
-              <field name="source_id" />
-              <field name="referred_partner_id" />
+          <xpath expr="//group[@name='opportunity_partner']" position="inside">
+            <field name="source_id" />
+            <field name="referred_partner_id" />
+            <field name="partner_name" />
+            <label for="street" string="Address"/>
+                <div class="o_address_format">
+                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                    <field name="city" placeholder="City" class="o_address_city"/>
+                    <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                    <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                </div>
           </xpath>
-          <xpath expr="//field[@name='tagsd']" position="after">
+          <xpath expr="//field[@name='tag_ids']" position="after">
             <field name="mobile" />
             <field name="mobile_2" />
           </xpath>
+          <xpath expr="//group[@name='lead_info']" position="inside">
+              <field name="mobile_2" />
+          </xpath>
+            <xpath expr="//field[@name='team_id']" position="after">
+              <field name="source_id" />
+              <field name="referred_partner_id" />
+            </xpath>
+
         </field>
+
+
       </record>
 
 </odoo>
