@@ -5,7 +5,7 @@
             <p t-if="not is_html_empty(doc.payment_term_id.note) and not doc.payment_term_id.is_personalized">
                 <span t-field="doc.payment_term_id.note"/>
             </p>
-            <p t-elif="doc.payment_term_id.is_personalized">
+            <p t-elif="doc.payment_term_id.is_personalized" style="page-break-inside: avoid;">
                 <div class="row">
                     <div class="col-6">
                         <span style="color: #AF6F7E">Paiements</span>
