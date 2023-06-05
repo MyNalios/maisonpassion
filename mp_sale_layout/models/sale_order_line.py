@@ -34,3 +34,6 @@ class MPSaleOrderLine(models.Model):
     #         # changes here
     #         line.price_reduce = line.price_unit - line.discount_eur
 
+    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id', 'discount_eur')
+    def _compute_amount(self):
+        super()._compute_amount()
