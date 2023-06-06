@@ -39,17 +39,17 @@
         </xpath>
         <!-- replace unit price label -->
         <xpath expr="//th[@name='th_priceunit']" position="replace">
-            <th name="th_priceunit" class="text-right"><t t-if="display_discount">Initial Price</t></th>
+            <th name="th_priceunit" class="text-end"><t t-if="any(line.discount_eur for line in doc.order_line)">Initial Price</t></th>
         </xpath>
 
         <!-- set display_line_total in order to hide or not line total -->
-        <xpath expr="//t[@t-set='display_discount']" position="after">
+        <!-- <xpath expr="//t[@t-set='display_discount']" position="after">
             <t t-set="display_line_total" t-value="any([l for l in doc.order_line if l.price_subtotal or l.discount_eur or l.price_unit])"/>
-        </xpath>
+        </xpath> -->
 
         <!-- replace line amount label -->
         <xpath expr="//th[@name='th_subtotal']" position="replace">
-            <th name="th_subtotal" class="text-right">
+            <th name="th_subtotal" class="text-end">
                 <t t-if="display_line_total">
                     <t groups="account.group_show_line_subtotals_tax_excluded">Your Amount</t>
                     <t groups="account.group_show_line_subtotals_tax_included">Total Price</t>
@@ -91,7 +91,7 @@
         </xpath>
         <!-- add style to unit price according to discount -->
         <xpath expr="//td[@name='td_priceunit']/span" position="replace">
-            <t t-if="display_discount and line.discount_eur">
+            <t t-if="line.discount_eur">
                  <span t-field="line.price_unit" t-options='{"widget": "monetary"}' style="text-decoration: line-through"/>
             </t>
             <!-- TODO: not needed anymore -->
@@ -121,6 +121,13 @@
             <t t-else="">
                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
             </t>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']" position="before">
+            <th name="th_discount_eur" class="text-end"> <t t-if="any(line.discount_eur for line in doc.order_line)">Votre remise</t>  </th>
+        </xpath>
+                <xpath expr="//td[@name='td_subtotal']" position="before">
+            <td name="td_discount_eur" class="text-end"> 
+            <t t-if="line.discount_eur"> <span t-field="line.discount_eur"/> €</t> </td>
         </xpath>
         <!-- do not display line description on same line as amounts if description is too long -->
         <xpath expr="//td[@name='td_name']" position="replace">
