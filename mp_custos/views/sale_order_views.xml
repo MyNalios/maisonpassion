@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']/.." position="attributes">
+            <attribute name="style">page-break-inside: avoid;</attribute>
+        </xpath>
         <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']" position="replace">
             <p t-if="not is_html_empty(doc.payment_term_id.note) and not doc.payment_term_id.is_personalized">
                 <span t-field="doc.payment_term_id.note"/>
@@ -29,9 +32,6 @@
                     </div>
                 </div>
             </p>
-        </xpath>
-        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']/.." position="attributes">
-            <attribute name="style">page-break-inside: avoid;</attribute>
         </xpath>
     </template>
     <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
