@@ -19,10 +19,10 @@
                 </div>
                 <t t-set="data" t-value="doc.get_payment_term_lines_distribution()"/>
                 <div class="row" t-foreach="data.keys()" t-as="key">
-                    <div class="col-10">
+                    <div class="col-10 mt-3">
                         <span t-out="data[key]['text']"/>
                     </div>
-                    <div class="col-2 text-end">
+                    <div class="col-2 text-end mt-3">
                         <span t-out="data[key]['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                     </div>
                 </div>

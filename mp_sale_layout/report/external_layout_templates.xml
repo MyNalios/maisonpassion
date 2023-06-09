@@ -61,11 +61,10 @@
 
         <xpath expr="//div[3]" position="replace">
             <div t-attf-class="footer o_clean_footer o_company_#{company.id}_layout">
-
                 <div class="text-center" style="border-top: 1px solid black;">
                     <ul class="list-inline mb4">
                         <div class="text-center">
-                            <br />
+                            <br/>
                             <ul class="list-inline mb4">
                                 <li t-if="company.name" class="list-inline-item d-inline">
                                     <span t-field="company.name" />
@@ -80,7 +79,7 @@
                                     -&amp;nbsp;&amp;nbsp;
                                     <t>RPM Liège, division Namur</t>
                                 </li>
-                                <li t-if="company.bank_ids" class="list-inline-item d-inline">
+                                <li t-if="'bank_ids' in company._fields and company.bank_ids"  class="list-inline-item d-inline">
                                     -&amp;nbsp;&amp;nbsp;
                                     <t t-set="bank" t-value="company.bank_ids.filtered(lambda bank: bank.partner_id == company.partner_id)" />
                                     <t t-if="bank">
@@ -92,13 +91,6 @@
                             </ul>
                         </div>
                     </ul>
-
-                    <div t-if="report_type == 'pdf'" class="text-muted">
-                        Page:
-                        <span class="page" />
-                        /
-                        <span class="topage" />
-                    </div>
                 </div>
             </div>
         </xpath>
