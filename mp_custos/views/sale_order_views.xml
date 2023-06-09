@@ -19,23 +19,22 @@
                 </div>
                 <t t-set="data" t-value="doc.get_payment_term_lines_distribution()"/>
                 <div class="row" t-foreach="data.keys()" t-as="key">
-                    <div class="col-10 mt-3">
+                    <div class="col-10 mt-2 mb-2">
                         <span t-out="data[key]['text']"/>
                     </div>
-                    <div class="col-2 text-end mt-3">
+                    <div class="col-2 text-end mt-2 mb-2">
                         <span t-out="data[key]['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                     </div>
                 </div>
             </p>
             <div class="row">
+
                     <div class="col-12">
-                        <span style="color: #AF6F7E">Ces paiements conditionnent l&amp;apos;exécution et la livraison de votre commande</span>
+                        <span>Si une fin de chantier subsiste, le montant retenu ne sera pas supérieur à la valeur des travaux restant à effectuer.</span>
+
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                                <strong>Montant total TTC de votre commande:</strong>
-                                <span t-field="doc.amount_total" class="font-weight-bold text-end"/>
+                    <div class="col-12 mt-3">
+                        <span style="color: #AF6F7E">Ces paiements conditionnent l&amp;apos;exécution et la livraison de votre commande</span>
                     </div>
                 </div>
                 <div class="row">
@@ -48,6 +47,7 @@
                             </t>
                             <span t-field="doc.partner_id.name"/>
                             , l'expression de mes sentiments distingués.</p>
+                            <p> En acceptant ce devis, vous déclarez accepter nos conditions générales accessibles sur :<a t-attf-href = "http://www.maisonpassion.be/cgv" > www.maisonpassion.be/cgv </a> </p>
                             <p>Fait à ................................................................................................., le .................................................. .</p>
                         </div>
                     </div>
