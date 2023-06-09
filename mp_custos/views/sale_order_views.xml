@@ -26,12 +26,49 @@
                         <span t-out="data[key]['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                     </div>
                 </div>
-                <div class="row">
+            </p>
+            <div class="row">
                     <div class="col-12">
                         <span style="color: #AF6F7E">Ces paiements conditionnent l&amp;apos;exécution et la livraison de votre commande</span>
                     </div>
                 </div>
-            </p>
+                <div class="row">
+                    <div class="col-12">
+                                <strong>Montant total TTC de votre commande:</strong>
+                                <span t-field="doc.amount_total" class="font-weight-bold text-end"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div style="padding-top: 20px; page-break-inside: avoid;">
+                            <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA de 6% complétée s'il y a lieu.</p>
+                            <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
+                            <t t-if="doc.partner_id.title">
+                                <span t-field="doc.partner_id.title"/>&amp;nbsp;
+                            </t>
+                            <span t-field="doc.partner_id.name"/>
+                            , l'expression de mes sentiments distingués.</p>
+                            <p>Fait à ................................................................................................., le .................................................. .</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt32 ml64 mr4" name="signature">
+                    <div class="float-left">
+                        <strong>Pour Maison Passion</strong>
+                        <p t-field="doc.user_id"/>
+                    </div>
+                    <div class="offset-7">
+                        <strong>Signature(s) pour accord et commande</strong>
+                    </div>
+                    <div class="offset-7">
+                        <p>
+                            <t t-if="doc.partner_id.title">
+                                <span t-field="doc.partner_id.title.shortcut"/>
+                            </t>
+                            <span t-field="doc.partner_id.name"/>
+                        </p>
+                    </div>
+                </div>
         </xpath>
     </template>
     <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
