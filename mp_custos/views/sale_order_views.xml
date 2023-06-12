@@ -47,12 +47,12 @@
                             </t>
                             <span t-field="doc.partner_id.name"/>
                             , l'expression de mes sentiments distingués.</p>
-                            <p> En acceptant ce devis, vous déclarez accepter nos conditions générales accessibles sur :<a t-attf-href = "http://www.maisonpassion.be/cgv" > www.maisonpassion.be/cgv </a> </p>
+                            <strong style="color : black;"> En acceptant ce devis, vous déclarez accepter nos conditions générales accessibles sur :<a t-attf-href = "http://www.maisonpassion.be/cgv" > www.maisonpassion.be/cgv </a> </strong>
                             <p>Fait à ................................................................................................., le .................................................. .</p>
                         </div>
                     </div>
                 </div>
-                <div class="mt32 ml64 mr4" name="signature">
+                <div class="mt32 ml64 mr4 mb-5" name="signature">
                     <div class="float-left">
                         <strong>Pour Maison Passion</strong>
                         <p t-field="doc.user_id"/>
