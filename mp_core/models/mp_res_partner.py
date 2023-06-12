@@ -44,7 +44,7 @@ class MaisonPassionResPartner(models.Model):
     @api.onchange('mobile_2', 'country_id', 'company_id')
     def _onchange_mobile_2_validation(self):
         if self.mobile_2:
-            self.mobile_2 = self.phone_format(self.mobile_2)
+            self.mobile_2 = self._phone_format(self.mobile_2)
 
     def write(self, vals):
         """

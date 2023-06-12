@@ -28,11 +28,11 @@
                 </div>
             </p>
             <div class="row">
-
-                    <div class="col-12">
-                        <span>Si une fin de chantier subsiste, le montant retenu ne sera pas supérieur à la valeur des travaux restant à effectuer.</span>
-
-                    </div>
+                <div class="col-12">
+                    <span>Si une fin de chantier subsiste, le montant retenu ne sera pas supérieur à la valeur des travaux restant à effectuer.</span>
+                </div>
+            </div>
+            <div class="row">
                     <div class="col-12 mt-3">
                         <span style="color: #AF6F7E">Ces paiements conditionnent l&amp;apos;exécution et la livraison de votre commande</span>
                     </div>
@@ -69,7 +69,9 @@
                         </p>
                     </div>
                 </div>
+                <xpath expr="//p[@name='order_note']" position="move"/>
         </xpath>
+
     </template>
     <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
         <xpath expr="//table[@id='sales_order_table']//th[position()=3]" position="replace">

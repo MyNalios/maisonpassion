@@ -68,14 +68,16 @@
         <!-- add contact info to information block -->
         <xpath expr="//div[@id='informations']" position="inside">
             <div t-if="doc.partner_id.email" class="col-auto mw-100 mb-2">
-                <strong>Your Email:</strong>
+                <strong>Vos coordonnées:</strong>
                 <p class="m-0" t-field="doc.partner_id.email"/>
+                 <p t-if="doc.partner_id.mobile" class="m-0"><i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/><span t-field="doc.partner_id.mobile"/></p>
+                <p t-if="doc.partner_id.phone" class="m-0"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="doc.partner_id.phone"/></p>
             </div>
-            <div t-if="doc.partner_id.mobile or doc.partner_id.phone" class="col-auto mw-100 mb-2">
+            <!-- <div t-if="doc.partner_id.mobile or doc.partner_id.phone" class="col-auto mw-100 mb-2">
                 <strong>Your Phone:</strong>
                 <p t-if="doc.partner_id.mobile" class="m-0"><i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/><span t-field="doc.partner_id.mobile"/></p>
                 <p t-if="doc.partner_id.phone" class="m-0"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="doc.partner_id.phone"/></p>
-            </div>
+            </div> -->
         </xpath>
         <!-- reduce spaces before and after information block -->
         <xpath expr="//div[@id='informations']" position="attributes">
