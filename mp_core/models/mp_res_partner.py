@@ -89,7 +89,7 @@ class MaisonPassionResPartner(models.Model):
     def action_format_phone_number(self, partner_ids):
         partners = self.env['res.partner'].browse(partner_ids)
         for partner in partners:
-            partner.phone = self.phone_format(partner.phone if partner.phone else "")
-            partner.mobile = self.phone_format(partner.mobile if partner.mobile else "")
-            partner.mobile_2 = self.phone_format(partner.mobile_2 if partner.mobile_2 else "")
+            partner.phone = self._phone_format(partner.phone if partner.phone else "")
+            partner.mobile = self._phone_format(partner.mobile if partner.mobile else "")
+            partner.mobile_2 = self._phone_format(partner.mobile_2 if partner.mobile_2 else "")
             
