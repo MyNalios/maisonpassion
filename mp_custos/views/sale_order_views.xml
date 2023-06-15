@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div style="padding-top: 20px; page-break-inside: avoid;">
-                            <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page, une signature ci-dessous et l'attestation de TVA de 6% complétée s'il y a lieu.</p>
+                            <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page et une signature ci-dessous .</p>
                             <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
                             <t t-if="doc.partner_id.title">
                                 <span t-field="doc.partner_id.title"/>&amp;nbsp;
@@ -55,14 +55,12 @@
                     </div>
                 </div>
                 <div class="row mt32 ml64 mr4 mb-5" name="signature">
-                    <div class="col-6">
+                    <div class="col-5">
                         <strong>Pour Maison Passion</strong>
                         <p t-field="doc.user_id"/>
                     </div>
-                    <div class="col-6">
+                    <div class="col-7">
                         <strong>Signature(s) pour accord et commande</strong>
-                    </div>
-                    <div class="offset-7">
                         <p>
                             <t t-if="doc.partner_id.title">
                                 <span t-field="doc.partner_id.title.shortcut"/>

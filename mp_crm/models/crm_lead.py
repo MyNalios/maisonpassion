@@ -65,7 +65,7 @@ class Lead(models.Model):
     @api.onchange('mobile_2', 'country_id', 'company_id')
     def _onchange_mobile_2_validation(self):
         if self.mobile_2:
-            self.mobile_2 = self.partner_id._phone_format(self.mobile_2)
+            self.mobile_2 = self.env['res.partner']._phone_format(self.mobile_2)
 
     @api.model
     def create(self, vals):
