@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, api
+from odoo import models, api, fields
 from collections import OrderedDict
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    user_id = fields.Many2one('res.users', string='Project Responsible')
+    validity_date = fields.Date(required=True)
 
     def get_payment_term_lines_distribution(self):
         self.ensure_one()

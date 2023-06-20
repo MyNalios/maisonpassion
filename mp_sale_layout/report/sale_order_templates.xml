@@ -4,8 +4,6 @@
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <!-- TODO: not needed anymore -->
         <!-- move up page content if there to much info on partner -->
-       
-
         <!-- add contact info and title to partner -->
         <xpath expr="//div[@t-field='doc.partner_id']" position="attributes">
             <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True, "no_contact_marker": False}</attribute>
@@ -22,10 +20,11 @@
                     t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
             </t>
         </xpath>
+        <!-- A checker -->
         <!-- add information message before sale order lines -->
-        <xpath expr="//t[@t-set='display_discount']" position="after">
+        <!-- <xpath expr="//t[@t-set='display_discount']" position="after">
             <p t-field="doc.information_message"/>
-        </xpath>
+        </xpath> -->
         <!-- delete taxes column -->
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
         <xpath expr="//td[@name='td_taxes']" position="replace"/>

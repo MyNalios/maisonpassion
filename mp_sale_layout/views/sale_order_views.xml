@@ -12,25 +12,27 @@
             <!--<xpath expr="//tree/field[@name='discount_eur']" position="attributes">
                 <attribute name="string">Discount(Eur)</attribute>
             </xpath>-->
-            <xpath expr="//field[@name='payment_term_id']" position="after">
+            <!-- <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="payment_distribution"/>
-            </xpath>
+            </xpath> -->
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
                 <attribute name="optional">hide</attribute>
             </xpath>
 
-            <xpath expr="//field[@name='payment_term_id']/.." position="after">
+            <!-- A checker -->
+            <!-- <xpath expr="//field[@name='payment_term_id']/.." position="after">
                 <group colspan="4">
                     <field name="information_message" placeholder="Message for customer"/>
                 </group>
-            </xpath>
+            </xpath> -->
             <!-- addresses -->
-            <xpath expr="//field[@name='partner_shipping_id']" position="before">
+            <!-- A checker -->
+            <!-- <xpath expr="//field[@name='partner_shipping_id']" position="before">
                 <field name="available_delivery_address_ids" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
                 <attribute name="domain">['|', ('company_id', '=', False), ('company_id', '=', company_id), ('id', 'in', available_delivery_address_ids)]</attribute>
-            </xpath>
+            </xpath> -->
             <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
@@ -38,15 +40,17 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
                 <attribute name="widget">monetary</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+            <!-- A checker -->
+            <!-- <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
                 <field name="validation_date" string="Validation date" />
-             </xpath>
+             </xpath> -->
             <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="before">
                 <field name="discount_eur" string="Remise €" />
              </xpath>
-             <xpath expr="//control" position="inside">
+             <!-- A checker -->
+             <!-- <xpath expr="//control" position="inside">
                 <create name="page_break" string="Add page break" context="{'default_display_type': 'line_break'}"/>
-                </xpath>
+                </xpath> -->
 
         </field>
     </record>
