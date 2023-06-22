@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='informations_date']" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-auto"/>
+            <attribute name="class" separator=" " add="" remove="col-3"/>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[3]" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-auto"/>
+            <attribute name="class" separator=" " add="" remove="col-3"/>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[4]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-auto"/>
+            <attribute name="class" separator=" " add="" remove="col-3"/>
+        </xpath>
+        
         <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']/.." position="attributes">
             <attribute name="style">page-break-inside: avoid;</attribute>
         </xpath>
@@ -40,26 +53,26 @@
                 <div class="row">
                     <div class="col-12">
                         <div style="padding-top: 20px; page-break-inside: avoid;">
-                            <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page et une signature ci-dessous .</p>
+                            <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page et une signature ci-dessous.</p>
                             <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
                             <t t-if="doc.partner_id.title">
                                 <span t-field="doc.partner_id.title"/>&amp;nbsp;
                             </t>
                             <span t-field="doc.partner_id.name"/>
                             , l'expression de mes sentiments distingués.</p>
-                            <strong style="color : black;"> En acceptant ce devis, vous déclarez accepter nos conditions générales accessibles sur :<a t-attf-href = "http://www.maisonpassion.be/cgv" > www.maisonpassion.be/cgv </a> </strong>
+                            <strong style="color : black;"> En acceptant ce devis, vous déclarez accepter nos conditions générales de vente et de pose ainsi que nos conditions de garantie accessibles sur :<a t-attf-href = "http://www.maisonpassion.be/cgv" > www.maisonpassion.be/cgv </a> </strong>
                             <br/>
                             <br/>
-                            <p>Fait à ................................................................................................., le .................................................. .</p>
+                            <p style="margin-top:20px">Fait à ................................................................................................., le .................................................. .</p>
                         </div>
                     </div>
                 </div>
-                <div class="row mt32 ml64 mr4 mb-5" name="signature">
-                    <div class="col-5 mb-5">
+                <div class="row mt32 ml64 mr4 mb-5" name="signature" style="margin-top:20px">
+                    <div class="col-6 mb-5">
                         <strong>Pour Maison Passion</strong>
                         <p t-field="doc.user_id"/>
                     </div>
-                    <div class="col-7 mb-5">
+                    <div class="col-6 mb-5">
                         <strong>Signature(s) pour accord et commande</strong>
                         <p>
                             <t t-if="doc.partner_id.title">
