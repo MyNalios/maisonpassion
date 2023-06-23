@@ -72,6 +72,7 @@
                 <p class="m-0" t-field="doc.partner_id.email"/>
                  <p t-if="doc.partner_id.mobile" class="m-0"><i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/><span t-field="doc.partner_id.mobile"/></p>
                 <p t-if="doc.partner_id.phone" class="m-0"><i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><span t-field="doc.partner_id.phone"/></p>
+                <p t-if="doc.partner_id.mobile_2" class="m-0"><i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile 2" title="Mobile 2"/><span t-field="doc.partner_id.mobile_2"/></p>
             </div>
             <!-- <div t-if="doc.partner_id.mobile or doc.partner_id.phone" class="col-auto mw-100 mb-2">
                 <strong>Your Phone:</strong>
