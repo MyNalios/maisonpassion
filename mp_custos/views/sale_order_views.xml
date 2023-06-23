@@ -12,8 +12,7 @@
         <xpath expr="//div[@id='informations']/div[4]" position="attributes">
             <attribute name="class" separator=" " add="col-4" remove="col-auto"/>
             <attribute name="class" separator=" " add="" remove="col-3"/>
-        </xpath>
-        
+        </xpath>     
         <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']/.." position="attributes">
             <attribute name="style">page-break-inside: avoid;</attribute>
         </xpath>
@@ -84,7 +83,6 @@
                 </div>
                 <xpath expr="//p[@name='order_note']" position="move"/>
         </xpath>
-
     </template>
     <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
         <xpath expr="//table[@id='sales_order_table']//th[position()=3]" position="replace">
