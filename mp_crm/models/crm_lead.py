@@ -38,27 +38,28 @@ class Lead(models.Model):
                 and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
-        customer = self.partner_id
-        if 'mobile' in vals:
-            customer.mobile = vals['mobile']
-        if 'mobile_2'in vals:
-            customer.mobile_2 = vals['mobile_2']
-        if 'referred_partner_id'in vals:
-            customer.referred_partner_id = vals['referred_partner_id']
-        if 'source_id'in vals:
-            customer.source_id = vals['source_id']
-        if 'street' in vals:
-            customer.street = vals['street']
-        if 'street2' in vals:
-            customer.street2 = vals['street2']
-        if 'city' in vals:
-            customer.city = vals['city']
-        if 'state_id' in vals:
-            customer.state_id = vals['state_id']
-        if 'zip' in vals:
-            customer.zip = vals['zip']
-        if 'country_id' in vals:
-            customer.country_id = vals['country_id']
+        if self.partner_id:
+            customer = self.partner_id
+            if 'mobile' in vals:
+                customer.mobile = vals['mobile']
+            if 'mobile_2'in vals:
+                customer.mobile_2 = vals['mobile_2']
+            if 'referred_partner_id'in vals:
+                customer.referred_partner_id = vals['referred_partner_id']
+            if 'source_id'in vals:
+                customer.source_id = vals['source_id']
+            if 'street' in vals:
+                customer.street = vals['street']
+            if 'street2' in vals:
+                customer.street2 = vals['street2']
+            if 'city' in vals:
+                customer.city = vals['city']
+            if 'state_id' in vals:
+                customer.state_id = vals['state_id']
+            if 'zip' in vals:
+                customer.zip = vals['zip']
+            if 'country_id' in vals:
+                customer.country_id = vals['country_id']
                                 
         return super(Lead, self).write(vals)
 
@@ -73,28 +74,30 @@ class Lead(models.Model):
                 and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
                 and not self.env.context.get('no_contact_synchronization'):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
-        customer = self.env['res.partner'].browse(vals['partner_id'])
-        if vals['mobile']:
-            customer.mobile = vals['mobile']
-        if vals['mobile_2']:
-            customer.mobile_2 = vals['mobile_2']
-        if vals['referred_partner_id']:
-            customer.referred_partner_id = vals['referred_partner_id']
-        if vals['source_id']:
-            customer.source_id = vals['source_id']
+        if 'partner_id' in vals:
+            customer = self.env['res.partner'].browse(vals['partner_id'])
+            if vals['mobile']:
+                customer.mobile = vals['mobile']
+            if vals['mobile_2']:
+                customer.mobile_2 = vals['mobile_2']
+            if vals['referred_partner_id']:
+                customer.referred_partner_id = vals['referred_partner_id']
+            if vals['source_id']:
+                customer.source_id = vals['source_id']
         res = super(Lead, self).create(vals)
-        if vals['street']:
-            customer.street = vals['street']
-        if vals['street2']:
-            customer.street2 = vals['street2']
-        if vals['city']:
-            customer.city = vals['city']
-        if vals['state_id']:
-            customer.state_id = vals['state_id']
-        if vals['zip']:
-            customer.zip = vals['zip']
-        if vals['country_id']:
-            customer.country_id = vals['country_id']
+        if 'partner_id' in vals:
+            if vals['street']:
+                customer.street = vals['street']
+            if vals['street2']:
+                customer.street2 = vals['street2']
+            if vals['city']:
+                customer.city = vals['city']
+            if vals['state_id']:
+                customer.state_id = vals['state_id']
+            if vals['zip']:
+                customer.zip = vals['zip']
+            if vals['country_id']:
+                customer.country_id = vals['country_id']
         return res
     
     def _prepare_customer_values(self, partner_name, is_company=False, parent_id=False):
