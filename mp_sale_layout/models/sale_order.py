@@ -18,7 +18,7 @@ class MPSaleOrder(models.Model):
     # available_delivery_address_ids = fields.Many2many('res.partner', 'sale_order_delivery_address_rel', 'sale_id',
     #                                                   'address_id', compute='_compute_available_delivery_address_ids',
     #                                                   help='Technical field used for delivery address domain')
-    # information_message = fields.Text('Information Message')
+    information_message = fields.Text('Information Message')
     # change label
     
     # change required

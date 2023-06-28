@@ -22,9 +22,9 @@
         </xpath>
         <!-- A checker -->
         <!-- add information message before sale order lines -->
-        <!-- <xpath expr="//t[@t-set='display_discount']" position="after">
+        <xpath expr="//t[@t-set='display_discount']" position="after">
             <p t-field="doc.information_message"/>
-        </xpath> -->
+        </xpath>
         <!-- delete taxes column -->
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
         <xpath expr="//td[@name='td_taxes']" position="replace"/>

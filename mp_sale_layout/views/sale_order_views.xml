@@ -20,11 +20,11 @@
             </xpath>
 
             <!-- A checker -->
-            <!-- <xpath expr="//field[@name='payment_term_id']/.." position="after">
+            <xpath expr="//field[@name='payment_term_id']/.." position="after">
                 <group colspan="4">
                     <field name="information_message" placeholder="Message for customer"/>
                 </group>
-            </xpath> -->
+            </xpath>
             <!-- addresses -->
             <!-- A checker -->
             <!-- <xpath expr="//field[@name='partner_shipping_id']" position="before">
