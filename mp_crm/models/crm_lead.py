@@ -76,27 +76,27 @@ class Lead(models.Model):
             vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
         if 'partner_id' in vals:
             customer = self.env['res.partner'].browse(vals['partner_id'])
-            if vals['mobile']:
+            if 'mobile' in vals:
                 customer.mobile = vals['mobile']
-            if vals['mobile_2']:
+            if 'mobile_2'in vals:
                 customer.mobile_2 = vals['mobile_2']
-            if vals['referred_partner_id']:
+            if 'referred_partner_id'in vals:
                 customer.referred_partner_id = vals['referred_partner_id']
-            if vals['source_id']:
+            if 'source_id'in vals:
                 customer.source_id = vals['source_id']
         res = super(Lead, self).create(vals)
         if 'partner_id' in vals:
-            if vals['street']:
+            if 'street' in vals:
                 customer.street = vals['street']
-            if vals['street2']:
+            if 'street2' in vals:
                 customer.street2 = vals['street2']
-            if vals['city']:
+            if 'city' in vals:
                 customer.city = vals['city']
-            if vals['state_id']:
+            if 'state_id' in vals:
                 customer.state_id = vals['state_id']
-            if vals['zip']:
+            if 'zip' in vals:
                 customer.zip = vals['zip']
-            if vals['country_id']:
+            if 'country_id' in vals:
                 customer.country_id = vals['country_id']
         return res
     
