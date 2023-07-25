@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <!-- delete unnecessary columns -->
+        <xpath expr="//th[@name='th_quantity']" position="replace"/>
+        <xpath expr="//th[@name='th_priceunit']" position="replace"/>
+        <xpath expr="//th[@name='th_price_unit']" position="replace"/>
+        <!-- <xpath expr="//th[@name='th_taxes']" position="replace"/> -->
+        <xpath expr="//span[@t-field='line.quantity']/.." position="replace"/>
+        <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/>
+        <xpath expr="//span[@t-field='line.discount']/.." position="replace"/>
+        <!-- <xpath expr="//span[@id='line_tax_ids']/.." position="replace"/> -->
+
+        <!-- add contact info and title to partner -->
+        <!-- <xpath expr="//address[@t-field='o.partner_id']" position="attributes">
+            <attribute name="t-options">{"widget": "contact", "fields": ["address", "title", "name"], "no_marker": True,
+                "no_contact_marker": False}
+            </attribute>
+        </xpath> -->
+        <!-- add a space before payment reference -->
+        <!-- <xpath expr="//span[@t-field='o.payment_reference']" position="before">
+            <br/>
+        </xpath> -->
+    </template>
+
+</odoo>

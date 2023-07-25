@@ -61,7 +61,7 @@ class Lead(models.Model):
             if 'country_id' in vals:
                 customer.country_id = vals['country_id']
                                 
-        return super(Lead, self).write(vals)
+        return super().write(vals)
 
     @api.onchange('mobile_2', 'country_id', 'company_id')
     def _onchange_mobile_2_validation(self):
@@ -84,7 +84,7 @@ class Lead(models.Model):
                 customer.referred_partner_id = vals['referred_partner_id']
             if 'source_id'in vals:
                 customer.source_id = vals['source_id']
-        res = super(Lead, self).create(vals)
+        res = super().create(vals)
         if 'partner_id' in vals:
             if 'street' in vals:
                 customer.street = vals['street']

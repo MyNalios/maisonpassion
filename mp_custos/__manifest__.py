@@ -26,5 +26,6 @@
         'views/account_payment_term_views.xml',
         'views/sale_order_views.xml',
         'views/crm_lead_views.xml',
+        'report/invoice_report.xml',
     ],
 }
