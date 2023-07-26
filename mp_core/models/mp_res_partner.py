@@ -5,8 +5,8 @@ from odoo.exceptions import ValidationError
 class MaisonPassionResPartner(models.Model):
     _inherit = 'res.partner'
 
-    def _default_country_id(self):
-        return self.env.company.country_id
+    # def _default_country_id(self):
+    #     return self.env.company.country_id
 
     def _default_title(self):
         return self.env.ref('mp_core.res_partner_title_mister_madam').id
@@ -19,7 +19,7 @@ class MaisonPassionResPartner(models.Model):
     is_red_code = fields.Boolean(string='Is a Red Code')
 
     # default value
-    country_id = fields.Many2one('res.country', default=_default_country_id)
+    # country_id = fields.Many2one('res.country', default=_default_country_id)
     title = fields.Many2one('res.partner.title', default=_default_title)
 
     @api.depends('sale_order_ids')
@@ -30,22 +30,23 @@ class MaisonPassionResPartner(models.Model):
             else:
                 partner.is_client_effective = False
 
-    @api.constrains('vat')
-    def _check_unique_vat(self):
-        for partner in self:
-            if partner.company_type == 'person':
-                continue
-            result = self.search([('id', '!=', partner.id), ('vat', '!=', ""), ('vat', '=', partner.vat)], limit=1)
-            if result:
-                message = _('You have already defined a partner ({}) with this VAT number ({})'.format(result.name,
-                                                                                                       partner.vat))
-                raise ValidationError(message)
+    # A CHECKER : Peut etre remplacé par une sql contraint uniqu vat
+    # @api.constrains('vat')
+    # def _check_unique_vat(self):
+    #     for partner in self:
+    #         if partner.company_type == 'person':
+    #             continue
+    #         result = self.search([('id', '!=', partner.id), ('vat', '!=', ""), ('vat', '=', partner.vat)], limit=1)
+    #         if result:
+    #             message = _('You have already defined a partner ({}) with this VAT number ({})'.format(result.name,
+    #                                                                                                    partner.vat))
+    #             raise ValidationError(message)
 
     @api.onchange('mobile_2', 'country_id', 'company_id')
     def _onchange_mobile_2_validation(self):
         if self.mobile_2:
             self.mobile_2 = self._phone_format(self.mobile_2)
-
+    #  a Checker point E
     def write(self, vals):
         """
         If a child partner becomes independent, then a new sequence is created
