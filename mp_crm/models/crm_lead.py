@@ -100,49 +100,49 @@ class Lead(models.Model):
                 customer.country_id = vals['country_id']
         return res
     
-    def _prepare_customer_values(self, partner_name, is_company=False, parent_id=False):
-        res = super()._prepare_customer_values(partner_name, is_company,parent_id)
-        dict_new_values = {
-            'mobile_2': self.mobile_2,
-            'referred_partner_id' : self.referred_partner_id.id,
-            'source_id' : self.source_id.id
-        }
-        res.update(dict_new_values)
-        return res
+    # def _prepare_customer_values(self, partner_name, is_company=False, parent_id=False):
+    #     res = super()._prepare_customer_values(partner_name, is_company,parent_id)
+    #     dict_new_values = {
+    #         'mobile_2': self.mobile_2,
+    #         'referred_partner_id' : self.referred_partner_id.id,
+    #         'source_id' : self.source_id.id
+    #     }
+    #     res.update(dict_new_values)
+    #     return res
 
-    def _get_partner_vals_from_email(self, email=None, phone=None, mobile=None):
-        domain = []
-        if email or self.email_from:
-            domain.append(('email', '=', email or self.email_from))
-        if phone or self.phone:
-            domain.append(('phone', '=', phone or self.phone))
-        if mobile or self.mobile:
-            domain.append(('mobile', '=', mobile or self.phone))
-        if domain:
-            partner = self.env['res.partner'].search(domain)
-            # if there is more than one related partner, return none of them
-            if len(partner) == 1:
-                onchange_values = self._prepare_values_from_partner(partner)
-                onchange_values.update({
-                    'partner_id': partner.id,
-                    'mobile': partner.mobile,
-                    'mobile_2': partner.mobile_2,
-                    'website': partner.website,
-                    'source_id': partner.source_id.id or False,
-                    'address_type': partner.type,
-                    'vat': partner.vat,
-                    'referred_partner_id': partner.referred_partner_id.id or False,
-                    'lang_id': self.env['res.lang'].search([('code', '=', partner.lang)]).id or False
-                })
-                return onchange_values
-        return {}
+    # def _get_partner_vals_from_email(self, email=None, phone=None, mobile=None):
+    #     domain = []
+    #     if email or self.email_from:
+    #         domain.append(('email', '=', email or self.email_from))
+    #     if phone or self.phone:
+    #         domain.append(('phone', '=', phone or self.phone))
+    #     if mobile or self.mobile:
+    #         domain.append(('mobile', '=', mobile or self.phone))
+    #     if domain:
+    #         partner = self.env['res.partner'].search(domain)
+    #         # if there is more than one related partner, return none of them
+    #         if len(partner) == 1:
+    #             onchange_values = self._prepare_values_from_partner(partner)
+    #             onchange_values.update({
+    #                 'partner_id': partner.id,
+    #                 'mobile': partner.mobile,
+    #                 'mobile_2': partner.mobile_2,
+    #                 'website': partner.website,
+    #                 'source_id': partner.source_id.id or False,
+    #                 'address_type': partner.type,
+    #                 'vat': partner.vat,
+    #                 'referred_partner_id': partner.referred_partner_id.id or False,
+    #                 'lang_id': self.env['res.lang'].search([('code', '=', partner.lang)]).id or False
+    #             })
+    #             return onchange_values
+    #     return {}
 
-    def action_new_quotation(self):
-        action = super(Lead, self).action_new_quotation()
-        action['context'].update({'default_user_id': self.user_id.id})
-        return action
+    # def action_new_quotation(self):
+    #     action = super(Lead, self).action_new_quotation()
+    #     action['context'].update({'default_user_id': self.user_id.id})
+    #     return action
 
-    def _create_lead_partner_data(self, name, is_company, parent_id=False):
-        res = super(Lead, self)._create_lead_partner_data(name, is_company, parent_id)
-        res.update({'type': self.address_type, 'vat': self.vat, 'referred_partner_id': self.referred_partner_id.id or False, 'mobile_2': self.mobile_2, 'source_id': self.source_id.id or False})
-        return res
+    # def _create_lead_partner_data(self, name, is_company, parent_id=False):
+    #     res = super(Lead, self)._create_lead_partner_data(name, is_company, parent_id)
+    #     res.update({'type': self.address_type, 'vat': self.vat, 'referred_partner_id': self.referred_partner_id.id or False, 'mobile_2': self.mobile_2, 'source_id': self.source_id.id or False})
+    #     return res

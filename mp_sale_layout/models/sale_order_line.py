@@ -10,7 +10,7 @@ class MPSaleOrderLine(models.Model):
     # validation_date = fields.Date(string="Validation date")
 
     # A CHECKER PLUS TARD
-    display_type = fields.Selection(selection_add=[('line_break', 'Page break')])
+    # display_type = fields.Selection(selection_add=[('line_break', 'Page break')])
 
     # price_subtotal = fields.Monetary(compute='_compute_amount', inverse='_inverse_price_subtotal', string='Subtotal',
     #                                  readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, store=True)
