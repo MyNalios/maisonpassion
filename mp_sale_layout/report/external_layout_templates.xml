@@ -59,7 +59,7 @@
 
     <template id="external_layout_bold" inherit_id="web.external_layout_bold">
 
-        <xpath expr="//div[@class='o_clean_header']/.." position="replace">
+        <xpath expr="//div[hasclass('o_clean_header')]/.." position="replace">
             <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
                 <div class="o_clean_header">
                     <div class="row">
