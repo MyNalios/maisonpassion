@@ -2,7 +2,7 @@
 
 {
     'name': "Maison Passion Sale Layout",
-    'version': '16.0',
+    'version': '17.0',
     'category': 'Sales/Sales',
     'summary': 'Modifications to Sales Orders layout',
     'author': 'dwa@idealisconsulting - Idealis Consulting',

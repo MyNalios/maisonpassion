@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Maison Passion CRM',
-    'version': '16.0',
+    'version': '17.0',
     'category': 'Sales/CRM',
     'summary': '',
     'author': 'dwa@idealisconsulting - Idealis Consulting',

@@ -11,7 +11,7 @@
             </xpath>
             <!-- add red code ribbon -->
             <xpath expr="//widget[@name='web_ribbon']" position="after">
-                <widget name="web_ribbon" title="Red Code" bg_color="bg-danger" attrs="{'invisible': [('is_red_code', '=', False)]}"/>
+                <widget name="web_ribbon" title="Red Code" bg_color="bg-danger" invisible="not is_red_code" />
             </xpath>
 
             <!-- add fields -->
@@ -22,7 +22,7 @@
                 <field name="mobile_2" widget="phone"/>
             </xpath>
             <xpath expr="//group[@name='misc']//field[@name='ref']" position="attributes">
-                <attribute name="attrs">{'invisible':True}</attribute>
+                <attribute name="invisible">True</attribute>
             </xpath>
 
             <!-- add fields is_client_effective -->
@@ -39,7 +39,7 @@
 
             <!-- Type is always a readonly field -->
             <xpath expr="//field[@name='type']" position="attributes">
-                <attribute name="attrs">{'invisible': [('is_company','=', True)]}</attribute>
+                <attribute name="invisible">is_company</attribute>
                 <attribute name="readonly">True</attribute>
             </xpath>
 
@@ -48,19 +48,19 @@
             <xpath expr="//h1[1]" position="replace" />
             <xpath expr="//field[@name='company_type']" position="after">
                 <br />
-                <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                <h1><field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/></h1>
+                <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" invisible="is_company" />
+                <h1><field name="name" default_focus="1" placeholder="Name" required="type == 'contact'" /></h1>
             </xpath>
 
             <!-- Zip code before city -->
             <xpath expr="//field[@name='zip']" position="replace"/>
             <xpath expr="//field[@name='city']" position="before">
-                <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" readonly="type == 'contact' and parent_id" />
             </xpath>
 
             <!-- hide state_id if country == Belgium -->
             <xpath expr="//field[@name='state_id']" position="attributes">
-                <attribute name="attrs">{'invisible': [('country_id', '=', 20)]}</attribute>
+                <attribute name="invisible">country_id == 20</attribute>
                 <attribute name="style">margin-right:0%</attribute>
             </xpath>
 

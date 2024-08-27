@@ -1,6 +1,6 @@
 {
     'name': "Maison Passion Invoice Layout",
-    'version': '16.0',
+    'version': '17.0',
     'category': 'Accounting/Accounting',
     'summary': 'Modifications to Invoices layout',
     'author': 'dwa@idealisconsulting - Idealis Consulting',
