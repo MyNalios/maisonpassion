@@ -34,10 +34,10 @@ class Lead(models.Model):
     vat = fields.Char(string='Tax ID', help='The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.')
 
     def write(self, vals):
-        if (vals.get('type') == 'lead' or self.type == 'lead') \
-                and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
-                and not self.env.context.get('no_contact_synchronization'):
-            vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
+        # if (vals.get('type') == 'lead' or self.type == 'lead') \
+        #         and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
+        #         and not self.env.context.get('no_contact_synchronization'):
+        #     vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
         if self.partner_id:
             customer = self.partner_id
             if 'mobile' in vals:
@@ -66,14 +66,14 @@ class Lead(models.Model):
     @api.onchange('mobile_2', 'country_id', 'company_id')
     def _onchange_mobile_2_validation(self):
         if self.mobile_2:
-            self.mobile_2 = self.env['res.partner']._phone_format(self.mobile_2)
+            self.mobile_2 = self._phone_format(self.mobile_2)
 
     @api.model
     def create(self, vals):
-        if vals.get('type') == 'lead' \
-                and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
-                and not self.env.context.get('no_contact_synchronization'):
-            vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
+        # if vals.get('type') == 'lead' \
+        #         and (vals.get('email_from') or vals.get('phone') or vals.get('mobile')) \
+        #         and not self.env.context.get('no_contact_synchronization'):
+        #     vals.update(self._get_partner_vals_from_email(vals.get('email_from'), vals.get('phone'), vals.get('mobile')))  # overwrite existing keys
         if 'partner_id' in vals:
             customer = self.env['res.partner'].browse(vals['partner_id'])
             if 'mobile' in vals:

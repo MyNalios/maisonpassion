@@ -93,7 +93,7 @@
             <td ><t t-if="line.discount_eur" >
                  <span t-esc="line.price_unit * line.product_uom_qty" class="text-danger" style="text-decoration: line-through"/>
             </t> <br/> 
-            <span t-out="current_subtotal"/> €
+            <span t-out="(line.price_unit * line.product_uom_qty) - line.discount_eur"/> €
              </td>
             <td name="td_discount_eur" class="text-end text-info"> 
             <t t-if="line.discount_eur"> <span t-field="line.discount_eur"/> €</t> </td>

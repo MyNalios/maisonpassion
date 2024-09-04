@@ -118,11 +118,11 @@
         <!-- hide line subtotal if subtotal, discount et price_unit = 0.0 -->
         <xpath expr="//td[@name='td_subtotal']/span[@t-field='line.price_subtotal']" position="replace">
             <t t-if="line.discount_eur">
-                 <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" class="font-weight-bold"/>
+                 <span t-field="line.price_subtotal" class="font-weight-bold"/>
             </t>
             <t t-elif="not line.discount_eur and line.price_subtotal == 0 and line.price_unit == 0"/>
             <t t-else="">
-                 <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                 <span t-field="line.price_subtotal"/>
             </t>
         </xpath>
         <xpath expr="//th[@name='th_subtotal']" position="before">

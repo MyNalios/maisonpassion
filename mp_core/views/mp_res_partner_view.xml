@@ -34,7 +34,6 @@
             <!-- add new field source_id -->
             <xpath expr="//field[@name='vat']" position="after">
                 <field name="ref" readonly="1" string="Customer Code"/>
-                <field name="source_id" options="{'no_create': True}"/>
             </xpath>
 
             <!-- Type is always a readonly field -->
