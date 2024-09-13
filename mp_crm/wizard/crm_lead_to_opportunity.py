@@ -37,5 +37,5 @@ class Lead2OpportunityPartner(models.TransientModel):
         if self.partner_source_id and self.partner_id and self.action == 'exist':
             self.partner_id.update({'source_id': self.partner_source_id.id})
             leads = self.env['crm.lead'].browse(self._context.get('active_ids', []))
-            leads.update({'source_id': self.partner_source_id.id})
+            leads.update({'source_id': self.source_id.id})
         return super(Lead2OpportunityPartner, self).action_apply()

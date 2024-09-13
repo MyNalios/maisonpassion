@@ -64,9 +64,9 @@ class Lead(models.Model):
         return super().write(vals)
 
     @api.onchange('mobile_2', 'country_id', 'company_id')
-    def _onchange_mobile_2_validation(self):
+    def _onchange_mobile2_validation(self):
         if self.mobile_2:
-            self.mobile_2 = self._phone_format(self.mobile_2)
+            self.mobile_2 = self._phone_format(fname='mobile_2', force_format='INTERNATIONAL') or self.mobile_2
 
     @api.model
     def create(self, vals):
