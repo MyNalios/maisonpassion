@@ -42,11 +42,11 @@ class Lead(models.Model):
             customer = self.partner_id
             if 'mobile' in vals:
                 customer.mobile = vals['mobile']
-            if 'mobile_2'in vals:
+            if 'mobile_2' in vals:
                 customer.mobile_2 = vals['mobile_2']
-            if 'referred_partner_id'in vals:
+            if 'referred_partner_id' in vals:
                 customer.referred_partner_id = vals['referred_partner_id']
-            if 'source_id'in vals:
+            if 'source_id' in vals:
                 customer.source_id = vals['source_id']
             if 'street' in vals:
                 customer.street = vals['street']
@@ -78,11 +78,11 @@ class Lead(models.Model):
             customer = self.env['res.partner'].browse(vals['partner_id'])
             if 'mobile' in vals:
                 customer.mobile = vals['mobile']
-            if 'mobile_2'in vals:
+            if 'mobile_2' in vals:
                 customer.mobile_2 = vals['mobile_2']
-            if 'referred_partner_id'in vals:
+            if 'referred_partner_id' in vals:
                 customer.referred_partner_id = vals['referred_partner_id']
-            if 'source_id'in vals:
+            if 'source_id' in vals:
                 customer.source_id = vals['source_id']
         res = super().create(vals)
         if 'partner_id' in vals:

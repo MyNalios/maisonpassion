@@ -33,9 +33,9 @@ class Lead2OpportunityPartner(models.TransientModel):
         self.ensure_one()
         if self.source_id and self.action == 'create':
             leads = self.env['crm.lead'].browse(self._context.get('active_ids', []))
-            leads.update({'source_id': self.source_id.id})
+            leads.update({'source_id': self.source_id.id, "referred_partner_id": self.referred_partner_id.id, "mobile_2": self.mobile_2})
         if self.partner_source_id and self.partner_id and self.action == 'exist':
             self.partner_id.update({'source_id': self.partner_source_id.id})
             leads = self.env['crm.lead'].browse(self._context.get('active_ids', []))
-            leads.update({'source_id': self.source_id.id})
+            leads.update({'source_id': self.source_id.id, "referred_partner_id": self.referred_partner_id.id, "mobile_2": self.mobile_2})
         return super(Lead2OpportunityPartner, self).action_apply()
