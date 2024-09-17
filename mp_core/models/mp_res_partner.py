@@ -1,6 +1,8 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class MaisonPassionResPartner(models.Model):
     _inherit = 'res.partner'
@@ -54,6 +56,13 @@ class MaisonPassionResPartner(models.Model):
                 sequence = self.env['ir.sequence'].next_by_code("res.partner")
                 vals.update({'ref': sequence})
         return super(MaisonPassionResPartner, self).write(vals)
+
+    @api.onchange('mobile_2', 'country_id', 'company_id')
+    def _onchange_mobile_validation(self):
+        _logger.info("_onchange_mobile_validation")
+        _logger.info("self.mobile_2 %s", self.mobile_2)
+        if self.mobile_2:
+            self.mobile_2 = self._phone_format(fname='mobile_2', force_format='INTERNATIONAL') or self.mobile_2
 
     @api.model_create_multi
     def create(self, vals):
