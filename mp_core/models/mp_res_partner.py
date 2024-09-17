@@ -42,10 +42,6 @@ class MaisonPassionResPartner(models.Model):
     #                                                                                                    partner.vat))
     #             raise ValidationError(message)
 
-    @api.onchange('mobile_2', 'country_id', 'company_id')
-    def _onchange_mobile_2_validation(self):
-        if self.mobile_2:
-            self.mobile_2 = self._phone_format(self.mobile_2)
     #  a Checker point E
     def write(self, vals):
         """
