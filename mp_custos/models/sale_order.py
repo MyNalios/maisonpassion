@@ -49,3 +49,9 @@ class SaleOrderLine(models.Model):
                 data['price_unit'] = data['price_unit'] * qty - self.discount_eur
                 # data['price_subtotal'] = data['price_subtotal'] * qty - self.discount_eur
         return data
+    
+    def _prepare_invoice_line(self, **optional_values):
+        res = super()._prepare_invoice_line(**optional_values)
+        if self.discount_eur:
+            res['price_unit'] -= self.discount_eur
+        return res
