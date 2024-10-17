@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
           <xpath expr="//group[@name='opportunity_partner']" position="inside">
-            <field name="source_id" />
+            <field name="source_id" required="1" />
             <field name="referred_partner_id" />
             <field name="partner_name" />
             <label for="street" string="Address"/>
@@ -26,7 +26,7 @@
               <field name="mobile_2" />
           </xpath>
             <xpath expr="//field[@name='team_id']" position="after">
-              <field name="source_id" />
+              <field name="source_id" required="1"/>
               <field name="referred_partner_id" />
             </xpath>
 

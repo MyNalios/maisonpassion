@@ -37,8 +37,8 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    def _convert_to_tax_base_line_dict(self):
-        data = super()._convert_to_tax_base_line_dict()
+    def _convert_to_tax_base_line_dict(self, **kwargs):
+        data = super()._convert_to_tax_base_line_dict(**kwargs)
         if self.discount_eur:
             if data['quantity'] == 1:
                 data['price_unit'] -= self.discount_eur
