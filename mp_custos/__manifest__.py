@@ -23,6 +23,7 @@
 
     # always loaded
     'data': [
+        'views/account_move_views.xml',
         'views/account_payment_term_views.xml',
         'views/sale_order_views.xml',
         'views/crm_lead_views.xml',

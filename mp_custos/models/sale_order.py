@@ -42,16 +42,18 @@ class SaleOrderLine(models.Model):
         if self.discount_eur:
             if data['quantity'] == 1:
                 data['price_unit'] -= self.discount_eur
-                # data['price_subtotal'] -= self.discount_eur
+                data['price_subtotal'] -= self.discount_eur
             elif data['quantity'] > 1:
                 qty = data['quantity']
                 data['quantity'] = 1
                 data['price_unit'] = data['price_unit'] * qty - self.discount_eur
-                # data['price_subtotal'] = data['price_subtotal'] * qty - self.discount_eur
+                data['price_subtotal'] = data['price_subtotal'] * qty - self.discount_eur
         return data
     
     def _prepare_invoice_line(self, **optional_values):
         res = super()._prepare_invoice_line(**optional_values)
-        if self.discount_eur:
-            res['price_unit'] -= self.discount_eur
+        if self.discount_eur and not self.discount:
+            discount = self.discount_eur / self.price_unit * 100
+            res['discount'] = discount
+            res['discount_eur'] = self.discount_eur
         return res

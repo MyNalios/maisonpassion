@@ -7,7 +7,6 @@ from odoo.exceptions import UserError
 
 #     product_id = fields.Many2one('product.product', required=True)
 
-    # def create_invoices(self):
     #     """
     #     Overwritten method
     #     Use sale order line taxes for down payment
