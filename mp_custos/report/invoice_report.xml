@@ -2,14 +2,33 @@
 <odoo>
 
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <table name="invoice_line_table" position="before">
+            <t t-set="has_discount_eur" t-value="any(line.discount_eur for line in o.invoice_line_ids)"/>
+        </table>
         <!-- delete unnecessary columns -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
         <xpath expr="//th[@name='th_priceunit']" position="replace"/>
+        <th name="th_discount" position="attributes">
+            <attribute name="t-if">display_discount and not has_discount_eur</attribute>
+        </th>
+        <td name="td_discount" position="attributes">
+            <attribute name="t-if">display_discount and not has_discount_eur</attribute>
+        </td>
+        <th name="th_discount" position="after">
+            <th t-if="has_discount_eur" name="th_discount_eur" >
+                REM €.
+            </th>
+        </th>
         <!-- <xpath expr="//th[@name='th_price_unit']" position="replace"/> -->
         <!-- <xpath expr="//th[@name='th_taxes']" position="replace"/> -->
         <xpath expr="//span[@t-field='line.quantity']/.." position="replace"/>
         <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/>
-        <xpath expr="//span[@t-field='line.discount']/.." position="replace"/>
+        <!-- <xpath expr="//span[@t-field='line.discount']/.." position="replace"/> -->
+        <xpath expr="//span[@t-field='line.discount']/.." position="after">
+            <td t-if="has_discount_eur">
+                <span t-field="line.discount_eur" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+            </td>
+        </xpath> 
         <xpath expr="//div[@id='payment_term']/.." position="inside">
             <xpath expr="//div[@name='comment']" position="move"/>
         </xpath>
