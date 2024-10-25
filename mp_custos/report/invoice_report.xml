@@ -32,6 +32,9 @@
         <xpath expr="//div[@id='payment_term']/.." position="inside">
             <xpath expr="//div[@name='comment']" position="move"/>
         </xpath>
+        <xpath expr="//div[@id='payment_term']/.." position="attributes">
+            <attribute name="style">page-break-inside: avoid;</attribute>
+        </xpath>
         <xpath expr="//div[@name='comment']" position="attributes">
             <attribute name="t-attf-style">#{'text-align:justify;text-justify:inter-word; page-break-inside: avoid;' if o.company_id.terms_type != 'html' else 'page-break-inside: avoid;'} </attribute>
         </xpath>
