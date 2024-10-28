@@ -7,7 +7,7 @@
         </table>
         <!-- delete unnecessary columns -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
-        <!-- <xpath expr="//th[@name='th_priceunit']" position="replace"/> -->
+        <xpath expr="//th[@name='th_priceunit']" position="replace"/>
         <th name="th_discount" position="attributes">
             <attribute name="t-if">display_discount and not has_discount_eur</attribute>
         </th>
@@ -22,7 +22,7 @@
         <!-- <xpath expr="//th[@name='th_price_unit']" position="replace"/> -->
         <!-- <xpath expr="//th[@name='th_taxes']" position="replace"/> -->
         <xpath expr="//span[@t-field='line.quantity']/.." position="replace"/>
-        <!-- <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/> -->
+        <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/>
         <!-- <xpath expr="//span[@t-field='line.discount']/.." position="replace"/> -->
         <xpath expr="//span[@t-field='line.discount']/.." position="after">
             <td t-if="has_discount_eur">
