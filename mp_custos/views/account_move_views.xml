@@ -9,6 +9,9 @@
             <field name="id" position="after">
                 <field name="is_hide_discount" invisible="1"/>
             </field>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="ref"/>
+            </xpath>
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="before">
                 <field name="is_hide_discount"  column_invisible="1"/>
                 <field name="discount_eur" invisible="is_hide_discount"/>

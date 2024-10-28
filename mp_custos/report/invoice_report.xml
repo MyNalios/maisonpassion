@@ -2,33 +2,44 @@
 <odoo>
 
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-if='o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)']" position="attributes">
+            <attribute name="t-if">True</attribute>
+        </xpath>
+        <xpath expr="//div[@name='shipping_address_block']//strong" position="replace">
+            <strong>Adresse de chantier/livraison</strong>
+        </xpath>
         <table name="invoice_line_table" position="before">
             <t t-set="has_discount_eur" t-value="any(line.discount_eur for line in o.invoice_line_ids)"/>
         </table>
         <!-- delete unnecessary columns -->
         <xpath expr="//th[@name='th_quantity']" position="replace"/>
         <xpath expr="//th[@name='th_priceunit']" position="replace"/>
+        <xpath expr="//th[@name='th_taxes']" position="replace"/>
+        <xpath expr="//td[@name='td_taxes']" position="replace"/>
         <th name="th_discount" position="attributes">
             <attribute name="t-if">display_discount and not has_discount_eur</attribute>
         </th>
         <td name="td_discount" position="attributes">
             <attribute name="t-if">display_discount and not has_discount_eur</attribute>
         </td>
-        <th name="th_discount" position="after">
+        <span t-field="line.price_subtotal" position="replace">
+            <span class="text-nowrap" t-field="line.price_total">27.00</span>
+        </span>
+        <!-- <th name="th_discount" position="after">
             <th t-if="has_discount_eur" name="th_discount_eur" >
                 REM €.
             </th>
-        </th>
+        </th> -->
         <!-- <xpath expr="//th[@name='th_price_unit']" position="replace"/> -->
         <!-- <xpath expr="//th[@name='th_taxes']" position="replace"/> -->
         <xpath expr="//span[@t-field='line.quantity']/.." position="replace"/>
         <xpath expr="//span[@t-field='line.price_unit']/.." position="replace"/>
         <!-- <xpath expr="//span[@t-field='line.discount']/.." position="replace"/> -->
-        <xpath expr="//span[@t-field='line.discount']/.." position="after">
+        <!-- <xpath expr="//span[@t-field='line.discount']/.." position="after">
             <td t-if="has_discount_eur">
                 <span t-field="line.discount_eur" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
             </td>
-        </xpath> 
+        </xpath>  -->
         <xpath expr="//div[@id='payment_term']/.." position="inside">
             <xpath expr="//div[@name='comment']" position="move"/>
         </xpath>
@@ -50,6 +61,82 @@
         <!-- <xpath expr="//span[@t-field='o.payment_reference']" position="before">
             <br/>
         </xpath> -->
+        <xpath expr="//p[@name='payment_communication']" position="replace"/>
+        <div id="qrcode" position="replace"/>
+        <div id="right-elements" position="replace">
+            <div class="row">
+                <div t-attf-class="#{'col-5' if report_type != 'html' else 'col-5 col-md-5'}">
+                    <p name="payment_communication">
+                        Payment Communication: <span class="fw-bold" t-field="o.payment_reference">INV/2023/00001</span>
+                        <t t-if="o.partner_bank_id">
+                            <br/> on this account: <span t-field="o.partner_bank_id" class="fw-bold"/>
+                        </t>
+                    </p>
+                    <div id="qrcode" class="d-flex mb-3 avoid-page-break-inside">
+                        <div class="qrcode me-3" id="qrcode_image">
+                            <t t-set="qr_code_url" t-value="o._generate_qr_code(silent_errors=True)"/>
+                            <p t-if="qr_code_url" class="position-relative mb-0">
+                                <img t-att-src="qr_code_url"/>
+                                <img src="/account/static/src/img/Odoo_logo_O.svg"
+                                        id="qrcode_odoo_logo"
+                                        class="top-50 start-50 position-absolute bg-white border border-white border-3 rounded-circle"
+                                />
+                            </p>
+                        </div>
+                        <div class="d-inline text-muted lh-sm fst-italic" id="qrcode_info" t-if="qr_code_url">
+                            <p>Scan this QR Code to<br/>pay with your mobile</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                </div>
+                <div id="right-elements" t-attf-class="#{'col-5' if report_type != 'html' else 'col-5'}">
+                    <div id="total" class="clearfix row">
+                        <div class="ms-auto">
+                            <table class="table table-sm table-borderless avoid-page-break-inside">
+
+                                <!--Tax totals-->
+                                <t t-set="tax_totals" t-value="o.tax_totals or {}"/>
+                                <t t-call="account.document_tax_totals"/>
+
+                                <!--Payments-->
+                                <t t-if="print_with_payments">
+                                    <t t-if="o.payment_state != 'invoicing_legacy'">
+                                        <t t-set="payments_vals" t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
+                                        <t t-foreach="payments_vals" t-as="payment_vals">
+                                            <tr t-if="payment_vals['is_exchange'] == 0">
+                                                <td>
+                                                    <i class="oe_form_field text-end oe_payment_label">Paid on <t t-out="payment_vals['date']" t-options='{"widget": "date"}'>2021-09-19</t></i>
+                                                </td>
+                                                <td class="text-end">
+                                                    <span t-out="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'>20.00</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="len(payments_vals) > 0">
+                                            <tr class="border-black fw-bold">
+                                                <td>Amount Due</td>
+                                                <td class="text-end">
+                                                    <span t-field="o.amount_residual">11.05</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <p class="text-end lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
+                            Total amount in words: <br/>
+                            <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
+                        </p>
+                    </div>
+                    <t t-call="account.document_tax_totals_company_currency_template"/>
+                </div>
+            </div>
+        </div>
+
     </template>
 
 </odoo>
