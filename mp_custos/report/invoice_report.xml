@@ -16,12 +16,8 @@
         <xpath expr="//th[@name='th_priceunit']" position="replace"/>
         <xpath expr="//th[@name='th_taxes']" position="replace"/>
         <xpath expr="//td[@name='td_taxes']" position="replace"/>
-        <th name="th_discount" position="attributes">
-            <attribute name="t-if">display_discount and not has_discount_eur</attribute>
-        </th>
-        <td name="td_discount" position="attributes">
-            <attribute name="t-if">display_discount and not has_discount_eur</attribute>
-        </td>
+        <th name="th_discount" position="replace"/>
+        <td name="td_discount" position="replace"/>
         <span t-field="line.price_subtotal" position="replace">
             <span class="text-nowrap" t-field="line.price_total">27.00</span>
         </span>

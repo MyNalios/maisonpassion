@@ -18,7 +18,7 @@ class AccountMoveLine(models.Model):
     discount = fields.Float( string='Discount (%)', digits='Discount', default=0.0, compute='_compute_discount', store=True, readonly=False)
     is_hide_discount = fields.Boolean(string='Hide Discount', default=False, related='move_id.is_hide_discount')
 
-    @api.depends('discount_eur', 'discount')
+    @api.depends('discount_eur', 'discount','price_unit')
     def _compute_discount(self):
         for line in self:
 
