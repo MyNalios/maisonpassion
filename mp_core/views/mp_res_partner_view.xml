@@ -45,7 +45,7 @@
             <!-- Title before name -->
             <xpath expr="//field[@name='title']" position="replace"/>
             <xpath expr="//h1[1]" position="replace" />
-            <!-- <xpath expr="//field[@name='company_type']" position="after">
+            <xpath expr="//field[@name='company_type']" position="after">
                 <br />
                 <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" invisible="is_company" />
                 <h1><field name="name" default_focus="1" placeholder="Name" required="type == 'contact'" /></h1>
@@ -53,7 +53,7 @@
 
             <!-- Zip code before city -->
             <xpath expr="//field[@name='zip']" position="replace"/>
-            <!-- <xpath expr="//field[@name='city']" position="before">
+            <xpath expr="//field[@name='city']" position="before">
                 <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" readonly="type == 'contact' and parent_id" />
             </xpath>
 
