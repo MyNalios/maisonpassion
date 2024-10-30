@@ -6,13 +6,13 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <!-- add red code boolean -->
-            <xpath expr="//group[@name='misc']" position="inside">
+            <!-- <xpath expr="//group[@name='misc']" position="inside">
                 <field name="is_red_code"/>
-            </xpath>
+            </xpath> -->
             <!-- add red code ribbon -->
-            <xpath expr="//widget[@name='web_ribbon']" position="after">
+            <!-- <xpath expr="//widget[@name='web_ribbon']" position="after">
                 <widget name="web_ribbon" title="Red Code" bg_color="bg-danger" invisible="not is_red_code" />
-            </xpath>
+            </xpath> -->
 
             <!-- add fields -->
             <xpath expr="//group/field[@name='user_ids']" position="before">
