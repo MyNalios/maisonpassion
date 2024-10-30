@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="mp_res_partner_view_form2" model="ir.ui.view">
+    <!-- <record id="mp_res_partner_view_form2" model="ir.ui.view">
         <field name="name">mp.core.res.partner.view.form2</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
-        <field name="arch" type="xml">
+        <field name="arch" type="xml"> -->
             <!-- add red code boolean -->
             <!-- <xpath expr="//group[@name='misc']" position="inside">
                 <field name="is_red_code"/>
@@ -15,7 +15,7 @@
             </xpath> -->
 
             <!-- add fields -->
-            <xpath expr="//group/field[@name='user_ids']" position="before">
+            <!-- <xpath expr="//group/field[@name='user_ids']" position="before">
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
             </xpath>
             <xpath expr="//kanban/field[@name='mobile']" position="after">
@@ -23,18 +23,18 @@
             </xpath>
             <xpath expr="//group[@name='misc']//field[@name='ref']" position="attributes">
                 <attribute name="invisible">True</attribute>
-            </xpath>
+            </xpath> -->
 
             <!-- add fields is_client_effective -->
-            <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
-                <field name="is_client_effective"/>
+            <!-- <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
+                <field name="is_client_effective"/> -->
 <!--                <field name="source_ids" widget="many2many_tags"/>-->
-            </xpath>
+            <!-- </xpath> -->
 
             <!-- add new field source_id -->
-            <xpath expr="//field[@name='vat']" position="after">
+            <!-- <xpath expr="//field[@name='vat']" position="after">
                 <field name="ref" readonly="1" string="Customer Code"/>
-            </xpath>
+            </xpath> -->
 
             <!-- Type is always a readonly field -->
             <!-- <xpath expr="//field[@name='type']" position="attributes">
@@ -43,8 +43,8 @@
             </xpath> -->
 
             <!-- Title before name -->
-            <xpath expr="//field[@name='title']" position="replace"/>
-            <xpath expr="//h1[1]" position="replace" />
+            <!-- <xpath expr="//field[@name='title']" position="replace"/>
+            <xpath expr="//h1[1]" position="replace" /> -->
             <!-- <xpath expr="//field[@name='company_type']" position="after">
                 <br />
                 <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" invisible="is_company" />
@@ -52,7 +52,7 @@
             </xpath> -->
 
             <!-- Zip code before city -->
-            <xpath expr="//field[@name='zip']" position="replace"/>
+            <!-- <xpath expr="//field[@name='zip']" position="replace"/> -->
             <!-- <xpath expr="//field[@name='city']" position="before">
                 <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" readonly="type == 'contact' and parent_id" />
             </xpath> -->
@@ -91,10 +91,10 @@
             </xpath> -->
 
             <!-- Zip code before city -->
-            <xpath expr="//div[@name='div_address']/field[@name='zip']" position="replace"/>
+            <!-- <xpath expr="//div[@name='div_address']/field[@name='zip']" position="replace"/>
             <xpath expr="//div[@name='div_address']/field[@name='city']" position="before">
                 <field name="zip" placeholder="ZIP" style="margin-right:2%" class="o_address_zip"/>
-            </xpath>
+            </xpath> -->
 
             <!-- a checker point i : hide unnecessary fields for delivery address -->
             <!-- <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="attributes"> -->
@@ -112,8 +112,8 @@
             </xpath> -->
           
 
-        </field>
-    </record>
+        <!-- </field>
+    </record> -->
 <!-- A checker point j -->
     <!-- <record id="mp_partner_simple_view_form" model="ir.ui.view">
         <field name="name">mp.partner.simple.view.form</field>
