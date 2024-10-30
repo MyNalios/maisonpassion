@@ -52,10 +52,10 @@
             </xpath>
 
             <!-- Zip code before city -->
-            <!-- <xpath expr="//field[@name='zip']" position="replace"/> -->
-            <!-- <xpath expr="//field[@name='city']" position="before">
+            <xpath expr="//field[@name='zip']" position="replace"/>
+            <xpath expr="//field[@name='city']" position="before">
                 <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" readonly="type == 'contact' and parent_id" />
-            </xpath> -->
+            </xpath>
 
             <!-- hide state_id if country == Belgium -->
             <!-- <xpath expr="//field[@name='state_id']" position="attributes">
