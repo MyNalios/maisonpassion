@@ -58,10 +58,10 @@
             </xpath> -->
 
             <!-- hide state_id if country == Belgium -->
-            <xpath expr="//field[@name='state_id']" position="attributes">
+            <!-- <xpath expr="//field[@name='state_id']" position="attributes">
                 <attribute name="invisible">country_id == 20</attribute>
                 <attribute name="style">margin-right:0%</attribute>
-            </xpath>
+            </xpath> -->
 
             <!-- //////////////////////////////// -->
             <!-- modifications on child view form -->
