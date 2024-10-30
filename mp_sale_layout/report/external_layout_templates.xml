@@ -57,7 +57,7 @@
         </xpath>-->
     </template>
 
-    <!-- <template id="external_layout_bold" inherit_id="web.external_layout_bold">
+    <template id="external_layout_bold" inherit_id="web.external_layout_bold">
 
         <xpath expr="//div[hasclass('o_clean_header')]/.." position="replace">
             <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
@@ -111,5 +111,5 @@
             </div>
         </xpath>
 
-    </template> -->
+    </template>
 </odoo>
