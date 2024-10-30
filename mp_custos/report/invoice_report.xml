@@ -5,6 +5,15 @@
         <xpath expr="//t[@t-if='o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)']" position="attributes">
             <attribute name="t-if">True</attribute>
         </xpath>
+        <!-- <div t-field="o.partner_shipping_id" position="before">
+            <t t-if="o.partner_shipping_id.title" t-esc="o.partner_shipping_id.title"/>
+        </div> -->
+        <xpath expr="//div[@name='address_not_same_as_shipping']//address" position="before">
+            <t t-if="o.partner_id.title" t-esc="o.partner_id.title.name"/>
+        </xpath>
+        <xpath expr="//div[@name='address_same_as_shipping']//address" position="before">
+            <t t-if="o.partner_id.title" t-esc="o.partner_id.title.name"/>
+        </xpath>
         <xpath expr="//div[@name='shipping_address_block']//strong" position="replace">
             <strong>Adresse de chantier/livraison</strong>
         </xpath>
@@ -61,7 +70,7 @@
         <div id="qrcode" position="replace"/>
         <div id="right-elements" position="replace">
             <div class="row">
-                <div t-attf-class="#{'col-5' if report_type != 'html' else 'col-5 col-md-5'}">
+                <div t-attf-class="#{'col-5 mt-3' if report_type != 'html' else 'col-5 col-md-5 mt-3'}">
                     <p name="payment_communication">
                         Payment Communication: <span class="fw-bold" t-field="o.payment_reference">INV/2023/00001</span>
                         <t t-if="o.partner_bank_id">
