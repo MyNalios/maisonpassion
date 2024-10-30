@@ -37,19 +37,19 @@
             </xpath>
 
             <!-- Type is always a readonly field -->
-            <xpath expr="//field[@name='type']" position="attributes">
+            <!-- <xpath expr="//field[@name='type']" position="attributes">
                 <attribute name="invisible">is_company</attribute>
                 <attribute name="readonly">True</attribute>
-            </xpath>
+            </xpath> -->
 
             <!-- Title before name -->
             <xpath expr="//field[@name='title']" position="replace"/>
             <xpath expr="//h1[1]" position="replace" />
-            <xpath expr="//field[@name='company_type']" position="after">
+            <!-- <xpath expr="//field[@name='company_type']" position="after">
                 <br />
                 <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" invisible="is_company" />
                 <h1><field name="name" default_focus="1" placeholder="Name" required="type == 'contact'" /></h1>
-            </xpath>
+            </xpath> -->
 
             <!-- Zip code before city -->
             <xpath expr="//field[@name='zip']" position="replace"/>
