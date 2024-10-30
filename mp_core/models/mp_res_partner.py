@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class MaisonPassionResPartner(models.Model):
     _inherit = 'res.partner'
 
-    def _default_country_id(self):
-        return self.env.company.country_id
+    # def _default_country_id(self):
+    #     return self.env.company.country_id
 
     def _default_title(self):
         return self.env.ref('mp_core.res_partner_title_mister_madam').id
@@ -21,7 +21,7 @@ class MaisonPassionResPartner(models.Model):
     is_red_code = fields.Boolean(string='Is a Red Code')
 
     # default value
-    country_id = fields.Many2one('res.country', default=_default_country_id)
+    # country_id = fields.Many2one('res.country', default=_default_country_id)
     title = fields.Many2one('res.partner.title', default=_default_title)
 
     @api.depends('sale_order_ids')
@@ -32,22 +32,19 @@ class MaisonPassionResPartner(models.Model):
             else:
                 partner.is_client_effective = False
 
-    @api.constrains('vat')
-    def _check_unique_vat(self):
-        for partner in self:
-            if partner.company_type == 'person':
-                continue
-            result = self.search([('id', '!=', partner.id), ('vat', '!=', ""), ('vat', '=', partner.vat)], limit=1)
-            if result:
-                message = _('You have already defined a partner ({}) with this VAT number ({})'.format(result.name,
-                                                                                                       partner.vat))
-                raise ValidationError(message)
+    # A CHECKER : Peut etre remplacé par une sql contraint uniqu vat
+    # @api.constrains('vat')
+    # def _check_unique_vat(self):
+    #     for partner in self:
+    #         if partner.company_type == 'person':
+    #             continue
+    #         result = self.search([('id', '!=', partner.id), ('vat', '!=', ""), ('vat', '=', partner.vat)], limit=1)
+    #         if result:
+    #             message = _('You have already defined a partner ({}) with this VAT number ({})'.format(result.name,
+    #                                                                                                    partner.vat))
+    #             raise ValidationError(message)
 
-    @api.onchange('mobile_2', 'country_id', 'company_id')
-    def _onchange_mobile_2_validation(self):
-        if self.mobile_2:
-            self.mobile_2 = self.phone_format(self.mobile_2)
-
+    #  a Checker point E
     def write(self, vals):
         """
         If a child partner becomes independent, then a new sequence is created
@@ -59,6 +56,13 @@ class MaisonPassionResPartner(models.Model):
                 sequence = self.env['ir.sequence'].next_by_code("res.partner")
                 vals.update({'ref': sequence})
         return super(MaisonPassionResPartner, self).write(vals)
+
+    @api.onchange('mobile_2', 'country_id', 'company_id')
+    def _onchange_mobile_validation(self):
+        _logger.info("_onchange_mobile_validation")
+        _logger.info("self.mobile_2 %s", self.mobile_2)
+        if self.mobile_2:
+            self.mobile_2 = self._phone_format(fname='mobile_2', force_format='INTERNATIONAL') or self.mobile_2
 
     @api.model_create_multi
     def create(self, vals):
@@ -91,7 +95,7 @@ class MaisonPassionResPartner(models.Model):
     def action_format_phone_number(self, partner_ids):
         partners = self.env['res.partner'].browse(partner_ids)
         for partner in partners:
-            partner.phone = self.phone_format(partner.phone if partner.phone else "")
-            partner.mobile = self.phone_format(partner.mobile if partner.mobile else "")
-            partner.mobile_2 = self.phone_format(partner.mobile_2 if partner.mobile_2 else "")
-
+            partner.phone = self._phone_format(partner.phone if partner.phone else "")
+            partner.mobile = self._phone_format(partner.mobile if partner.mobile else "")
+            partner.mobile_2 = self._phone_format(partner.mobile_2 if partner.mobile_2 else "")
+            

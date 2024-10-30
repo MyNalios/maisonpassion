@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="mp_res_partner_view_form" model="ir.ui.view">
-        <field name="name">mp.core.res.partner.view.form</field>
+    <record id="mp_res_partner_view_form2" model="ir.ui.view">
+        <field name="name">mp.core.res.partner.view.form2</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
@@ -11,7 +11,7 @@
             </xpath>
             <!-- add red code ribbon -->
             <xpath expr="//widget[@name='web_ribbon']" position="after">
-                <widget name="web_ribbon" title="Red Code" bg_color="bg-danger" attrs="{'invisible': [('is_red_code', '=', False)]}"/>
+                <widget name="web_ribbon" title="Red Code" bg_color="bg-danger" invisible="not is_red_code" />
             </xpath>
 
             <!-- add fields -->
@@ -22,10 +22,7 @@
                 <field name="mobile_2" widget="phone"/>
             </xpath>
             <xpath expr="//group[@name='misc']//field[@name='ref']" position="attributes">
-                <attribute name="attrs">{'invisible':True}</attribute>
-            </xpath>
-            <xpath expr="//field[@name='type']" position="before">
-                <field name="ref" readonly="1" string="Customer Code"/>
+                <attribute name="invisible">True</attribute>
             </xpath>
 
             <!-- add fields is_client_effective -->
@@ -36,33 +33,33 @@
 
             <!-- add new field source_id -->
             <xpath expr="//field[@name='vat']" position="after">
-                <field name="source_id" options="{'no_create': True}"/>
+                <field name="ref" readonly="1" string="Customer Code"/>
             </xpath>
 
             <!-- Type is always a readonly field -->
             <xpath expr="//field[@name='type']" position="attributes">
-                <attribute name="attrs">{'invisible': [('is_company','=', True)]}</attribute>
+                <attribute name="invisible">is_company</attribute>
                 <attribute name="readonly">True</attribute>
             </xpath>
 
             <!-- Title before name -->
             <xpath expr="//field[@name='title']" position="replace"/>
-            <xpath expr="//field[@name='name']/.." position="replace">
-                <div class="o_row">
-                    <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                    <h1><field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/></h1>
-                </div><br/>
+            <xpath expr="//h1[1]" position="replace" />
+            <xpath expr="//field[@name='company_type']" position="after">
+                <br />
+                <field name="title" options="{&quot;no_open&quot;: True}" style="margin-right:2%;" placeholder="e.g. Mister" invisible="is_company" />
+                <h1><field name="name" default_focus="1" placeholder="Name" required="type == 'contact'" /></h1>
             </xpath>
 
             <!-- Zip code before city -->
             <xpath expr="//field[@name='zip']" position="replace"/>
             <xpath expr="//field[@name='city']" position="before">
-                <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                <field name="zip" placeholder="ZIP" class="o_address_zip" style="margin-right:2%;" readonly="type == 'contact' and parent_id" />
             </xpath>
 
             <!-- hide state_id if country == Belgium -->
             <xpath expr="//field[@name='state_id']" position="attributes">
-                <attribute name="attrs">{'invisible': [('country_id', '=', 20)]}</attribute>
+                <attribute name="invisible">country_id == 20</attribute>
                 <attribute name="style">margin-right:0%</attribute>
             </xpath>
 
@@ -70,10 +67,10 @@
             <!-- modifications on child view form -->
             <!-- //////////////////////////////// -->
 
-            <!-- delivery address by default -->
-            <xpath expr="//field[@name='child_ids']" position="attributes">
+            <!-- A checker point g : delivery address by default -->
+            <!-- <xpath expr="//field[@name='child_ids']" position="attributes">
                 <attribute name="context">{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id, 'default_type': 'delivery'}</attribute>
-            </xpath>
+            </xpath> -->
 
             <!-- Child type is always a readonly field but readonly field cannot have a default value by context -->
             <!-- user should still be able to change type -->
@@ -84,14 +81,14 @@
 <!--                <h3>Delivery Address</h3>-->
 <!--            </xpath>-->
 
-            <!-- hide state_id if country == Belgium -->
-            <xpath expr="//field[@name='child_ids']/kanban/field[@name='state_id']" position="attributes">
+            <!-- a checker point h : hide state_id if country == Belgium -->
+            <!-- <xpath expr="//field[@name='child_ids']/kanban/field[@name='state_id']" position="attributes">
                 <attribute name="attrs">{'invisible': [('country_id', '=', 20)]}</attribute>
             </xpath>
             <xpath expr="//div[@name='div_address']/field[@name='state_id']" position="attributes">
                 <attribute name="attrs">{'invisible': [('country_id', '=', 20)]}</attribute>
                 <attribute name="style">margin-right:0%</attribute>
-            </xpath>
+            </xpath> -->
 
             <!-- Zip code before city -->
             <xpath expr="//div[@name='div_address']/field[@name='zip']" position="replace"/>
@@ -99,10 +96,10 @@
                 <field name="zip" placeholder="ZIP" style="margin-right:2%" class="o_address_zip"/>
             </xpath>
 
-            <!-- hide unnecessary fields for delivery address -->
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="attributes">
+            <!-- a checker point i : hide unnecessary fields for delivery address -->
+            <!-- <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="attributes"> -->
 <!--                <attribute name="attrs">{'invisible': [('type', '=', 'delivery')]}</attribute>-->
-                <attribute name="string">Address Name</attribute>
+                <!-- <attribute name="string">Address Name</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='email']" position="attributes">
                 <attribute name="attrs">{'invisible': [('type', '=', 'delivery')]}</attribute>
@@ -112,15 +109,13 @@
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='mobile']" position="attributes">
                 <attribute name="attrs">{'invisible': [('type', '=', 'delivery')]}</attribute>
-            </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='image_1920']" position="attributes">
-                <attribute name="attrs">{'invisible': [('type', '=', 'delivery')]}</attribute>
-            </xpath>
+            </xpath> -->
+          
 
         </field>
     </record>
-
-    <record id="mp_partner_simple_view_form" model="ir.ui.view">
+<!-- A checker point j -->
+    <!-- <record id="mp_partner_simple_view_form" model="ir.ui.view">
         <field name="name">mp.partner.simple.view.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_simple_form"/>
@@ -132,21 +127,9 @@
                 <field name="ref" string="Customer Code"/>
             </xpath>
         </field>
-    </record>
+    </record> -->
 
-    <record id="mp_partner_short_view_form" model="ir.ui.view">
-        <field name="name">mp.partner.short.view.form</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_short_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='mobile']" position="attributes">
-                <attribute name="attrs">{'invisible': [('is_company', '=', True)]}</attribute>
-            </xpath>
-            <xpath expr="//field[@name='type']" position="before">
-                <field name="ref" string="Customer Code"/>
-            </xpath>
-        </field>
-    </record>
+ 
 
     <record id="mp_partner_view_tree" model="ir.ui.view">
         <field name="name">mp.partner.view.tree</field>
@@ -192,10 +175,10 @@
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
     </record>
-
+    <!-- a checker point m 
     <record id="contacts.action_contacts" model="ir.actions.act_window">
         <field name="context">{'default_is_company': False}</field>
-    </record>
+    </record> -->
 
     <record id="res_partner_action_format_phone_number" model="ir.actions.server">
         <field name="name">Format Phone Numbers</field>

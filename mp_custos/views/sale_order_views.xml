@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='informations_date']" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-auto"/>
+            <attribute name="class" separator=" " add="" remove="col-3"/>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[3]" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-auto"/>
+            <attribute name="class" separator=" " add="" remove="col-3"/>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[4]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-auto"/>
+            <attribute name="class" separator=" " add="" remove="col-3"/>
+        </xpath>     
+        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']/.." position="attributes">
+            <attribute name="style">page-break-inside: avoid;</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']" position="replace">
+            <span t-field="line.price_total">27.00</span>
+        </xpath>
+        <xpath expr="//p[@t-if='not is_html_empty(doc.payment_term_id.note)']" position="replace">
+            <p t-if="not is_html_empty(doc.payment_term_id.note) and not doc.payment_term_id.is_personalized">
+                <span t-field="doc.payment_term_id.note"/>
+            </p>
+            <p t-elif="doc.payment_term_id.is_personalized" style="page-break-inside: avoid;">
+                <div class="row">
+                    <div class="col-6">
+                        <span style="color: #AF6F7E">Paiements</span>
+                    </div>
+                    <div class="col-6 text-end">
+                        <strong t-esc="doc.tax_totals['formatted_amount_total']"/>
+                    </div>
+                </div>
+                <t t-set="data" t-value="doc.get_payment_term_lines_distribution()"/>
+                <div class="row" t-foreach="data.keys()" t-as="key">
+                    <div class="col-10 mt-2 mb-2">
+                        <span t-out="data[key]['text']"/>
+                    </div>
+                    <div class="col-2 text-end mt-2 mb-2">
+                        <span t-out="data[key]['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                    </div>
+                </div>
+            </p>
+            <div class="row">
+                <div class="col-12">
+                    <span>Si une fin de chantier subsiste, le montant retenu ne sera pas supérieur à la valeur des travaux restant à effectuer.</span>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-12 mt-3">
+                        <span style="color: #AF6F7E">Ces paiements conditionnent l&amp;apos;exécution et la livraison de votre commande</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div style="padding-top: 20px; page-break-inside: avoid;">
+                            <p>Pour passer commande, il vous suffit de nous renvoyer un exemplaire du devis et de ses annexes avec un paraphe sur chaque page et une signature ci-dessous.</p>
+                            <p>J'espère que nos conditions vous permettront de nous confier votre ordre et je vous prie d'agréer,
+                            <t t-if="doc.partner_id.title">
+                                <span t-field="doc.partner_id.title"/>&amp;nbsp;
+                            </t>
+                            <span t-field="doc.partner_id.name"/>
+                            , l'expression de mes sentiments distingués.</p>
+                            <strong style="color : black;"> En acceptant ce devis, vous déclarez accepter nos conditions générales de vente et de pose ainsi que nos conditions de garantie accessibles sur :<a t-attf-href = "http://www.maisonpassion.be/cgv" > www.maisonpassion.be/cgv </a> </strong>
+                            <br/>
+                            <br/>
+                            <p style="margin-top:20px">Fait à ................................................................................................., le .................................................. .</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt32 ml64 mr4 mb-5" name="signature" style="margin-top:20px">
+                    <div class="col-6 mb-5">
+                        <strong>Pour Maison Passion</strong>
+                        <p t-field="doc.user_id"/>
+                    </div>
+                    <div class="col-6 mb-5">
+                        <strong>Signature(s) pour accord et commande</strong>
+                        <p>
+                            <t t-if="doc.partner_id.title">
+                                <span t-field="doc.partner_id.title.shortcut"/>
+                            </t>
+                            <span t-field="doc.partner_id.name"/>
+                        </p>
+                    </div>
+                </div>
+                <xpath expr="//span[@name='order_note']" position="move"/>
+        </xpath>
+    </template>
+    <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//table[@id='sales_order_table']//th[position()=3]" position="replace">
+            <th name="th_priceunit" ><t t-if="any(line.discount_eur for line in sale_order.order_line)">Initial Price</t></th>
+            <th name="th_discount_eur" > <t t-if="any(line.discount_eur for line in sale_order.order_line)">Remise(Eur)</t>  </th>
+        </xpath>
+        <xpath expr="//table[@id='sales_order_table']//td[position()=3]" position="replace">
+            <td ><t t-if="line.discount_eur" >
+                 <span t-esc="line.price_unit * line.product_uom_qty" class="text-danger" style="text-decoration: line-through"/>
+            </t> <br/> 
+            <span t-out="(line.price_unit * line.product_uom_qty) - line.discount_eur"/> €
+             </td>
+            <td name="td_discount_eur" class="text-end text-info"> 
+            <t t-if="line.discount_eur"> <span t-field="line.discount_eur"/> €</t> </td>
+        </xpath> 
+    </template>
+</odoo>

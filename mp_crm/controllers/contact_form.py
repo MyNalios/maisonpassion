@@ -47,7 +47,7 @@ class ContactForm(http.Controller):
                 formatted_services = re.sub('\s*,\s*', ',', post['services[]'])
                 tag_names = formatted_services.split(',')
                 for tag_name in tag_names:
-                    tag = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag_name)], limit=1)
+                    tag = request.env['crm.tag'].sudo().search([('technical_name', '=', tag_name)], limit=1)
                     if tag:
                         tag_ids.append(tag.id)
 
@@ -70,26 +70,28 @@ class ContactForm(http.Controller):
             request.env['crm.lead'].sudo().create(vals)
             return 'OK'
 
-        elif post.get('menu-demande') == 'Demande de devis gratuit' and (post.get('your-tel') or post.get('your-email')) and post.get('your-name'):
-            tags = request.httprequest.form.getlist('services[]')
+        elif post.get('source') == 'website' and post.get('demande') == 'Demande de devis gratuit' and (post.get('tel') or post.get('email')) and post.get('name'):
             tag_ids = []
-            for tag in tags:
-                tag_id = request.env['crm.lead.tag'].sudo().search([('technical_name', '=', tag)])
-                if tag_id:
-                    tag_ids.append(tag_id.id)
+            if 'services' in post:
+                formatted_services = re.sub('\s*,\s*', ',', post['services'])
+                tag_names = formatted_services.split(',')
+                for tag_name in tag_names:
+                    tag = request.env['crm.tag'].sudo().search([('technical_name', '=', tag_name)])
+                    if tag:
+                        tag_ids.append(tag.id)
 
             vals = {
-                'name': '{} - {}'.format(' ,'.join(tags), post['your-name']),
+                'name': '{} - {}'.format(post.get('services', ''), post['name']) if post.get('services') else post['name'],
                 'type': 'lead',
                 'country_id': request.env['res.country'].search([('code', '=', 'BE')]).id or False,
                 'lang_id': request.env['res.lang'].search([('code', '=', 'fr_BE')]).id or False,
-                'contact_name': post['your-name'],
-                'email_from': tools.formataddr((post['your-name'], post.get('your-email'))) if post.get('your-email') else '',
-                'phone': phone_validation.phone_format(post.get('your-tel'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
-                'street': post.get('your-adres', ''),
-                'city': post.get('your-local', ''),
-                'zip': post.get('your-postal', ''),
-                'description': post.get('your-message', ''),
+                'contact_name': post['name'],
+                'email_from': tools.formataddr((post['name'], post.get('email'))) if post.get('email') else '',
+                'phone': phone_validation.phone_format(post.get('tel'), 'BE', '32', force_format='INTERNATIONAL', raise_exception=False) or '',
+                'street': post.get('adres', ''),
+                'city': post.get('local', ''),
+                'zip': post.get('postal', ''),
+                'description': '{}\n{}'.format('Demande de devis gratuit:', post.get('message', '')),
                 'source_id': request.env['utm.source'].sudo().search([('technical_name', '=', 'website')]).id or False,
                 'tag_ids': [(6, 0, tag_ids)]
             }

@@ -9,21 +9,17 @@
                 <xpath expr="//button[@name='action_apply']" position="attributes">
                     <attribute name="context">{'no_contact_synchronization': True}</attribute>
                 </xpath>
-                <xpath expr="//group[@name='action']/group" position="inside">
-                    <field name="source_id" attrs="{'required': [('action', '=', 'create')], 'invisible': [('action', '!=', 'create')]}"/>
-                    <field name="partner_source_id" attrs="{'required': [('action', '=', 'exist')], 'invisible': [('action', '!=', 'exist')]}"/>
-                </xpath>
             </field>
         </record>
 
-        <record id="view_crm_lead2opportunity_partner_mass" model="ir.ui.view">
+        <!--<record id="view_crm_lead2opportunity_partner_mass" model="ir.ui.view">
             <field name="name">view_crm.lead2opportunity.partner.mass.inherited.convert.context</field>
             <field name="model">crm.lead2opportunity.partner.mass</field>
             <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner_mass"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='mass_convert']" position="attributes">
+                <xpath expr="//button[@name='action_mass_convert']" position="attributes">
                     <attribute name="context">{'no_contact_synchronization': True}</attribute>
                 </xpath>
             </field>
-        </record>
+        </record>-->
 </odoo>

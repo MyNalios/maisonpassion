@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models, _
 from odoo.exceptions import UserError
 
 
-class SaleAdvancePaymentInv(models.TransientModel):
-    _inherit = 'sale.advance.payment.inv'
+# class SaleAdvancePaymentInv(models.TransientModel):
+#     _inherit = 'sale.advance.payment.inv'
 
-    product_id = fields.Many2one('product.product', required=True)
+#     product_id = fields.Many2one('product.product', required=True)
 
-    # def create_invoices(self):
     #     """
     #     Overwritten method
     #     Use sale order line taxes for down payment

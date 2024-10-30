@@ -2,15 +2,15 @@
 <odoo>
 
     <template id="sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
-        <xpath expr="//th[@t-if='display_discount']/span" position="replace">
+        <xpath expr="//th[@t-if='display_discount']/span" position="after">
             <span>Disc.(Eur)</span>
         </xpath>
         <xpath expr="//div[@t-if='line.discount']/t" position="attributes">
-            <attribute name="t-esc">line.price_unit - line.discount</attribute>
+            <attribute name="t-esc">line.price_unit - line.discount_eur</attribute>
         </xpath>
-        <xpath expr="//strong[@t-if='line.discount &gt; 0']" position="replace">
-            <strong t-if="line.discount &gt; 0" class="text-info">
-                <t t-esc="line.discount" t-options='{"widget": "float", "decimal_precision": "Product Price"}'/>
+        <xpath expr="//strong[@t-if='line.discount &gt; 0']" position="after">
+            <strong t-if="line.discount_eur &gt; 0" class="text-info">
+                <t t-esc="line.discount_eur" t-options='{"widget": "float", "decimal_precision": "Product Price"}'/>
             </strong>
         </xpath>
     </template>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">view.move.form.inherited.discount.eur</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- <field name="id" position="after">
+                <field name="is_hide_discount" invisible="1"/>
+            </field> -->
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="ref"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="before">
+                <!-- <field name="is_hide_discount"  column_invisible="1"/>
+                <field name="discount_eur" invisible="is_hide_discount"/> -->
+                <field name="discount_eur"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="attributes">
+                <attribute name="invisible">not is_hide_discount</attribute>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

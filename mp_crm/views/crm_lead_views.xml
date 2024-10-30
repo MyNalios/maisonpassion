@@ -1,43 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="crm_lead_view_form" model="ir.ui.view">
-        <field name="name">crm.lead.form.inherited.existing.partner</field>
+    <!-- <record id="crm_lead_view_form" model="ir.ui.view">
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
-        <field name="arch" type="xml">
+        <field name="arch" type="xml"> -->
+
+            <!-- <xpath expr="//field[@name='phone']" position="after">
+                <group>
+                    <field name="source_id" />
+                    <field name="referred_partner_id" />
+                </group>
+          </xpath> -->
+            <!-- <xpath expr="//group[@name='opportunity_partner']" position="inside">
+                    <field name="source_id" />
+                    <field name="referred_partner_id" />
+            </xpath> -->
+            <!-- <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="source_id" />
+                    <field name="referred_partner_id" />
+            </xpath> -->
+
+
             <!-- change referred to referred_partner_id and move referred_partner_id and source_id on main window -->
-            <xpath expr="//page[@name='extra']/group/group[@name='categorization']/field[@name='referred']" position="attributes">
+            <!-- <xpath expr="//field[@name='referred']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='extra']/group/group[@name='categorization']/field[@name='source_id']" position="attributes">
+            <xpath expr="//field[@name='source_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="attributes">
+            <xpath expr="//page[@name='lead']//field[@name='referred']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[3]/field[@name='source_id']" position="attributes">
+            <xpath expr="//page[@name='lead']//field[@name='source_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='team_id']" position="after">
                 <field name="source_id"/>
                 <field name="referred_partner_id"/>
-            </xpath>
-<!--            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="after">-->
+            </xpath> -->
+<!--         partner_phone_update   <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="after">-->
 <!--                <field name="referred_partner_id"/>-->
 <!--            </xpath>-->
 
             <!-- add a ribbon widget for existing partner -->
-            <xpath expr="//widget[@name='web_ribbon']" position="before">
+            <!-- <xpath expr="//widget[@name='web_ribbon']" position="before">
                 <widget name="web_ribbon" bg_color="bg-info" title="Partner" attrs="{'invisible': ['|', ('partner_id', '=', False), ('type', '!=', 'lead')]}"/>
-            </xpath>
+            </xpath> -->
 
             <!-- add address and mobile numbers on opportunity main window instead of follow-up notebook -->
-            <xpath expr="//sheet/group/group[2]/field[@name='phone']" position="after">
+            <!-- <xpath expr="//field[@name='phone'][1]" position="after">
                 <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
             </xpath>
-            <xpath expr="//sheet/group/group[2]/field[@name='partner_address_phone']" position="before">
+            <xpath expr="//group[@name='lead_info']" position="inside">
+                <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
+                <field name="vat" />
+            </xpath> -->
+            <!-- <xpath expr="//field[@name='phone']" position="after">
+                <field name="mobile" /> -->
+                <!-- <field name="mobile_2" /> -->
+                <!-- <xpath expr="//field[@name='user_id']" position="move" />
+                <field name="team_id" />
+                <field name="source_id" />
+                <field name="referred_partner_id" /> -->
+            <!-- </xpath> -->
+            <!--<xpath expr="//field[@name='partner_phone_update']" position="before">
                 <label for="street" string="Address"/>
                 <div class="o_address_format">
                     <field name="street" placeholder="Street..." class="o_address_street"/>
@@ -48,28 +76,29 @@
                     <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                 </div>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[1]/label[@for='street']" position="attributes">
+            <xpath expr="//page[@name='lead']/group/group[1]/label[@for='street_page_lead']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//page[@name='lead']/group/group[1]/div[hasclass('o_address_format')]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[2]/field[@name='mobile']" position="attributes">
+            <xpath expr="//field[@id='mobile_page_lead']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
 
 
-            <xpath expr="//sheet/group/group[1]/field[@name='partner_name']" position="after">
+            <xpath expr="//field[@name='partner_name']" position="after">
                 <field name="address_type"/>
             </xpath>
-            <xpath expr="//sheet/group/group[1]/field[@name='partner_name']" position="before">
+            <xpath expr="//field[@name='partner_name']" position="before">
                 <label for="contact_name"/>
                 <div class="o_row">
                     <field name="contact_name"/>
                     <field name="title" placeholder="Title" domain="[]" options="{'no_open': True}"/>
                 </div>
             </xpath>
-            <xpath expr="//sheet/group/group[3]/field[@name='mobile']" position="after">
+            
+            <xpath expr="//group[@name='lead_info']/div[4]/field[@name='mobile']" position="after">
                 <field name="mobile_2" widget="phone" options="{'enable_sms': True}"/>
                 <field name="vat" placeholder="e.g. BE0477472701"/>
             </xpath>
@@ -89,16 +118,16 @@
                     <field name="title" placeholder="Title" domain="[]" options="{'no_open': True}"/>
                 </div>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[2]/label[@for='contact_name']" position="attributes">
+            <xpath expr="//page[@name='lead']/group/group[2]/label[@for='contact_name_page_lead']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']/group/group[2]/label[@for='contact_name']" position="before">
+            <xpath expr="//page[@name='lead']/group/group[2]/label[@for='contact_name_page_lead']" position="before">
                 <field name="partner_name"/>
             </xpath>
             <xpath expr="//page[@name='lead']/group/group[2]/div[hasclass('o_row')]" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </xpath>
-        </field>
-    </record>
+            </xpath>-->
+        <!-- </field>
+    </record> -->
 
 </odoo>

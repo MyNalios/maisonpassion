@@ -2,9 +2,9 @@
 <odoo>
 
     <record id="crm_lead_tag_form" model="ir.ui.view">
-        <field name="name">crm.lead.tag.form.inherited.technical.name</field>
-        <field name="model">crm.lead.tag</field>
-        <field name="inherit_id" ref="crm.crm_lead_tag_form"/>
+        <field name="name">crm.tag.form.inherited.technical.name</field>
+        <field name="model">crm.tag</field>
+        <field name="inherit_id" ref="sales_team.sales_team_crm_tag_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='color']" position="after">
                 <field name="technical_name" groups="base.group_no_one"/>
@@ -13,9 +13,9 @@
     </record>
 
     <record id="crm_lead_tag_tree" model="ir.ui.view">
-        <field name="name">crm.lead.tag.tree.inherited.technical.name</field>
-        <field name="model">crm.lead.tag</field>
-        <field name="inherit_id" ref="crm.crm_lead_tag_tree"/>
+        <field name="name">crm.tag.tree.inherited.technical.name</field>
+        <field name="model">crm.tag</field>
+        <field name="inherit_id" ref="sales_team.sales_team_crm_tag_view_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//tree" position="attributes"><attribute name="editable"/></xpath>
         </field>
