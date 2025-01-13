@@ -8,9 +8,10 @@
         <!-- <div t-field="o.partner_shipping_id" position="before">
             <t t-if="o.partner_shipping_id.title" t-esc="o.partner_shipping_id.title"/>
         </div> -->
-        <xpath expr="//div[@name='address_not_same_as_shipping']//address" position="before">
-            <t t-if="o.partner_id.title" t-esc="o.partner_id.title.name"/>
+        <xpath expr="//div[@name='address_not_same_as_shipping']//address" position="replace">
+            <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["title","address", "name"], "no_marker": True}'/>
         </xpath>
+
         <xpath expr="//div[@name='address_same_as_shipping']//address" position="before">
             <t t-if="o.partner_id.title" t-esc="o.partner_id.title.name"/>
         </xpath>
