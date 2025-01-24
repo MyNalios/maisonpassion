@@ -67,10 +67,8 @@
         <!-- <xpath expr="//span[@t-field='o.payment_reference']" position="before">
             <br/>
         </xpath> -->
-        <xpath expr="//table[@name='invoice_line_table']/tbody/t//tr[@class]" position="replace">
-            <attribute name="t-if">
-                "current_section and (line_last or lines_to_report[line_index+1].display_type == 'line_section') and line.is_downpayment"
-            </attribute>
+        <xpath expr="//t[@t-foreach='lines']//tr[@class='is-subtotal text-end']" position="attributes">
+            <attribute name="t-if">current_section and (line_last or lines_to_report[line_index+1].display_type == 'line_section') and not line.is_downpayment</attribute>
         </xpath>
         <xpath expr="//p[@name='payment_communication']" position="replace"/>
         <div id="qrcode" position="replace"/>
