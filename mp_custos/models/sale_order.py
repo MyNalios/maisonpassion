@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
                 if line.max_amount and line.max_amount < amount:
                     to_report = amount - line.max_amount
                     amount = line.max_amount
-                    data[index-1]['amount'] += to_report
+                    data[index - 1]['amount'] += to_report
             data[index] = {
                 'text': line.distribution_text,
                 'amount': amount
@@ -29,9 +29,9 @@ class SaleOrder(models.Model):
         calculated_amount = sum(d['amount'] for d in data.values())
         if calculated_amount != amount_total:
             missing_cents = amount_total - calculated_amount
-            data[index_max-1]['amount'] += missing_cents
+            if data[index_max - 1]:
+                data[index_max - 1]['amount'] += missing_cents
         return data
-
 
 
 class SaleOrderLine(models.Model):
@@ -49,7 +49,7 @@ class SaleOrderLine(models.Model):
                 data['price_unit'] = data['price_unit'] * qty - self.discount_eur
                 data['price_subtotal'] = data['price_subtotal'] * qty - self.discount_eur
         return data
-    
+
     def _prepare_invoice_line(self, **optional_values):
         res = super()._prepare_invoice_line(**optional_values)
         if self.discount_eur and not self.discount:
