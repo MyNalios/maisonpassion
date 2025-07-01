@@ -29,7 +29,7 @@ class SaleOrder(models.Model):
         calculated_amount = sum(d['amount'] for d in data.values())
         if calculated_amount != amount_total:
             missing_cents = amount_total - calculated_amount
-            if data[index_max - 1]:
+            if index_max > 0 and data[index_max - 1]:
                 data[index_max - 1]['amount'] += missing_cents
         return data
 
