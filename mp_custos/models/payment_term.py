@@ -12,7 +12,7 @@ class PaymentTerm(models.Model):
     @api.constrains('line_ids')
     def _check_lines(self):
         for terms in self:
-            if terms.is_personalized and len(terms.line_ids.filtered(lambda r: r.value == 'balance')) != 1:
+            if not terms.is_personalized and len(terms.line_ids) != 1:
                 raise ValidationError(_('The Payment Term must have one Balance line.'))
             if terms.line_ids.filtered(lambda r: r.value == 'fixed' and r.discount_percentage):
                 raise ValidationError(_("You can't mix fixed amount with early payment percentage"))
