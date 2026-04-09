@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import manage_technical_document
+# from . import manage_technical_document
