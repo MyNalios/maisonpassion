@@ -1,6 +1,6 @@
 {
     'name': "Maison Passion Invoice Layout",
-    'version': '17.0',
+    'version': '19.0.0.0.1',
     'category': 'Accounting/Accounting',
     'summary': 'Modifications to Invoices layout',
     'author': 'dwa@idealisconsulting - Idealis Consulting',
@@ -10,7 +10,7 @@
         #  'report/account_move_templates.xml',
         #  'views/account_move_views.xml',
         #  'views/sale_advance_payment_inv_views.xml',
-         'views/account_tax_from_view.xml',
+        #  'views/account_tax_from_view.xml',
     ],
     'installable': True,
     'auto_install': False,
